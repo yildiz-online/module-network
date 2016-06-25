@@ -1,0 +1,65 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>Yildiz Module Network</name>
+  <description>Module handling the network usage.</description>
+
+  <groupId>be.yildiz-games</groupId>
+  <artifactId>module-network</artifactId>
+  <version>1.0.0-0-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+  <inceptionYear>2015</inceptionYear>
+  <parent>
+    <groupId>be.yildiz-games</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-0-SNAPSHOT</version>
+  </parent>
+
+  <scm>
+    <connection>scm:hg:https://bitbucket.org/yildiz-engine-team/module-network</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/yildiz-engine-team/module-network</developerConnection>
+    <url>https://bitbucket.org/yildiz-engine-team/module-network</url>
+  </scm>
+
+  <properties>
+    <version.bom-junit>1.0.0-0-SNAPSHOT</version.bom-junit>
+    <version.common-shared>1.0.0-0-SNAPSHOT</version.common-shared>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>be.yildiz-games</groupId>
+        <artifactId>bom-junit</artifactId>
+        <version>${version.bom-junit}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>common-shared</artifactId>
+      <version>${version.common-shared}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <name>OSS repository snapshot</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
+</project>
