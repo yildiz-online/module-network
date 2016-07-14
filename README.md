@@ -36,8 +36,8 @@ https://sonarqube.com/overview?id=be.yildiz-games:module-network
 
 All source code files are licensed under the permissive MIT license
 (http://opensource.org/licenses/MIT) unless marked differently in a particular folder/file.
-## Build instructions for module-graphic using maven.
 
+## Build instructions
 Go to your root directory, where you POM file is located.
 
 Then invoke maven
