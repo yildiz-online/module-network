@@ -1,10 +1,8 @@
 # Yildiz-Engine module-network.
 
-This is the official repository of The Yildiz-Engine Network Module, part of the Yildiz-Engine project.
+This is the official repository of the Network Module, part of the Yildiz-Engine project.
 The network module is an abstract component meant to connect different system together.
 It requires an implementation module to materialize it.
-
-## Status [![Quality Gate](https://www.sonarqube.com/api/badges/gate?key=be.yildiz-games:module-network)](https://sonarqube.com/overview?id=be.yildiz-games:module-network)
 
 ## Features
 
