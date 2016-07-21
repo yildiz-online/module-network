@@ -67,8 +67,7 @@ public final class SessionManager {
      * Create a new SessionManager.
      *
      * @param client Client to be connected to the authentication server.
-     * @param url    Authentication server url.
-     * @param port   Authentication server port.
+     * @param config Contains the connection configuration.
      */
     public SessionManager(final AbstractNetworkEngineClient client, final AuthenticationConfiguration config) {
         super();
@@ -191,14 +190,17 @@ public final class SessionManager {
 
         @Override
         public void sendMessage(final ServerResponse message) {
+            Logger.debug("Not sending message(disconnected session): " + message);
         }
 
         @Override
         public void sendMessage(final Set<ServerResponse> messageList) {
+            Logger.debug("Not sending message(disconnected session): " + messageList);
         }
 
         @Override
         protected void closeSession() {
+            Logger.debug("Not closing session(disconnected session)");
         }
 
         @Override
