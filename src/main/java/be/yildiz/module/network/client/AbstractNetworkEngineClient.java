@@ -138,7 +138,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     protected final void connectionSuccessful() {
         this.connected = true;
-        Logger.info("Connected to server.");
+        Logger.info("Client connected to server.");
         this.networkListenerList.forEach(NetworkListener::connected);
     }
 
