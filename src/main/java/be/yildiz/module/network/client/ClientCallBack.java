@@ -44,6 +44,8 @@ public interface ClientCallBack {
      */
     void connectionLost();
 
+    default void handShakeComplete() {}
+
     /**
      * Fired when a message is received from the server/
      *

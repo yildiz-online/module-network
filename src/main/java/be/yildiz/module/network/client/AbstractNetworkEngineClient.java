@@ -73,11 +73,11 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
         this.delayedMessage.clear();
         while (!this.messageReceivedList.isEmpty()) {
             final MessageWrapper message = this.messageReceivedList.remove(0);
-            for (final NetworkListener listener : this.networkListenerList) {
+            for(int i = 0; i < this.networkListenerList.size(); i++) {
                 try {
-                    listener.parse(message);
-                } catch (InvalidNetworkMessage e) {
-                    Logger.error(e);
+                    networkListenerList.get(i).parse(message);
+                } catch (InvalidNetworkMessage invalidNetworkMessage) {
+                    invalidNetworkMessage.printStackTrace();
                 }
             }
         }
