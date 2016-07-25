@@ -26,11 +26,20 @@
 package be.yildiz.module.network;
 
 /**
+ * Retrieve the configuration value for an authentication server.
  * @author Grégory Van den Borre
  */
 public interface AuthenticationConfiguration {
 
+    /**
+     * @return The address, it can be an IP or a DNS name.
+     * @ensures result != null
+     */
     String getAuthenticationHost();
 
+    /**
+     * @return The port number.
+     * @ensures result >= 0 && result <= 65635
+     */
     int getAuthenticationPort();
 }

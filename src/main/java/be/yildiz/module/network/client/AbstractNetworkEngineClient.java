@@ -77,7 +77,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
                 try {
                     networkListenerList.get(i).parse(message);
                 } catch (InvalidNetworkMessage invalidNetworkMessage) {
-                    invalidNetworkMessage.printStackTrace();
+                    Logger.debug(invalidNetworkMessage.getMessage());
                 }
             }
         }
@@ -163,6 +163,11 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     public abstract void disconnect();
 
+    /**
+     * Connect to an authentication server.
+     * @param config Configuration to connect.
+     * @throws NullPointerException if config is null.
+     */
     public void connect(final AuthenticationConfiguration config) {
         this.connect(config.getAuthenticationHost(), config.getAuthenticationPort());
     }

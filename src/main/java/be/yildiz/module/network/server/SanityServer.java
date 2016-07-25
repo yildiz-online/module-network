@@ -47,16 +47,16 @@ public class SanityServer {
      * @requires address != null
      */
     public void test(final int port, final String address) throws Exception {
-        Logger.info("Testing network host " + address + " port " + port + "...");
+        Logger.debug("Testing network host " + address + " port " + port + "...");
         ServerSocket ss = null;
         try {
             ss = new ServerSocket();
             ss.bind(new InetSocketAddress(address, 0));
             ss.close();
-            Logger.info("Testing network host " + address + " port " + port + " successful.");
+            Logger.debug("Testing network host " + address + " port " + port + " successful.");
         } catch (Exception e) {
             Logger.error("Testing network host " + address + " port " + port + " error.");
-            throw e;
+            throw new IllegalArgumentException(e);
         } finally {
             if (ss != null) {
                 ss.close();
