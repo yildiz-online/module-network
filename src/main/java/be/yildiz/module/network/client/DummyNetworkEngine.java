@@ -38,22 +38,27 @@ public final class DummyNetworkEngine extends AbstractNetworkEngineClient {
 
     @Override
     public void sendMessage(final ServerRequest message) {
+        //Does nothing.
     }
 
     @Override
     public void sendMessage(final String message) {
+        //Does nothing.
     }
 
     @Override
     public void connect(final String address, final int port) {
+        //Does nothing.
     }
 
     @Override
     public void close() {
+        //Does nothing.
     }
 
     @Override
     public void disconnect() {
+        //Does nothing.
     }
 
 }
