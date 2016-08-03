@@ -25,37 +25,18 @@
 
 package be.yildiz.module.network.client;
 
-import be.yildiz.module.network.protocol.MessageWrapper;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Callback to use to notify about event fired by the engine implementation.
- *
  * @author Grégory Van den Borre
  */
-public interface ClientCallBack {
+public class ClientCallBackTest {
 
-    /**
-     * Fired when the connection attempt failed.
-     */
-    void connectionFailed();
-
-    /**
-     * Fired when the connection was active and then lost.
-     */
-    void connectionLost();
-
-    /**
-     * Fired when a handshake is complete.
-     */
-    default void handShakeComplete() {
-        // empty default implementation.
+    @Test
+    public void testHandShakeComplete() {
+        ClientCallBack callback = Mockito.mock(ClientCallBack.class);
+        callback.handShakeComplete();
     }
-
-    /**
-     * Fired when a message is received from the server/
-     *
-     * @param w Message received.
-     */
-    void messageReceived(MessageWrapper w);
 
 }

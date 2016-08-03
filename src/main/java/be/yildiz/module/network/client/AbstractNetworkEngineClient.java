@@ -38,6 +38,8 @@ import java.util.List;
 
 /**
  * The network engine can connect to a server, send messages, receive messages, delay message handling, notify listeners when an event occurs.
+ * This class work asynchronously, its state is changed by the reception of events.
+ * i.e: When calling disconnect, the connected value will not be set to false as long as a listener has not notified that the connection is lost.
  *
  * @author Grégory Van den Borre
  */
@@ -61,6 +63,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
 
     /**
      * <code>true</code> if a network connection is made with the server, <code>false</code> otherwise.
+     * This value is changed by the reception of event from the network listener, i.e calling disconnect will not set connected to false as long as the listener as not notified that the connection is lost.
      */
     @Getter
     private boolean connected;

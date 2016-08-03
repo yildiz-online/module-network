@@ -55,7 +55,7 @@ public class NetworkEngineTest {
 
     @Test
     public void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
-        AbstractNetworkEngineClient ne = Mockito.spy(AbstractNetworkEngineClient.class);
+        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         MessageWrapper mw = new MessageWrapper("a test");
@@ -67,7 +67,7 @@ public class NetworkEngineTest {
 
     @Test
     public void testConnectionFailed() {
-        AbstractNetworkEngineClient ne = Mockito.spy(AbstractNetworkEngineClient.class);
+        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         Assert.assertFalse(ne.isConnected());
@@ -78,7 +78,7 @@ public class NetworkEngineTest {
 
     @Test
     public void testConnectionLost() {
-        AbstractNetworkEngineClient ne = Mockito.spy(AbstractNetworkEngineClient.class);
+        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         Assert.assertFalse(ne.isConnected());
@@ -91,12 +91,22 @@ public class NetworkEngineTest {
 
     @Test
     public void testIsConnected() {
-        AbstractNetworkEngineClient ne = Mockito.spy(AbstractNetworkEngineClient.class);
+        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         Assert.assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         ne.connectionSuccessful();
         Mockito.verify(l).connected();
+        Assert.assertTrue(ne.isConnected());
+    }
+
+    @Test
+    public void testDisconnect() {
+        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        ne.connectionSuccessful();
+        Assert.assertTrue(ne.isConnected());
+        ne.disconnect();
+        //Still true as no listener has notified that the connection is indeed lost.
         Assert.assertTrue(ne.isConnected());
     }
 
