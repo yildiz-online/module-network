@@ -29,19 +29,17 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
-import be.yildiz.module.network.AuthenticationConfiguration;
-import be.yildiz.module.network.client.AbstractNetworkEngineClient;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.*;
+import be.yildiz.module.network.protocol.ConnectionRequest;
+import be.yildiz.module.network.protocol.MessageWrapper;
+import be.yildiz.module.network.protocol.ServerResponse;
 
 import java.util.*;
 
 /**
- * Manage the sessions, only setAuthenticated session are stored.
- *
  * @author Grégory Van den Borre
  */
-public final class SessionManager {
+public abstract class SessionManager {
 
     /**
      * List of listeners for sessions.
@@ -56,61 +54,21 @@ public final class SessionManager {
     /**
      * Constant for a disconnected session.
      */
-    private final Session disconnectedSession = new DisconnectedSession();
+    private final Session disconnectedSession = new AuthenticationSessionManager.DisconnectedSession();
 
-    /**
-     * Network client engine.
-     */
-    private final AbstractNetworkEngineClient client;
-
-    /**
-     * Create a new SessionManager.
-     *
-     * @param client Client to be connected to the authentication server.
-     * @param config Contains the connection configuration.
-     */
-    public SessionManager(final AbstractNetworkEngineClient client, final AuthenticationConfiguration config) {
-        super();
-        this.client = client;
-        this.client.addNetworkListener(message -> {
-            TokenVerificationResponse r = new TokenVerificationResponse(message);
-            if (r.isAuthenticated()) {
-                Session session = getSessionByPlayer(r.getId());
-                setAuthenticated(session);
-                sessionListeners.forEach(l -> l.clientAuthenticated(session));
-            }
-        });
-        this.client.connect(config);
-    }
-
-    /**
-     * Update the status of the client connected to the authentication server.
-     */
-    public void update() {
-        this.client.update();
-    }
-
-    /**
-     * Check if the authentication request is valid and notify the listeners if it is.
-     *
-     * @param request Received AuthenticationRequest.
-     * @requires request != null.
-     */
-    public final void authenticate(final ConnectionRequest request) {
-        this.client.sendMessage(new TokenVerficationRequest(request.getToken()));
-    }
+    public abstract void authenticate(ConnectionRequest request);
 
     /**
      * @return The list of all connected players.
      */
-    public Set<PlayerId> getActivePlayers() {
+    public final Set<PlayerId> getActivePlayers() {
         return Collections.unmodifiableSet(this.connectedPlayerList.keySet());
     }
 
     /**
      * @return The list of all connected sessions.
      */
-    public List<Session> getActiveSessions() {
+    public final List<Session> getActiveSessions() {
         return Collections.unmodifiableList(new ArrayList<Session>(this.connectedPlayerList.values()));
     }
 
@@ -120,7 +78,7 @@ public final class SessionManager {
      * @param player Connected client.
      * @return The associated Session or a disconnected session if the Player is currently logged off.
      */
-    public Session getSessionByPlayer(final PlayerId player) {
+    public final Session getSessionByPlayer(final PlayerId player) {
         return this.connectedPlayerList.getOrDefault(player, this.disconnectedSession);
     }
 
@@ -129,7 +87,7 @@ public final class SessionManager {
      *
      * @param session Session to disconnect.
      */
-    public void disconnectSession(final Session session) {
+    public final void disconnectSession(final Session session) {
         session.disconnect();
         this.connectedPlayerList.remove(session.getPlayer());
     }
@@ -139,9 +97,10 @@ public final class SessionManager {
      *
      * @param session Session to add.
      */
-    public void setAuthenticated(final Session session) {
+    public final void setAuthenticated(final Session session) {
         session.setAuthenticated();
-        connectedPlayerList.put(session.getPlayer(), session);
+        this.connectedPlayerList.put(session.getPlayer(), session);
+        this.sessionListeners.forEach(l -> l.clientAuthenticated(session));
     }
 
     /**
@@ -149,7 +108,7 @@ public final class SessionManager {
      *
      * @param listener SessionListener to add.
      */
-    public void addSessionListener(final SessionListener listener) {
+    public final void addSessionListener(final SessionListener listener) {
         this.sessionListeners.add(listener);
     }
 
@@ -208,5 +167,4 @@ public final class SessionManager {
             return "Session: Disconnected.";
         }
     }
-
 }
