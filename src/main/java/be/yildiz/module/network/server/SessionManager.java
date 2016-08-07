@@ -133,6 +133,8 @@ public abstract class SessionManager {
         }
     }
 
+    public abstract void update();
+
     /**
      * Simple class to use for disconnected players.
      *

@@ -33,8 +33,13 @@ import be.yildiz.module.network.protocol.ConnectionRequest;
 public class DummySessionManager extends SessionManager {
 
     @Override
-    public void authenticate(ConnectionRequest request) {
+    public void authenticate(final ConnectionRequest request) {
         Session session = getSessionByPlayer(request.getToken().getId());
         this.setAuthenticated(session);
+    }
+
+    @Override
+    public void update() {
+        //does nothing.
     }
 }

@@ -65,6 +65,7 @@ public final class AuthenticationSessionManager extends SessionManager {
     /**
      * Update the status of the client connected to the authentication server.
      */
+    @Override
     public void update() {
         this.client.update();
     }
