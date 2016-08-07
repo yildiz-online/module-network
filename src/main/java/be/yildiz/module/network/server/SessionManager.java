@@ -54,7 +54,7 @@ public abstract class SessionManager {
     /**
      * Constant for a disconnected session.
      */
-    private final Session disconnectedSession = new AuthenticationSessionManager.DisconnectedSession();
+    private final Session disconnectedSession = new SessionManager.DisconnectedSession();
 
     public abstract void authenticate(ConnectionRequest request);
 
