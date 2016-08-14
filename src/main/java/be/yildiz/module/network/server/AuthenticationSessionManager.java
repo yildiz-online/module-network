@@ -74,8 +74,8 @@ public final class AuthenticationSessionManager extends SessionManager {
      * Check if the authentication request is valid and notify the listeners if it is.
      *
      * @param request Received AuthenticationRequest.
-     * @requires request != null.
      */
+    //@requires request != null
     @Override
     public final void authenticate(final ConnectionRequest request) {
         this.client.sendMessage(new TokenVerficationRequest(request.getToken()));

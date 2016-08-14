@@ -52,9 +52,9 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
      *
      * @param userLogin    User login.
      * @param userPassword User encrypted password.
-     * @requires userLogin != null
-     * @requires userPassword != null
      */
+    //@requires userLogin != null
+    //@requires userPassword != null
     public AuthenticationRequest(final String userLogin, final String userPassword) {
         super(NetworkMessage.convertParams(userLogin, userPassword));
         this.login = userLogin;
@@ -66,8 +66,8 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
      *
      * @param message Message to parse to build the object.
      * @throws InvalidNetworkMessage If the message cannot be correctly parsed.
-     * @requires message != null
      */
+    //@requires message != null
     public AuthenticationRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
         this.login = this.getString();

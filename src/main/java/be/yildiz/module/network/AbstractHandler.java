@@ -44,9 +44,9 @@ public abstract class AbstractHandler {
      *
      * @param session Session having received the message.
      * @param message Message received.
-     * @requires session != null
-     * @requires message != null
      */
+    //@Requires("session != null")
+    //@Requires("message != null")
     public void processMessages(final Session session, final String message) {
         Logger.debug("Unprocessed network message: " + message);
         String messageWithoutStartChar = message.replaceAll(MessageSeparation.MESSAGE_BEGIN, "");
@@ -61,9 +61,9 @@ public abstract class AbstractHandler {
      *
      * @param session Session having received the message.
      * @param message Message received.
-     * @requires session != null
-     * @requires message != null
      */
+    //@Requires("session != null")
+    //@Requires("message != null")
     protected abstract void messageReceivedImpl(Session session, MessageWrapper message);
 
 }

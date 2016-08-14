@@ -316,10 +316,10 @@ public abstract class NetworkMessage {
     }
 
     /**
-     * Convert the parameter into a List < Float >.
+     * Convert the parameter into a List of Float.
      *
      * @return A list of Float objects.
-     * @throws InvalidNetworkMessage If the parameter cannot be correctly parsed into a List < Float >.
+     * @throws InvalidNetworkMessage If the parameter cannot be correctly parsed into a List of Float.
      */
     protected final List<Float> getFloatList() throws InvalidNetworkMessage {
         this.positionCheck(this.index);
@@ -337,10 +337,10 @@ public abstract class NetworkMessage {
     }
 
     /**
-     * Convert the parameter into a List < String >.
+     * Convert the parameter into a List of String.
      *
      * @return A list of String objects.
-     * @throws InvalidNetworkMessage If the parameter cannot be correctly parsed into a List < String >.
+     * @throws InvalidNetworkMessage If the parameter cannot be correctly parsed into a List of String.
      */
     protected final List<String> getStringList() throws InvalidNetworkMessage {
         this.nullCheck(this.params[this.index]);

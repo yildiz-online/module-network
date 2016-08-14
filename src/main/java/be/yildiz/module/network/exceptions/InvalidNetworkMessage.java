@@ -43,8 +43,8 @@ public final class InvalidNetworkMessage extends BaseCheckedException {
      * Create a new exception instance.
      *
      * @param message Error message.
-     * @requires message != null
      */
+    //@requires message != null
     public InvalidNetworkMessage(final String message) {
         super(message);
     }
