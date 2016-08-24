@@ -4,7 +4,6 @@
   <name>Yildiz Module Network</name>
   <description>Module handling the network usage.</description>
 
-  <groupId>be.yildiz-games</groupId>
   <artifactId>module-network</artifactId>
   <version>1.0.1-SNAPSHOT</version>
 
