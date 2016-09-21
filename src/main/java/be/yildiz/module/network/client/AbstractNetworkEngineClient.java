@@ -79,8 +79,8 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
             for(int i = 0; i < this.networkListenerList.size(); i++) {
                 try {
                     networkListenerList.get(i).parse(message);
-                } catch (InvalidNetworkMessage invalidNetworkMessage) {
-                    Logger.debug(invalidNetworkMessage.getMessage());
+                } catch (InvalidNetworkMessage e) {
+                    Logger.error(e);
                 }
             }
         }
