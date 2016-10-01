@@ -25,8 +25,6 @@
 
 package be.yildiz.module.network.protocol;
 
-import com.google.java.contract.Ensures;
-
 /**
  * Message from the client to the server.
  *
@@ -38,7 +36,7 @@ public interface ServerRequest {
     /**
      * @return The message built from the given data.
      */
-    @Ensures("result != null")
+    //@Ensures("result != null")
     String buildMessage();
 
 }
