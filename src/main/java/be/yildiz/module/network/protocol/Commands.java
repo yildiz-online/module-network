@@ -30,36 +30,36 @@ package be.yildiz.module.network.protocol;
  *
  * @author Grégory Van den Borre
  */
-public interface Commands {
+public final class Commands {
 
     /**
      * Client request for an authentication.
      */
-    int AUTHENTICATION_REQUEST = 10;
+    public static final int AUTHENTICATION_REQUEST = 10;
 
     /**
      * Server response for an authentication.
      */
-    int AUTHENTICATION_RESPONSE = 99;
+    public static final int AUTHENTICATION_RESPONSE = 99;
 
     /**
      * Client request for a token.
      */
-    int TOKEN_REQUEST = 25;
+    public static final int TOKEN_REQUEST = 25;
 
     /**
      * Game server request to check a token validity.
      */
-    int TOKEN_VERIFICATION_REQUEST = 98;
+    public static final int TOKEN_VERIFICATION_REQUEST = 98;
 
     /**
      * Authentication server response to check a token validity.
      */
-    int TOKEN_VERIFICATION_RESPONSE = 98;
+    public static final int TOKEN_VERIFICATION_RESPONSE = 98;
 
     /**
      * Server response for the version.
      */
-    int VERSION_RESPONSE = 0;
+    public static final int VERSION_RESPONSE = 0;
 
 }
