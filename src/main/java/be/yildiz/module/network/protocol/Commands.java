@@ -62,4 +62,11 @@ public final class Commands {
      */
     public static final int VERSION_RESPONSE = 0;
 
+    /**
+     * Private constructor to prevent instantiations.
+     */
+    private Commands() {
+        super();
+    }
+
 }
