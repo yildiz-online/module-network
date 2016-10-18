@@ -42,7 +42,6 @@ public class SanityServer {
      *
      * @param port    Socket port to test.
      * @param address Socket address to test.
-     * @throws Exception If the socket creation failed.
      */
     //@requires port >= 0 && port <= 65535
     //@requires address != null
