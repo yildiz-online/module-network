@@ -1,4 +1,20 @@
+env:
+  global:
+    - secure: "iEde+6koHGawyoYCKenXp35qGb0etd0dCDt0jAwg+BjGoy5vWJK41hFOM5KbkNToj4vxEWvzTglwG+9/p5iQi63lzLVZXkLFU8gkD9AQtSTpVrvQWGYrA8UC+TKOlQWTZkGF278zMyVaABLMUHH+pTB+mSptemMxxmpxrYcxGgmLjrItFeYTSUrRbKW3vmL8cXCuSyTaOa5EPILRpydQ7ZKOdNGSDq5l0T7Sc3gq7dgjmKUg1UNAjNL5JY5Yg3S/04qKSZYmCRXj3IJQormHH8UHE/DANNwgbb3dfWRHoMwfzpGzaeB0OaNhdhD8hjjLWVJ+9dOKoysTgYV/mlzjG0hrdUYWoyfkpEbs1lP41ciBkBaWFLJn3qLvzRmc+SSI2dn+++x5yTmkOzcwd+0R7qA365RxIl9z5koHzGKqzvrQjmqdsJ8zbsm7V/DdH9+Q8fawQZ55HJw0UaZ+vO+DZrrbm0/1PL1OYdyvOioP+6z9Hq0UuaPtil7eA8T6Btxl5YknctEyQzdI6z78p/E17dCHFGZrIDmkpLVi8SrV/8miwRX6WQeT113DHEWcRwwXYc3KUUYvYr6zaPO3fv1ZTjktR68PH2VTmmWpgEw/UQ/d3gzRAupxb9MF0bH6A/Nn/+ShLXLBwnfR7MRmCdBgXp4dJxMXCMbdJQfFw0bcpq8="
+
+
 language: java
 jdk:
   - oraclejdk8
+
+addons:
+  coverity_scan:
+    project:
+      name: "yildiz-online/module-network"
+      description: "Build submitted via Travis CI"
+    notification_email: vandenborre.gregory@hotmail.fr
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile -s settings.xml"
+    branch_pattern: master
+
 script: mvn clean install -s settings.xml
