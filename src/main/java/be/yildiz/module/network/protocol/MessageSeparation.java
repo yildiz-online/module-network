@@ -30,21 +30,28 @@ package be.yildiz.module.network.protocol;
  *
  * @author Grégory Van den Borre
  */
-public interface MessageSeparation {
+public final class MessageSeparation {
 
     /**
      * Separator to used when different objects are concatenated.
      */
-    String COLLECTION_SEPARATOR = ",";
+    public static final String COLLECTION_SEPARATOR = ",";
 
     /**
      * Separator to used when different message are concatenated, placed at the end of the message.
      */
-    String MESSAGE_END = "#";
+    public static final String MESSAGE_END = "#";
 
     /**
      * Separator to used when different message are concatenated, placed at the beginning of the message.
      */
-    String MESSAGE_BEGIN = "&";
+    public static final String MESSAGE_BEGIN = "&";
+
+    /**
+     * Private to prevent instantiation.
+     */
+    private MessageSeparation() {
+        super();
+    }
 
 }
