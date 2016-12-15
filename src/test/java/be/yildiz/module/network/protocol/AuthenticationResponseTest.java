@@ -25,6 +25,8 @@
 
 package be.yildiz.module.network.protocol;
 
+import be.yildiz.common.Token;
+import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,44 +37,39 @@ import org.junit.runner.RunWith;
  * @author Grégory Van den Borre
  */
 @RunWith(Enclosed.class)
-public class AuthenticationRequestTest {
+public class AuthenticationResponseTest {
+
+    private static final Token ok = new Token(PlayerId.WORLD, 0, 1, Token.Status.AUTHENTICATED);
 
     public static class Constructor {
 
         @Test
-        public void happyFlowString() {
-            AuthenticationRequest ar = new AuthenticationRequest("testLogin", "testPass");
-            Assert.assertEquals("testLogin", ar.getLogin());
-            Assert.assertEquals("testPass", ar.getPassword());
+        public void happyFlow() {
+            AuthenticationResponse response = new AuthenticationResponse(ok);
+            Assert.assertEquals(ok, response.getToken());
         }
 
         @Test(expected = NullPointerException.class)
-        public void withNullLogin() {
-            new AuthenticationRequest(null, "testPass");
-        }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullPassword() {
-            new AuthenticationRequest("testLogin", null);
+        public void withNullToken() {
+            new AuthenticationResponse((Token)null);
         }
 
         @Test
         public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_testLogin_testPass");
-            AuthenticationRequest ar = new AuthenticationRequest(mw);
-            Assert.assertEquals("testLogin", ar.getLogin());
-            Assert.assertEquals("testPass", ar.getPassword());
+            MessageWrapper mw = new MessageWrapper("10_0_1_0");
+            AuthenticationResponse response = new AuthenticationResponse(mw);
+            Assert.assertEquals(ok, response.getToken());
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void withInvalidMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_testLogin");
-            new AuthenticationRequest(mw);
+            MessageWrapper mw = new MessageWrapper("10_0_0");
+            new AuthenticationResponse(mw);
         }
 
         @Test(expected = NullPointerException.class)
         public void withNullMessage() throws InvalidNetworkMessage {
-            new AuthenticationRequest(null);
+            new AuthenticationResponse((MessageWrapper) null);
         }
     }
 
@@ -80,7 +77,7 @@ public class AuthenticationRequestTest {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, new AuthenticationRequest("","").command());
+            Assert.assertEquals(Commands.AUTHENTICATION_RESPONSE, new AuthenticationResponse(ok).command());
         }
     }
 }
