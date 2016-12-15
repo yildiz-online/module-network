@@ -51,10 +51,9 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
      * Create a new authentication request from a user login and password.
      *
      * @param userLogin    User login.
-     * @param userPassword User encrypted password.
+     * @param userPassword User password.
+     * @throws NullPointerException if login or password is null.
      */
-    //@requires userLogin != null
-    //@requires userPassword != null
     public AuthenticationRequest(final String userLogin, final String userPassword) {
         super(NetworkMessage.convertParams(userLogin, userPassword));
         this.login = userLogin;
@@ -66,6 +65,7 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
      *
      * @param message Message to parse to build the object.
      * @throws InvalidNetworkMessage If the message cannot be correctly parsed.
+     * @throws NullPointerException If message is null
      */
     //@requires message != null
     public AuthenticationRequest(final MessageWrapper message) throws InvalidNetworkMessage {
