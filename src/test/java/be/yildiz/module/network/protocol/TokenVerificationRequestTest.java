@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
  * @author Grégory Van den Borre
  */
 @RunWith(Enclosed.class)
-public class ConnectionRequestTest {
+public class TokenVerificationRequestTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
@@ -45,32 +45,31 @@ public class ConnectionRequestTest {
 
         @Test
         public void happyFlow() {
-            ConnectionRequest cr = new ConnectionRequest(ok);
-            Assert.assertEquals(ok, cr.getToken());
+            TokenVerificationRequest response = new TokenVerificationRequest(ok);
+            Assert.assertEquals(ok, response.getToken());
         }
 
         @Test(expected = NullPointerException.class)
-        public void withNull() {
-            new ConnectionRequest((Token)null);
+        public void withNullToken() {
+            new TokenVerificationRequest((Token)null);
         }
-
 
         @Test
         public void happyFlowMessage() throws InvalidNetworkMessage {
             MessageWrapper mw = new MessageWrapper("10_0_1_0");
-            ConnectionRequest cr = new ConnectionRequest(mw);
-            Assert.assertEquals(ok, cr.getToken());
+            TokenVerificationRequest response = new TokenVerificationRequest(mw);
+            Assert.assertEquals(ok, response.getToken());
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void withInvalidMessage() throws InvalidNetworkMessage {
             MessageWrapper mw = new MessageWrapper("10_0_0");
-            new ConnectionRequest(mw);
+            new TokenVerificationRequest(mw);
         }
 
         @Test(expected = NullPointerException.class)
         public void withNullMessage() throws InvalidNetworkMessage {
-            new ConnectionRequest((MessageWrapper) null);
+            new TokenVerificationRequest((MessageWrapper) null);
         }
     }
 
@@ -78,7 +77,7 @@ public class ConnectionRequestTest {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.TOKEN_REQUEST, new ConnectionRequest(ok).command());
+            Assert.assertEquals(Commands.TOKEN_VERIFICATION_REQUEST, new TokenVerificationRequest(ok).command());
         }
     }
 }

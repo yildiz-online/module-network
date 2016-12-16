@@ -28,7 +28,7 @@ package be.yildiz.module.network.server;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.client.AbstractNetworkEngineClient;
 import be.yildiz.module.network.protocol.ConnectionRequest;
-import be.yildiz.module.network.protocol.TokenVerficationRequest;
+import be.yildiz.module.network.protocol.TokenVerificationRequest;
 import be.yildiz.module.network.protocol.TokenVerificationResponse;
 
 /**
@@ -78,6 +78,6 @@ public final class AuthenticationSessionManager extends SessionManager {
     //@requires request != null
     @Override
     public final void authenticate(final ConnectionRequest request) {
-        this.client.sendMessage(new TokenVerficationRequest(request.getToken()));
+        this.client.sendMessage(new TokenVerificationRequest(request.getToken()));
     }
 }

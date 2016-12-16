@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
 @RunWith(Enclosed.class)
 public class AuthenticationResponseTest {
 
-    private static final Token ok = new Token(PlayerId.WORLD, 0, 1, Token.Status.AUTHENTICATED);
+    private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
     public static class Constructor {
 

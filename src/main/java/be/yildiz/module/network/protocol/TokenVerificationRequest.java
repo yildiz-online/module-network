@@ -33,7 +33,7 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  *
  * @author Grégory Van den Borre
  */
-public final class TokenVerficationRequest extends AbstractTokenMessage implements ServerRequest {
+public final class TokenVerificationRequest extends AbstractTokenMessage implements ServerRequest {
 
     /**
      * Full constructor.
@@ -41,7 +41,7 @@ public final class TokenVerficationRequest extends AbstractTokenMessage implemen
      * @param message Message from the server to parse.
      * @throws InvalidNetworkMessage If an error occurs while parsing the message.
      */
-    public TokenVerficationRequest(final MessageWrapper message) throws InvalidNetworkMessage {
+    public TokenVerificationRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
     }
 
@@ -50,7 +50,7 @@ public final class TokenVerficationRequest extends AbstractTokenMessage implemen
      *
      * @param token Token to send.
      */
-    public TokenVerficationRequest(final Token token) {
+    public TokenVerificationRequest(final Token token) {
         super(token);
     }
 
