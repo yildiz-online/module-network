@@ -23,6 +23,7 @@
 
 package be.yildiz.module.network.server;
 
+import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.protocol.ConnectionRequest;
 
 /**
@@ -32,6 +33,7 @@ public class DummySessionManager extends SessionManager {
 
     @Override
     public void authenticate(final ConnectionRequest request) {
+        Logger.info("Dummy authentication for " + request.getToken().getId());
         Session session = getSessionByPlayer(request.getToken().getId());
         this.setAuthenticated(session);
     }
