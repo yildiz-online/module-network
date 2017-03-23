@@ -27,15 +27,17 @@ import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.server.Session;
-import lombok.NoArgsConstructor;
 
 /**
  * The handler controls the way the network will react to incoming message in its concrete implementation, the abstract part will manage the message construction.
  *
  * @author Grégory Van den Borre
  */
-@NoArgsConstructor
 public abstract class AbstractHandler {
+
+    public AbstractHandler() {
+        super();
+    }
 
     /**
      * Process the messages by splitting in unique messages, and for each of them, calling the appropriate logic.

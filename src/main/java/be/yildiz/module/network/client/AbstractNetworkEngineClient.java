@@ -30,7 +30,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.ServerRequest;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -41,7 +40,6 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-@NoArgsConstructor
 public abstract class AbstractNetworkEngineClient implements ClientCallBack {
 
     /**
@@ -65,6 +63,10 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     @Getter
     private boolean connected;
+
+    public AbstractNetworkEngineClient() {
+        super();
+    }
 
     /**
      * Parse the server messages and call appropriate logic.

@@ -24,15 +24,17 @@
 package be.yildiz.module.network.client;
 
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.NoArgsConstructor;
 
 /**
  * Empty network implementation.
  *
  * @author Grégory Van den Borre
  */
-@NoArgsConstructor
 public final class DummyNetworkEngine extends AbstractNetworkEngineClient {
+
+    public DummyNetworkEngine() {
+        super();
+    }
 
     @Override
     public void sendMessage(final ServerRequest message) {
