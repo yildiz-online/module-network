@@ -25,7 +25,6 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import lombok.Getter;
 
 /**
  * Authentication token verification response.

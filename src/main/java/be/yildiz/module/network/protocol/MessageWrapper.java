@@ -23,8 +23,6 @@
 
 package be.yildiz.module.network.protocol;
 
-import lombok.NonNull;
-
 /**
  * Wrap a network message.
  *
@@ -42,8 +40,9 @@ public final class MessageWrapper {
      *
      * @param message String to wrap in, cannot be null.
      */
-    public MessageWrapper(@NonNull final String message) {
+    public MessageWrapper(final String message) {
         super();
+        assert message != null;
         this.message = message;
     }
 

@@ -26,7 +26,6 @@ package be.yildiz.module.network.server;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Setter;
 
 import java.util.Set;
 
@@ -40,7 +39,6 @@ public abstract class Session {
     /**
      * Associated player.
      */
-    @Setter
     private PlayerId player;
 
     /**
@@ -117,6 +115,10 @@ public abstract class Session {
 
     public boolean isAuthenticated() {
         return authenticated;
+    }
+
+    public void setPlayer(PlayerId player) {
+        this.player = player;
     }
 
     @Override
