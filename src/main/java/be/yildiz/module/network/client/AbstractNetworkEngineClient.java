@@ -29,7 +29,6 @@ import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -61,7 +60,6 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      * <code>true</code> if a network connection is made with the server, <code>false</code> otherwise.
      * This value is changed by the reception of event from the network listener, i.e calling disconnect will not set connected to false as long as the listener as not notified that the connection is lost.
      */
-    @Getter
     private boolean connected;
 
     public AbstractNetworkEngineClient() {
@@ -173,5 +171,9 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     public void connect(final AuthenticationConfiguration config) {
         this.connect(config.getAuthenticationHost(), config.getAuthenticationPort());
+    }
+
+    public boolean isConnected() {
+        return connected;
     }
 }

@@ -26,7 +26,6 @@ package be.yildiz.module.network.server;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
@@ -36,20 +35,17 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public abstract class Session {
 
     /**
      * Associated player.
      */
-    @Getter
     @Setter
     private PlayerId player;
 
     /**
      * <code>true</code> if the client is physically connected to the server.
      */
-    @Getter
     private boolean connected;
 
     /**
@@ -109,6 +105,18 @@ public abstract class Session {
      */
     public final boolean hasPlayer() {
         return true;
+    }
+
+    public PlayerId getPlayer() {
+        return player;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public boolean isAuthenticated() {
+        return authenticated;
     }
 
     @Override

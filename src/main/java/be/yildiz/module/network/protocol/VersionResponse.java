@@ -26,7 +26,6 @@ package be.yildiz.module.network.protocol;
 import be.yildiz.common.Version;
 import be.yildiz.common.Version.VersionType;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import lombok.Getter;
 
 /**
  * Send the version data and the time correction to the client.
@@ -38,13 +37,11 @@ public final class VersionResponse extends NetworkMessage implements ServerRespo
     /**
      * Expected version of the client.
      */
-    @Getter
     private final Version version;
 
     /**
      * Server current time when sending the message to compute difference in client.
      */
-    @Getter
     private final long serverTime;
 
     /**
@@ -78,5 +75,13 @@ public final class VersionResponse extends NetworkMessage implements ServerRespo
     @Override
     public int command() {
         return Commands.VERSION_RESPONSE;
+    }
+
+    public Version getVersion() {
+        return version;
+    }
+
+    public long getServerTime() {
+        return serverTime;
     }
 }

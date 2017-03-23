@@ -24,7 +24,6 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import lombok.Getter;
 
 /**
  * A request from the client to the server to authenticate a Player.
@@ -36,13 +35,11 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
     /**
      * User login.
      */
-    @Getter
     private final String login;
 
     /**
      * User encrypted password.
      */
-    @Getter
     private final String password;
 
     /**
@@ -78,5 +75,13 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
     @Override
     public int command() {
         return Commands.AUTHENTICATION_REQUEST;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

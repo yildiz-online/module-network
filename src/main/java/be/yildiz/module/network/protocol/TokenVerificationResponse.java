@@ -32,7 +32,6 @@ import lombok.Getter;
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class TokenVerificationResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -74,4 +73,11 @@ public final class TokenVerificationResponse extends NetworkMessage implements S
         return Commands.TOKEN_VERIFICATION_RESPONSE;
     }
 
+    public PlayerId getId() {
+        return id;
+    }
+
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
 }
