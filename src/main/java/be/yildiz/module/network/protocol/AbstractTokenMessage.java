@@ -27,14 +27,12 @@ import be.yildiz.common.Token;
 import be.yildiz.common.Token.Status;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import lombok.EqualsAndHashCode;
 
 /**
  * Common code for token messages.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 abstract class AbstractTokenMessage extends NetworkMessage {
 
     /**
@@ -78,5 +76,24 @@ abstract class AbstractTokenMessage extends NetworkMessage {
 
     public Token getToken() {
         return token;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AbstractTokenMessage that = (AbstractTokenMessage) o;
+
+        return token.equals(that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return token.hashCode();
     }
 }
