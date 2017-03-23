@@ -44,7 +44,7 @@ public class MessageWrapperTest {
 
     @Test
     public void testMessageWrapperNullConstructorParam() {
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         new MessageWrapper(null);
     }
 
