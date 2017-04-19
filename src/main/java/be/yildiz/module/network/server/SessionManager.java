@@ -30,7 +30,6 @@ import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.ConnectionRequest;
 import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.ServerResponse;
 
 import java.util.*;
 
@@ -148,13 +147,8 @@ public abstract class SessionManager {
         }
 
         @Override
-        public void sendMessage(final ServerResponse message) {
+        public void send(final String message) {
             Logger.debug("Not sending message(disconnected session): " + message);
-        }
-
-        @Override
-        public void sendMessage(final Set<ServerResponse> messageList) {
-            Logger.debug("Not sending message(disconnected session): " + messageList);
         }
 
         @Override

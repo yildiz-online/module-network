@@ -79,24 +79,36 @@ public abstract class Session {
         this.authenticated = true;
     }
 
+
+
+
     /**
      * Send a message to the connected client.
      *
      * @param message Message to send to the client.
      */
-    public abstract void sendMessage(ServerResponse message);
+    public final void sendMessage(final ServerResponse message) {
+        this.sendMessage(message.buildMessage());
+    }
 
     /**
      * Send a list of messages to the connected client.
      *
      * @param messageList List of messages to send to the client.
      */
-    public abstract void sendMessage(Set<ServerResponse> messageList);
+    public final void sendMessage(final Set<ServerResponse> messageList) {
+        StringBuilder sb = new StringBuilder();
+        messageList.forEach(r -> sb.append(r.buildMessage()));
+        this.sendMessage(sb.toString());
+    }
 
     /**
      * Close the session if the client has been disconnected.
      */
     protected abstract void closeSession();
+
+
+    public abstract void sendMessage(String message);
 
     /**
      * @return <code>true</code>.
@@ -105,19 +117,19 @@ public abstract class Session {
         return true;
     }
 
-    public PlayerId getPlayer() {
+    public final PlayerId getPlayer() {
         return player;
     }
 
-    public boolean isConnected() {
+    public final boolean isConnected() {
         return connected;
     }
 
-    public boolean isAuthenticated() {
+    public final boolean isAuthenticated() {
         return authenticated;
     }
 
-    public void setPlayer(PlayerId player) {
+    public final void setPlayer(PlayerId player) {
         this.player = player;
     }
 
