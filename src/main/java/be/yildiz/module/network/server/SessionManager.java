@@ -147,7 +147,7 @@ public abstract class SessionManager {
         }
 
         @Override
-        public void send(final String message) {
+        public void sendMessage(final String message) {
             Logger.debug("Not sending message(disconnected session): " + message);
         }
 
