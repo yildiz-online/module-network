@@ -115,7 +115,7 @@ public abstract class SessionManager {
      * @param session Session having sent the message.
      * @param message Message received.
      */
-    public void messageReceived(final Session session, final MessageWrapper message) {
+    public final void messageReceived(final Session session, final MessageWrapper message) {
         if (session.isAuthenticated()) {
             this.sessionListeners.forEach(l -> l.messageReceived(session, message));
         } else {

@@ -58,6 +58,7 @@ public abstract class Session {
      */
     protected Session(final PlayerId player) {
         super();
+        assert player != null;
         this.player = player;
         this.connected = true;
     }
@@ -79,15 +80,13 @@ public abstract class Session {
         this.authenticated = true;
     }
 
-
-
-
     /**
      * Send a message to the connected client.
      *
      * @param message Message to send to the client.
      */
     public final void sendMessage(final ServerResponse message) {
+        assert message != null;
         this.sendMessage(message.buildMessage());
     }
 
@@ -97,9 +96,8 @@ public abstract class Session {
      * @param messageList List of messages to send to the client.
      */
     public final void sendMessage(final Set<ServerResponse> messageList) {
-        StringBuilder sb = new StringBuilder();
-        messageList.forEach(r -> sb.append(r.buildMessage()));
-        this.sendMessage(sb.toString());
+        assert messageList != null;
+        messageList.forEach(this::sendMessage);
     }
 
     /**
@@ -130,6 +128,7 @@ public abstract class Session {
     }
 
     public final void setPlayer(PlayerId player) {
+        assert player != null;
         this.player = player;
     }
 
