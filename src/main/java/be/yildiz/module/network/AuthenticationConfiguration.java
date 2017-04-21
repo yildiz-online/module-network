@@ -40,4 +40,24 @@ public interface AuthenticationConfiguration {
      */
     //@Ensures("result >= 0", "result <= 65635")
     int getAuthenticationPort();
+
+    public static class AuthenticationConfigurationInvariant {
+
+        public static void check(String host, int port) {
+            checkHost(host);
+            checkPort(port);
+        }
+
+        private static void checkHost(String host) {
+            if(host == null) {
+                throw new NullPointerException("User is null.");
+            }
+        }
+
+        private static void checkPort(int port) {
+            if(port < 0 || port > 65635) {
+                throw new IllegalArgumentException("Port must be between 0 and 65635, value is " + port);
+            }
+        }
+    }
 }
