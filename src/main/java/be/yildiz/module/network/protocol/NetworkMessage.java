@@ -162,12 +162,16 @@ public abstract class NetworkMessage {
         return message.toString();
     }
 
-    public final <T> T get(Class<T> c) throws InvalidNetworkMessage {
+    public final <T> T to(Class<T> c) throws InvalidNetworkMessage {
         this.positionCheck(this.index);
         this.nullCheck(this.params[this.index]);
         T result = (T)mappers.get(c).to(this.params[this.index]);
         this.index++;
         return result;
+    }
+
+    public static final <T> String from(T t, Class<T> c) {
+        return mappers.get(c).from(t);
     }
 
     /**
