@@ -24,18 +24,15 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.collections.Lists;
+import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.util.Literals;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 
 import java.security.InvalidParameterException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Base class for all network messages.
@@ -43,6 +40,8 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 public abstract class NetworkMessage {
+
+    private static final Map<Class, ObjectMapper> mappers = Maps.newMap();
 
     /**
      * Message parameters.
@@ -74,6 +73,10 @@ public abstract class NetworkMessage {
         this.index = 0;
     }
 
+    public static final <T> void registerMapper(Class<T> c, ObjectMapper<T> m) {
+        mappers.put(c, m);
+    }
+
     /**
      * Retrieve the command from the message, it is the first parameter and is in numeric format.
      *
@@ -82,7 +85,7 @@ public abstract class NetworkMessage {
      * @throws InvalidNetworkMessage If the message cannot be correctly parsed.
      */
     public static int getCommandFromMessage(final MessageWrapper message) throws InvalidNetworkMessage {
-        final String[] base = message.message.split(Literals.COMMAND_SEPARATOR);
+        final String[] base = message.message.split(MessageSeparation.COMMAND_SEPARATOR);
         try {
             return Integer.parseInt(base[0]);
         } catch (NumberFormatException e) {
@@ -117,7 +120,7 @@ public abstract class NetworkMessage {
                 final float eps = 0.001f;
                 if (p.y < eps && p.y > -eps) {
                     String ssb = String.valueOf(p.x) +
-                            Literals.VECTOR_SEPARATOR +
+                            MessageSeparation.COLLECTION_SEPARATOR +
                             p.z;
                     s[i] = ssb;
                 } else {
@@ -138,7 +141,7 @@ public abstract class NetworkMessage {
      * @return The message String value parameters.
      */
     private static String[] getParamsFromMessage(final String message) {
-        final String[] base = message.split(Literals.COMMAND_SEPARATOR);
+        final String[] base = message.split(MessageSeparation.COMMAND_SEPARATOR);
         return Arrays.copyOfRange(base, 1, base.length);
     }
 
@@ -152,11 +155,19 @@ public abstract class NetworkMessage {
         message.append(MessageSeparation.MESSAGE_BEGIN);
         message.append(this.command());
         for (final Object o : this.params) {
-            message.append(Literals.COMMAND_SEPARATOR);
+            message.append(MessageSeparation.COMMAND_SEPARATOR);
             message.append(o);
         }
         message.append(MessageSeparation.MESSAGE_END);
         return message.toString();
+    }
+
+    public final <T> T get(Class<T> c) throws InvalidNetworkMessage {
+        this.positionCheck(this.index);
+        this.nullCheck(this.params[this.index]);
+        T result = (T)mappers.get(c).to(this.params[this.index]);
+        this.index++;
+        return result;
     }
 
     /**
