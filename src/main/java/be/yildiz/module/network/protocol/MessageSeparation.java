@@ -46,6 +46,11 @@ public final class MessageSeparation {
     public static final String MESSAGE_BEGIN = "&";
 
     /**
+     * Separator between different attribute of a same complex object.
+     */
+    public static final String OBJECT_SEPARATOR = "@";
+
+    /**
      * Private to prevent instantiation.
      */
     private MessageSeparation() {
