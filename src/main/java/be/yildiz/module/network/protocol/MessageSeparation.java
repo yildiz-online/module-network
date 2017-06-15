@@ -50,6 +50,8 @@ public final class MessageSeparation {
      */
     public static final String OBJECT_SEPARATOR = "@";
 
+    static final String COMMAND_SEPARATOR = "_";
+
     /**
      * Private to prevent instantiation.
      */
