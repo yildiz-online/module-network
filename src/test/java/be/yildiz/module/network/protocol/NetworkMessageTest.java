@@ -35,6 +35,16 @@ import java.util.List;
  */
 public class NetworkMessageTest {
 
+    @Test(expected = AssertionError.class)
+    public void withNullMessage() throws InvalidNetworkMessage {
+        new NetworkMessage((MessageWrapper) null) {
+            @Override
+            public int command() {
+                return 0;
+            }
+        };
+    }
+
     @Test
     public void testGetList() throws InvalidNetworkMessage {
         List<Float> lf = Lists.newList();

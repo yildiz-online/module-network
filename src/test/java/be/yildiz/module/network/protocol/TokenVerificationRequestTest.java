@@ -64,11 +64,6 @@ public class TokenVerificationRequestTest {
             MessageWrapper mw = new MessageWrapper("10_0_0");
             new TokenVerificationRequest(mw);
         }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullMessage() throws InvalidNetworkMessage {
-            new TokenVerificationRequest((MessageWrapper) null);
-        }
     }
 
     public static class Command {

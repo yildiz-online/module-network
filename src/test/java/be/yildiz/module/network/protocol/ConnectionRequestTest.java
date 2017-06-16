@@ -65,11 +65,6 @@ public class ConnectionRequestTest {
             MessageWrapper mw = new MessageWrapper("10_0_0");
             new ConnectionRequest(mw);
         }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullMessage() throws InvalidNetworkMessage {
-            new ConnectionRequest((MessageWrapper) null);
-        }
     }
 
     public static class Command {

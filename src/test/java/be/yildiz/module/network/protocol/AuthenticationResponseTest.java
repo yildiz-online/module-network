@@ -64,11 +64,6 @@ public class AuthenticationResponseTest {
             MessageWrapper mw = new MessageWrapper("10_0_0");
             new AuthenticationResponse(mw);
         }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullMessage() throws InvalidNetworkMessage {
-            new AuthenticationResponse((MessageWrapper) null);
-        }
     }
 
     public static class Command {
