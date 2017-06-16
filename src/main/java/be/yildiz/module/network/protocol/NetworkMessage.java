@@ -69,11 +69,11 @@ public abstract class NetworkMessage {
      * @param message Received message, cannot be null.
      */
     protected NetworkMessage(final MessageWrapper message) {
-        this(getParamsFromMessage(message.message));
+        this(getParamsFromMessage(message));
         this.index = 0;
     }
 
-    public static final <T> void registerMapper(Class<T> c, ObjectMapper<T> m) {
+    public static <T> void registerMapper(Class<T> c, ObjectMapper<T> m) {
         mappers.put(c, m);
     }
 
@@ -140,8 +140,9 @@ public abstract class NetworkMessage {
      * @param message Network message.
      * @return The message String value parameters.
      */
-    private static String[] getParamsFromMessage(final String message) {
-        final String[] base = message.split(MessageSeparation.COMMAND_SEPARATOR);
+    private static String[] getParamsFromMessage(final MessageWrapper message) {
+        assert message != null;
+        final String[] base = message.message.split(MessageSeparation.COMMAND_SEPARATOR);
         return Arrays.copyOfRange(base, 1, base.length);
     }
 

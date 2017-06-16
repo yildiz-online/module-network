@@ -24,17 +24,12 @@
 package be.yildiz.module.network.protocol;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * @author Grégory Van den Borre
  */
 public class MessageWrapperTest {
-
-    @Rule
-    public ExpectedException rule = ExpectedException.none();
 
     @Test
     public void testMessageWrapper() {
@@ -42,9 +37,8 @@ public class MessageWrapperTest {
         Assert.assertEquals("bla", m.message);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testMessageWrapperNullConstructorParam() {
-        this.rule.expect(AssertionError.class);
         new MessageWrapper(null);
     }
 
