@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 

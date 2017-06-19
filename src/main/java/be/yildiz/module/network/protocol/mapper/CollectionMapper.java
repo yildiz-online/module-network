@@ -26,7 +26,6 @@ package be.yildiz.module.network.protocol.mapper;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.ObjectMapper;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -40,11 +39,7 @@ public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
 
     private final ObjectMapper<T> mapper;
 
-    /**
-     * This class must be subclassed to ensure the class is different for every parametrized types.
-     * @param mapper Mapper for the collection content.
-     */
-    protected CollectionMapper(ObjectMapper<T> mapper) {
+    public CollectionMapper(ObjectMapper<T> mapper) {
         super();
         this.mapper = mapper;
     }

@@ -30,6 +30,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 
 import java.security.InvalidParameterException;
 import java.util.*;
