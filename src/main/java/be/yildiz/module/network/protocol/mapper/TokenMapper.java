@@ -21,64 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Token;
+import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class TokenMapper implements ObjectMapper<Token> {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
+    private final ObjectMapper<PlayerId> playerIdMapper;
 
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
+    private final ObjectMapper<Integer> integerMapper;
 
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
+    private final ObjectMapper<Token.Status> tokenStatusMapper;
 
-    public Token getToken() {
-        return token;
+    public TokenMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Integer> integerMapper, ObjectMapper<Token.Status> tokenStatusMapper) {
+        super();
+        this.playerIdMapper = playerIdMapper;
+        this.integerMapper = integerMapper;
+        this.tokenStatusMapper = tokenStatusMapper;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
+    public Token from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECT_SEPARATOR);
+        return Token.any(playerIdMapper.from(v[1]),
+                integerMapper.from(v[2]),
+                tokenStatusMapper.from(v[3]));
     }
 
     @Override
-    public int hashCode() {
-        return token.hashCode();
+    public String to(Token token) {
+        return playerIdMapper.to(token.getId())
+                + MessageSeparation.OBJECT_SEPARATOR + integerMapper.to(token.getKey())
+                + MessageSeparation.OBJECT_SEPARATOR + tokenStatusMapper.to(token.getStatus());
     }
 }

@@ -33,26 +33,19 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 public final class AuthenticationRequest extends NetworkMessage implements ServerRequest {
 
     /**
-     * User login.
+     * User login and encrypted password.
      */
-    private final String login;
-
-    /**
-     * User encrypted password.
-     */
-    private final String password;
+    private final Authentication authentication;
 
     /**
      * Create a new authentication request from a user login and password.
      *
-     * @param userLogin    User login.
-     * @param userPassword User password.
+     * @param authentication    User login and password.
      * @throws NullPointerException if login or password is null.
      */
-    public AuthenticationRequest(final String userLogin, final String userPassword) {
-        super(NetworkMessage.convertParams(userLogin, userPassword));
-        this.login = userLogin;
-        this.password = userPassword;
+    public AuthenticationRequest(final Authentication authentication) {
+        super(NetworkMessage.to(authentication, Authentication.class));
+        this.authentication = authentication;
     }
 
     /**
@@ -65,8 +58,7 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
     //@requires message != null
     public AuthenticationRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.login = this.getString();
-        this.password = this.getString();
+        this.authentication = this.from(Authentication.class);
     }
 
     /**
@@ -77,11 +69,7 @@ public final class AuthenticationRequest extends NetworkMessage implements Serve
         return Commands.AUTHENTICATION_REQUEST;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
+    public Authentication getAuthentication() {
+        return authentication;
     }
 }

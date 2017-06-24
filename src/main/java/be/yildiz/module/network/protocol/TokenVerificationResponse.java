@@ -23,7 +23,6 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 
 /**
@@ -36,23 +35,16 @@ public final class TokenVerificationResponse extends NetworkMessage implements S
     /**
      * Player checked.
      */
-    private final PlayerId id;
-
-    /**
-     * Player authentication status.
-     */
-    private final boolean authenticated;
+    private final TokenVerification verification;
 
     /**
      * Create a new message from a player and a status.
      *
-     * @param id            Player's id.
-     * @param authenticated <code>true</code> if the player is setAuthenticated, <code>false</code> otherwise.
+     * @param verification   Contains the player and authentication state.
      */
-    public TokenVerificationResponse(final PlayerId id, final boolean authenticated) {
-        super(convertParams(id, authenticated));
-        this.id = id;
-        this.authenticated = authenticated;
+    public TokenVerificationResponse(TokenVerification verification) {
+        super(NetworkMessage.to(verification, TokenVerification.class));
+        this.verification = verification;
     }
 
     /**
@@ -63,8 +55,7 @@ public final class TokenVerificationResponse extends NetworkMessage implements S
      */
     public TokenVerificationResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.id = this.getPlayerId();
-        this.authenticated = this.getBoolean();
+        this.verification = this.from(TokenVerification.class);
     }
 
     @Override
@@ -72,11 +63,7 @@ public final class TokenVerificationResponse extends NetworkMessage implements S
         return Commands.TOKEN_VERIFICATION_RESPONSE;
     }
 
-    public PlayerId getId() {
-        return id;
-    }
-
-    public boolean isAuthenticated() {
-        return authenticated;
+    public TokenVerification getVerification() {
+        return verification;
     }
 }

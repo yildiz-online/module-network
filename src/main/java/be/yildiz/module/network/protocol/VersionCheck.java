@@ -23,62 +23,20 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.Token;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.common.Version;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class VersionCheck {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
+    public final Version version;
 
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
+    public final long serverTime;
 
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
-
-    public Token getToken() {
-        return token;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
-    }
-
-    @Override
-    public int hashCode() {
-        return token.hashCode();
+    public VersionCheck(Version version, long time) {
+        super();
+        this.version = version;
+        this.serverTime = time;
     }
 }

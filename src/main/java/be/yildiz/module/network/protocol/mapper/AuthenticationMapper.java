@@ -21,64 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.Token;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.Authentication;
+import be.yildiz.module.network.protocol.MessageSeparation;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class AuthenticationMapper implements ObjectMapper<Authentication> {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
-
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
-
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
-
-    public Token getToken() {
-        return token;
+    @Override
+    public Authentication from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECT_SEPARATOR);
+        return new Authentication(v[0], v[1]);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
-    }
-
-    @Override
-    public int hashCode() {
-        return token.hashCode();
+    public String to(Authentication authentication) {
+        return authentication.login + MessageSeparation.OBJECT_SEPARATOR + authentication.password;
     }
 }

@@ -23,62 +23,20 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.Token;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.common.id.PlayerId;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class TokenVerification {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
+    public final PlayerId playerId;
 
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
+    public final boolean authenticated;
 
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
-
-    public Token getToken() {
-        return token;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
-    }
-
-    @Override
-    public int hashCode() {
-        return token.hashCode();
+    public TokenVerification(PlayerId playerId, boolean authenticated) {
+        super();
+        this.playerId = playerId;
+        this.authenticated = authenticated;
     }
 }

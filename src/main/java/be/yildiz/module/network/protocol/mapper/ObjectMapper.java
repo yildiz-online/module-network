@@ -30,7 +30,7 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  */
 public interface ObjectMapper<T> {
 
-    T to(String s) throws InvalidNetworkMessage;
+    T from(String s) throws InvalidNetworkMessage;
 
-    String from(T t);
+    String to(T t);
 }

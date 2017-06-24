@@ -21,64 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Token;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class TokenStatusMapper implements ObjectMapper<Token.Status> {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
+    private final ObjectMapper<Integer> intMapper;
 
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
-
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
-
-    public Token getToken() {
-        return token;
+    public TokenStatusMapper(ObjectMapper<Integer> intMapper) {
+        super();
+        this.intMapper = intMapper;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
+    public Token.Status from(String s) throws InvalidNetworkMessage {
+        int i = intMapper.from(s);
+        return Token.Status.valueOf(i);
     }
 
     @Override
-    public int hashCode() {
-        return token.hashCode();
+    public String to(Token.Status status) {
+        return String.valueOf(status.value);
     }
 }

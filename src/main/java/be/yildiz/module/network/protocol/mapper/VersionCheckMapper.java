@@ -21,64 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.Token;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.VersionCheck;
 
 /**
- * Common code for token messages.
- *
  * @author Grégory Van den Borre
  */
-abstract class AbstractTokenMessage extends NetworkMessage {
+public class VersionCheckMapper implements ObjectMapper<VersionCheck> {
 
-    /**
-     * Authentication token.
-     */
-    private final Token token;
+    private final ObjectMapper<Integer> mapper;
 
-    /**
-     * Full constructor.
-     *
-     * @param token Authentication token.
-     */
-    protected AbstractTokenMessage(final Token token) {
-        super(NetworkMessage.to(token, Token.class));
-        this.token = token;
-    }
-
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    protected AbstractTokenMessage(MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.token = this.from(Token.class);
-    }
-
-    public Token getToken() {
-        return token;
+    public VersionCheckMapper(ObjectMapper<Integer> mapper) {
+        this.mapper = mapper;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    public VersionCheck from(String s) throws InvalidNetworkMessage {
+        try {
 
-        AbstractTokenMessage that = (AbstractTokenMessage) o;
-
-        return token.equals(that.token);
+        }
+        return null;
     }
 
     @Override
-    public int hashCode() {
-        return token.hashCode();
+    public String to(VersionCheck v) {
+        return mapper.to(v.version.getMajor()) + MessageSeparation.OBJECT_SEPARATOR
+                + mapper.to(v.version.getMinor()) + MessageSeparation.OBJECT_SEPARATOR
+                + mapper.to(v.version.getRev()) + MessageSeparation.OBJECT_SEPARATOR
+                + mapper.to(v.version.getSub()) + MessageSeparation.OBJECT_SEPARATOR
+                + v.version.getType().ordinal() + MessageSeparation.OBJECT_SEPARATOR
+                + v.serverTime;
     }
 }
