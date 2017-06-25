@@ -25,6 +25,10 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.module.network.protocol.mapper.TokenMapper;
+import be.yildiz.module.network.protocol.mapper.TokenStatusMapper;
 
 /**
  * Common code for token messages.
@@ -32,6 +36,15 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  * @author Grégory Van den Borre
  */
 abstract class AbstractTokenMessage extends NetworkMessage {
+
+    static {
+        IntegerMapper im = new IntegerMapper();
+        NetworkMessage.registerMapper(
+                Token.class, new TokenMapper(
+                        new PlayerIdMapper(),
+                        im,
+                        new TokenStatusMapper(im)));
+    }
 
     /**
      * Authentication token.

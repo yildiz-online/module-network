@@ -15,7 +15,7 @@ public abstract class ListWrapperMapper<T> implements ObjectMapper<ListWrapper<T
     }
 
     @Override
-    public String from(ListWrapper<T> listWrapper) {
-        return this.mapper.from(listWrapper.getList());
+    public String to(ListWrapper<T> listWrapper) {
+        return this.mapper.to(listWrapper.getList());
     }
 }

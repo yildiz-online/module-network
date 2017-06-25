@@ -67,7 +67,7 @@ public class AbstractTokenMessageTest {
         public void differentValue() {
             Token t = Token.authenticated(PlayerId.WORLD, 10L, 5);
             AbstractTokenMessage message = givenAMessage(t);
-            Token t2 = Token.authenticated(PlayerId.get(1), 10L, 5);
+            Token t2 = Token.authenticated(PlayerId.valueOf(1), 10L, 5);
             AbstractTokenMessage message2 = givenAMessage(t2);
             Assert.assertNotEquals(message, message2);
         }
@@ -95,7 +95,7 @@ public class AbstractTokenMessageTest {
         public void differentValue() {
             Token t = Token.authenticated(PlayerId.WORLD, 10L, 5);
             AbstractTokenMessage message = givenAMessage(t);
-            Token t2 = Token.authenticated(PlayerId.get(1), 10L, 5);
+            Token t2 = Token.authenticated(PlayerId.valueOf(1), 10L, 5);
             AbstractTokenMessage message2 = givenAMessage(t2);
             Assert.assertFalse(message.hashCode() == message2.hashCode());
         }

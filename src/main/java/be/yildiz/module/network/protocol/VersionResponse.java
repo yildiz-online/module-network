@@ -23,8 +23,6 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.Version;
-import be.yildiz.common.Version.VersionType;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 
 /**
@@ -37,12 +35,7 @@ public final class VersionResponse extends NetworkMessage implements ServerRespo
     /**
      * Expected version of the client.
      */
-    private final Version version;
-
-    /**
-     * Server current time when sending the message to compute difference in client.
-     */
-    private final long serverTime;
+    private final VersionCheck version;
 
     /**
      * Full constructor, parse the message to build the object.
@@ -52,21 +45,17 @@ public final class VersionResponse extends NetworkMessage implements ServerRespo
      */
     public VersionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.version = new Version(VersionType.values()[this.getInt()], this.getInt(), this.getInt(), this.getInt(), this.getInt());
-        this.serverTime = this.getLong();
+        this.version = this.from(VersionCheck.class);
     }
 
     /**
      * Full constructor.
      *
-     * @param expectedVersion Expected client version.
-     * @param currentTime     Time stamp on server to make correction on client if time is not the same.
+     * @param expectedVersion Expected client version and server time.
      */
-    public VersionResponse(final Version expectedVersion, final long currentTime) {
-        super(NetworkMessage.convertParams(Integer.valueOf(expectedVersion.getType().ordinal()), Integer.valueOf(expectedVersion.getMajor()), Integer.valueOf(expectedVersion.getMinor()),
-                Integer.valueOf(expectedVersion.getSub()), Integer.valueOf(expectedVersion.getRev()), Long.valueOf(currentTime)));
+    public VersionResponse(final VersionCheck expectedVersion) {
+        super(NetworkMessage.to(expectedVersion, VersionCheck.class));
         this.version = expectedVersion;
-        this.serverTime = currentTime;
     }
 
     /**
@@ -77,11 +66,7 @@ public final class VersionResponse extends NetworkMessage implements ServerRespo
         return Commands.VERSION_RESPONSE;
     }
 
-    public Version getVersion() {
+    public VersionCheck getVersion() {
         return version;
-    }
-
-    public long getServerTime() {
-        return serverTime;
     }
 }

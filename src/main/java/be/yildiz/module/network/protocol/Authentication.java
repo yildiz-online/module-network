@@ -34,6 +34,8 @@ public class Authentication {
 
     public Authentication(String login, String password) {
         super();
+        assert login != null;
+        assert password != null;
         this.login = login;
         this.password = password;
     }

@@ -23,14 +23,12 @@
 
 package be.yildiz.module.network.exceptions;
 
-import be.yildiz.common.exeption.BaseCheckedException;
-
 /**
  * Thrown when parsing a network message fails.
  *
  * @author Grégory Van den Borre
  */
-public final class InvalidNetworkMessage extends BaseCheckedException {
+public final class InvalidNetworkMessage extends Exception {
 
     /**
      * Current version serial ID.
@@ -45,6 +43,10 @@ public final class InvalidNetworkMessage extends BaseCheckedException {
     //@requires message != null
     public InvalidNetworkMessage(final String message) {
         super(message);
+    }
+
+    public InvalidNetworkMessage(final Throwable cause) {
+        super(cause);
     }
 
     /**

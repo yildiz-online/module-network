@@ -23,14 +23,12 @@
 
 package be.yildiz.module.network.exceptions;
 
-import be.yildiz.common.exeption.BaseException;
-
 /**
  * Generic exception for all network related.
  *
  * @author Grégory Van den Borre
  */
-public final class NetworkException extends BaseException {
+public final class NetworkException extends RuntimeException {
 
     /**
      * Current version serial ID.

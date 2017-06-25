@@ -120,11 +120,15 @@ public abstract class NetworkMessage {
 
     @SuppressWarnings("unchecked")
     public final <T> T from(Class<T> c) throws InvalidNetworkMessage {
-        this.positionCheck(this.index);
-        this.nullCheck(this.params[this.index]);
-        T result = (T)mappers.get(c).to(this.params[this.index]);
-        this.index++;
-        return result;
+        try {
+            this.positionCheck(this.index);
+            this.nullCheck(this.params[this.index]);
+            T result = (T) mappers.get(c).from(this.params[this.index]);
+            this.index++;
+            return result;
+        } catch (ClassCastException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @SuppressWarnings("unchecked")

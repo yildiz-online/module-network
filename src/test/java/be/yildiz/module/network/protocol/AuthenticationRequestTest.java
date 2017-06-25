@@ -24,6 +24,7 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -35,31 +36,37 @@ import org.junit.runner.RunWith;
 @RunWith(Enclosed.class)
 public class AuthenticationRequestTest {
 
+
+
     public static class Constructor {
 
         @Test
         public void happyFlowString() {
-            AuthenticationRequest ar = new AuthenticationRequest("testLogin", "testPass");
-            Assert.assertEquals("testLogin", ar.getLogin());
-            Assert.assertEquals("testPass", ar.getPassword());
+            AuthenticationRequest ar = new AuthenticationRequest(new Authentication("testLogin", "testPass"));
+            Assert.assertEquals("testLogin", ar.getAuthentication().login);
+            Assert.assertEquals("testPass", ar.getAuthentication().password);
         }
 
-        @Test(expected = NullPointerException.class)
+        //FIXME move to authentication test
+        @Test(expected = AssertionError.class)
         public void withNullLogin() {
-            new AuthenticationRequest(null, "testPass");
+            new AuthenticationRequest(new Authentication(null, "testPass"));
         }
 
-        @Test(expected = NullPointerException.class)
+        //FIXME move to authentication test
+        @Test(expected = AssertionError.class)
         public void withNullPassword() {
-            new AuthenticationRequest("testLogin", null);
+            new AuthenticationRequest(new Authentication("testLogin", null));
         }
 
         @Test
         public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_testLogin_testPass");
+            AuthenticationMapper m = new AuthenticationMapper();
+            String message = m.to(new Authentication("testLogin", "testPass"));
+            MessageWrapper mw = new MessageWrapper(Commands.AUTHENTICATION_REQUEST + MessageSeparation.COMMAND_SEPARATOR + message);
             AuthenticationRequest ar = new AuthenticationRequest(mw);
-            Assert.assertEquals("testLogin", ar.getLogin());
-            Assert.assertEquals("testPass", ar.getPassword());
+            Assert.assertEquals("testLogin", ar.getAuthentication().login);
+            Assert.assertEquals("testPass", ar.getAuthentication().password);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
@@ -73,7 +80,7 @@ public class AuthenticationRequestTest {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, new AuthenticationRequest("","").command());
+            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, new AuthenticationRequest(new Authentication("","")).command());
         }
     }
 }

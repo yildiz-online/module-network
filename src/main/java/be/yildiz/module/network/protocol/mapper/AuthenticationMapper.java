@@ -34,12 +34,16 @@ public class AuthenticationMapper implements ObjectMapper<Authentication> {
 
     @Override
     public Authentication from(String s) throws InvalidNetworkMessage {
-        String[] v = s.split(MessageSeparation.OBJECT_SEPARATOR);
-        return new Authentication(v[0], v[1]);
+        try {
+            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            return new Authentication(v[0], v[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
     public String to(Authentication authentication) {
-        return authentication.login + MessageSeparation.OBJECT_SEPARATOR + authentication.password;
+        return authentication.login + MessageSeparation.VAR_SEPARATOR + authentication.password;
     }
 }

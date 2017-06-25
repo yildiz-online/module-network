@@ -55,14 +55,14 @@ public class ConnectionRequestTest {
 
         @Test
         public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0_1_0");
+            MessageWrapper mw = new MessageWrapper("10_0@1@0");
             ConnectionRequest cr = new ConnectionRequest(mw);
             Assert.assertEquals(ok, cr.getToken());
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void withInvalidMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0_0");
+            MessageWrapper mw = new MessageWrapper("10_0@0");
             new ConnectionRequest(mw);
         }
     }

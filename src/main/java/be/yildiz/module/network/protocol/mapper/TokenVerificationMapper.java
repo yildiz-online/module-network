@@ -46,14 +46,14 @@ public class TokenVerificationMapper implements ObjectMapper<TokenVerification> 
 
     @Override
     public TokenVerification from(String s) throws InvalidNetworkMessage {
-        String[] v = s.split(MessageSeparation.OBJECT_SEPARATOR);
+        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         return new TokenVerification(playerIdMapper.from(v[0]), booleanMapper.from(v[1]));
     }
 
     @Override
     public String to(TokenVerification tokenVerification) {
         return playerIdMapper.to(tokenVerification.playerId)
-                + MessageSeparation.OBJECT_SEPARATOR
+                + MessageSeparation.VAR_SEPARATOR
                 + booleanMapper.to(tokenVerification.authenticated);
     }
 }

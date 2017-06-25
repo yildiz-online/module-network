@@ -23,45 +23,51 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.Token;
-import be.yildiz.common.id.PlayerId;
+import be.yildiz.common.Version;
+import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenMapper implements ObjectMapper<Token> {
-
-    private final ObjectMapper<PlayerId> playerIdMapper;
+public class VersionMapper implements ObjectMapper<Version> {
 
     private final ObjectMapper<Integer> integerMapper;
 
-    private final ObjectMapper<Token.Status> tokenStatusMapper;
-
-    public TokenMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Integer> integerMapper, ObjectMapper<Token.Status> tokenStatusMapper) {
+    public VersionMapper(ObjectMapper<Integer> integerMapper) {
         super();
-        this.playerIdMapper = playerIdMapper;
+        assert integerMapper != null;
         this.integerMapper = integerMapper;
-        this.tokenStatusMapper = tokenStatusMapper;
     }
 
     @Override
-    public Token from(String s) throws InvalidNetworkMessage {
+    public Version from(String s) throws InvalidNetworkMessage {
+        assert s!= null;
+        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return Token.any(playerIdMapper.from(v[0]),
-                    integerMapper.from(v[1]),
-                    tokenStatusMapper.from(v[2]));
-        } catch (IndexOutOfBoundsException e) {
+            int major = integerMapper.from(v[0]);
+            int minor = integerMapper.from(v[1]);
+            int sub = integerMapper.from(v[2]);
+            int rev = integerMapper.from(v[3]);
+            Version.VersionType type = Version.VersionType.valueOf(integerMapper.from(v[4]));
+            return new Version(type, major, minor, sub, rev);
+        } catch (NumberFormatException | IndexOutOfBoundsException | UnhandledSwitchCaseException e) {
             throw new InvalidNetworkMessage(e);
         }
     }
 
     @Override
-    public String to(Token token) {
-        return playerIdMapper.to(token.getId())
-                + MessageSeparation.VAR_SEPARATOR + integerMapper.to(token.getKey())
-                + MessageSeparation.VAR_SEPARATOR + tokenStatusMapper.to(token.getStatus());
+    public String to(Version version) {
+        assert version != null;
+        return integerMapper.to(version.getMajor())
+                + MessageSeparation.VAR_SEPARATOR
+                + integerMapper.to(version.getMinor())
+                + MessageSeparation.VAR_SEPARATOR
+                + integerMapper.to(version.getSub())
+                + MessageSeparation.VAR_SEPARATOR
+                + integerMapper.to(version.getRev())
+                + MessageSeparation.VAR_SEPARATOR
+                + integerMapper.to(version.getType().value);
     }
 }

@@ -23,12 +23,8 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.collections.Lists;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * @author Grégory Van Den Borre
@@ -44,17 +40,4 @@ public class NetworkMessageTest {
             }
         };
     }
-
-    @Test
-    public void testGetList() throws InvalidNetworkMessage {
-        List<Float> lf = Lists.newList();
-        lf.add(Float.valueOf(10f));
-        lf.add(Float.valueOf(5f));
-        lf.add(Float.valueOf(3f));
-        String[] pl = NetworkMessage.convertParams(lf);
-        Assert.assertEquals(1, pl.length);
-        NetworkMessage m = new NetworkMessageMock(pl);
-        Assert.assertEquals(lf, m.getFloatList());
-    }
-
 }

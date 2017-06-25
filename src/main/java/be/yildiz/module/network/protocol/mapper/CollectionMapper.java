@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class must be subclassed
+ * This class must be sub-classed
  * @author Grégory Van den Borre
  */
 public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
@@ -45,24 +45,24 @@ public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
     }
 
     @Override
-    public final Collection<T> to(String s) throws InvalidNetworkMessage{
+    public final Collection<T> from(String s) throws InvalidNetworkMessage{
         if(s.isEmpty()) {
             return Collections.emptyList();
         }
         String[] values = s.split(MessageSeparation.COLLECTION_SEPARATOR);
         List<T> result = Lists.newList(values.length);
         for(String value : values) {
-            result.add(this.mapper.to(value));
+            result.add(this.mapper.from(value));
         }
         return result;
     }
 
     @Override
-    public final String from(Collection<T> collection) {
+    public final String to(Collection<T> collection) {
         final List<T> l = Lists.newList(collection);
         final StringBuilder sb = new StringBuilder();
         for (T t : l) {
-            sb.append(this.mapper.from(t));
+            sb.append(this.mapper.to(t));
             sb.append(MessageSeparation.COLLECTION_SEPARATOR);
         }
         if (sb.length() > 0) {

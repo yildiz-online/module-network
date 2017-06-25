@@ -24,6 +24,7 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
 
 /**
  * A request from the client to the server to authenticate a Player.
@@ -31,6 +32,10 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  * @author Grégory Van den Borre
  */
 public final class AuthenticationRequest extends NetworkMessage implements ServerRequest {
+
+    static {
+        NetworkMessage.registerMapper(Authentication.class, new AuthenticationMapper());
+    }
 
     /**
      * User login and encrypted password.

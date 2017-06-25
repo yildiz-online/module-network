@@ -52,8 +52,8 @@ public final class AuthenticationSessionManager extends SessionManager {
         this.client = client;
         this.client.addNetworkListener(message -> {
             TokenVerificationResponse r = new TokenVerificationResponse(message);
-            if (r.isAuthenticated()) {
-                Session session = getSessionByPlayer(r.getId());
+            if (r.getVerification().authenticated) {
+                Session session = getSessionByPlayer(r.getVerification().playerId);
                 setAuthenticated(session);
             }
         });

@@ -23,6 +23,7 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
+import be.yildiz.common.Version;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.VersionCheck;
@@ -32,27 +33,28 @@ import be.yildiz.module.network.protocol.VersionCheck;
  */
 public class VersionCheckMapper implements ObjectMapper<VersionCheck> {
 
-    private final ObjectMapper<Integer> mapper;
+    private final ObjectMapper<Version> mapper;
 
-    public VersionCheckMapper(ObjectMapper<Integer> mapper) {
+    private final ObjectMapper<Long> longMapper;
+
+    public VersionCheckMapper(ObjectMapper<Version> mapper, ObjectMapper<Long> longMapper) {
+        super();
         this.mapper = mapper;
+        this.longMapper = longMapper;
     }
 
     @Override
     public VersionCheck from(String s) throws InvalidNetworkMessage {
-        try {
-
-        }
-        return null;
+        int sep = s.lastIndexOf(MessageSeparation.VAR_SEPARATOR);
+        String vString = s.substring(0, sep);
+        Version version = mapper.from(vString);
+        long date = longMapper.from(s.substring(sep));
+        return new VersionCheck(version, date);
     }
 
     @Override
     public String to(VersionCheck v) {
-        return mapper.to(v.version.getMajor()) + MessageSeparation.OBJECT_SEPARATOR
-                + mapper.to(v.version.getMinor()) + MessageSeparation.OBJECT_SEPARATOR
-                + mapper.to(v.version.getRev()) + MessageSeparation.OBJECT_SEPARATOR
-                + mapper.to(v.version.getSub()) + MessageSeparation.OBJECT_SEPARATOR
-                + v.version.getType().ordinal() + MessageSeparation.OBJECT_SEPARATOR
-                + v.serverTime;
+        return mapper.to(v.version) + MessageSeparation.VAR_SEPARATOR
+                + longMapper.to(v.serverTime);
     }
 }

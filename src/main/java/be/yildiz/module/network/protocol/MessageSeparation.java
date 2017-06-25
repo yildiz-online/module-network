@@ -48,7 +48,12 @@ public final class MessageSeparation {
     /**
      * Separator between different attribute of a same complex object.
      */
-    public static final String OBJECT_SEPARATOR = "@";
+    public static final String VAR_SEPARATOR = "@";
+
+    /**
+     * Separator between different objects of a message.
+     */
+    public static final String OBJECTS_SEPARATOR = "@@";
 
     static final String COMMAND_SEPARATOR = "_";
 
