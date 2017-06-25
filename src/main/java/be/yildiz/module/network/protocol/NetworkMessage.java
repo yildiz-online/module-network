@@ -69,8 +69,14 @@ public abstract class NetworkMessage {
         this.index = 0;
     }
 
+    /**
+     * Register a mapper for a given class, if a mapper is already existing for that class, nothing happens.
+     * @param c Class to map.
+     * @param m Mapper to use.
+     * @param <T> Type to map.
+     */
     public static <T> void registerMapper(Class<T> c, ObjectMapper<T> m) {
-        mappers.put(c, m);
+        mappers.putIfAbsent(c, m);
     }
 
     /**
