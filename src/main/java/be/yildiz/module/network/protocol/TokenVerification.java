@@ -36,6 +36,7 @@ public class TokenVerification {
 
     public TokenVerification(PlayerId playerId, boolean authenticated) {
         super();
+        assert playerId != null;
         this.playerId = playerId;
         this.authenticated = authenticated;
     }
