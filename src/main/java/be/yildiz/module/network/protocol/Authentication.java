@@ -39,4 +39,25 @@ public class Authentication {
         this.login = login;
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Authentication that = (Authentication) o;
+
+        return login.equals(that.login) && password.equals(that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = login.hashCode();
+        result = 31 * result + password.hashCode();
+        return result;
+    }
 }

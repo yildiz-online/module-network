@@ -24,7 +24,6 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -61,16 +60,14 @@ public class AuthenticationRequestTest {
 
         @Test
         public void happyFlowMessage() throws InvalidNetworkMessage {
-            AuthenticationMapper m = new AuthenticationMapper();
-            String message = m.to(new Authentication("testLogin", "testPass"));
-            MessageWrapper mw = new MessageWrapper(Commands.AUTHENTICATION_REQUEST + MessageSeparation.COMMAND_SEPARATOR + message);
-            AuthenticationRequest ar = new AuthenticationRequest(mw);
-            Assert.assertEquals("testLogin", ar.getAuthentication().login);
-            Assert.assertEquals("testPass", ar.getAuthentication().password);
+            AuthenticationRequest ar = new AuthenticationRequest(new Authentication("testLogin", "testPass"));
+            String message = ar.buildMessage().replace("#", "").replace("&", "");
+            AuthenticationRequest ar2 = new AuthenticationRequest(new MessageWrapper(message));
+            Assert.assertEquals(ar.getAuthentication(), ar2.getAuthentication());
         }
 
         @Test(expected = InvalidNetworkMessage.class)
-        public void withInvalidMessage() throws InvalidNetworkMessage {
+        public void tooShortMessage() throws InvalidNetworkMessage {
             MessageWrapper mw = new MessageWrapper("10_testLogin");
             new AuthenticationRequest(mw);
         }
