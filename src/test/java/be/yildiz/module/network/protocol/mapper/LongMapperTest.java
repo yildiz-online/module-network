@@ -24,25 +24,55 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-public class LongMapper implements ObjectMapper<Long>{
+@RunWith(Enclosed.class)
+public class LongMapperTest {
 
-    @Override
-    public Long from(String s) throws InvalidNetworkMessage {
-        assert s!= null;
-        try {
-            return Long.valueOf(s);
-        } catch (NumberFormatException e) {
-            throw new InvalidNetworkMessage(e);
+    public static class Constructor {
+
+        @Test
+        public void happyFlow() {
+            new LongMapper();
         }
     }
 
-    @Override
-    public String to(Long l) {
-        assert l != null;
-        return String.valueOf(l);
+    public static class From {
+
+        @Test
+        public void happyFlow() throws InvalidNetworkMessage {
+            long v = new LongMapper().from("5");
+            Assert.assertEquals(5, v);
+        }
+
+        @Test(expected = InvalidNetworkMessage.class)
+        public void invalidValue() throws InvalidNetworkMessage {
+            new LongMapper().from("a");
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withNull() throws InvalidNetworkMessage {
+            new LongMapper().from(null);
+        }
     }
+
+    public static class To {
+
+        @Test
+        public void happyFlow() {
+            Assert.assertEquals("5", new LongMapper().to(5L));
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withNull() {
+            new LongMapper().to(null);
+        }
+    }
+
 }
