@@ -23,41 +23,25 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.TokenVerification;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenVerificationMapper implements ObjectMapper<TokenVerification> {
-
-    private final ObjectMapper<PlayerId> playerIdMapper;
-
-    private final ObjectMapper<Boolean> booleanMapper;
-
-    public TokenVerificationMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Boolean> booleanMapper) {
-        super();
-        this.playerIdMapper = playerIdMapper;
-        this.booleanMapper = booleanMapper;
-    }
-
+public class BooleanMapper implements ObjectMapper<Boolean>{
 
     @Override
-    public TokenVerification from(String s) throws InvalidNetworkMessage {
-        try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new TokenVerification(playerIdMapper.from(v[0]), booleanMapper.from(v[1]));
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+    public Boolean from(String s) throws InvalidNetworkMessage {
+        if(s.equals("t")) {
+            return true;
+        } else if(s.equals("f")) {
+            return false;
         }
+        throw new InvalidNetworkMessage("Invalid boolean:" + s);
     }
 
     @Override
-    public String to(TokenVerification tokenVerification) {
-        return playerIdMapper.to(tokenVerification.playerId)
-                + MessageSeparation.VAR_SEPARATOR
-                + booleanMapper.to(tokenVerification.authenticated);
+    public String to(Boolean b) {
+        return b ? "t" : "f";
     }
 }

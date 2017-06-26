@@ -21,43 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol.mapper;
+
+package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.TokenVerification;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenVerificationMapper implements ObjectMapper<TokenVerification> {
+@RunWith(Enclosed.class)
+public class TokenVerificationTest {
 
-    private final ObjectMapper<PlayerId> playerIdMapper;
+    public static class Constructor {
 
-    private final ObjectMapper<Boolean> booleanMapper;
-
-    public TokenVerificationMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Boolean> booleanMapper) {
-        super();
-        this.playerIdMapper = playerIdMapper;
-        this.booleanMapper = booleanMapper;
-    }
-
-
-    @Override
-    public TokenVerification from(String s) throws InvalidNetworkMessage {
-        try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new TokenVerification(playerIdMapper.from(v[0]), booleanMapper.from(v[1]));
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+        @Test
+        public void happyFlow() {
+            boolean b = true;
+            PlayerId playerId = PlayerId.valueOf(8);
+            TokenVerification tv = new TokenVerification(playerId, b);
+            Assert.assertEquals(playerId, tv.playerId);
+            Assert.assertEquals(b, tv.authenticated);
         }
-    }
 
-    @Override
-    public String to(TokenVerification tokenVerification) {
-        return playerIdMapper.to(tokenVerification.playerId)
-                + MessageSeparation.VAR_SEPARATOR
-                + booleanMapper.to(tokenVerification.authenticated);
+        @Test(expected = AssertionError.class)
+        public void withNullParam1() {
+            new TokenVerification(null, true);
+        }
     }
 }

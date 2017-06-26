@@ -23,41 +23,24 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.TokenVerification;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenVerificationMapper implements ObjectMapper<TokenVerification> {
-
-    private final ObjectMapper<PlayerId> playerIdMapper;
-
-    private final ObjectMapper<Boolean> booleanMapper;
-
-    public TokenVerificationMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Boolean> booleanMapper) {
-        super();
-        this.playerIdMapper = playerIdMapper;
-        this.booleanMapper = booleanMapper;
-    }
-
+public class LongMapper implements ObjectMapper<Long>{
 
     @Override
-    public TokenVerification from(String s) throws InvalidNetworkMessage {
+    public Long from(String s) throws InvalidNetworkMessage {
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new TokenVerification(playerIdMapper.from(v[0]), booleanMapper.from(v[1]));
-        } catch (IndexOutOfBoundsException e) {
+            return Long.valueOf(s);
+        } catch (NumberFormatException e) {
             throw new InvalidNetworkMessage(e);
         }
     }
 
     @Override
-    public String to(TokenVerification tokenVerification) {
-        return playerIdMapper.to(tokenVerification.playerId)
-                + MessageSeparation.VAR_SEPARATOR
-                + booleanMapper.to(tokenVerification.authenticated);
+    public String to(Long l) {
+        return String.valueOf(l);
     }
 }

@@ -24,6 +24,9 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.BooleanMapper;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
 
 /**
  * Authentication token verification response.
@@ -31,6 +34,13 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  * @author Grégory Van den Borre
  */
 public final class TokenVerificationResponse extends NetworkMessage implements ServerResponse {
+
+    static {
+        NetworkMessage.registerMapper(
+                TokenVerification.class, new TokenVerificationMapper(
+                        new PlayerIdMapper(),
+                        new BooleanMapper()));
+    }
 
     /**
      * Player checked.

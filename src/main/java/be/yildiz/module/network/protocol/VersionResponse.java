@@ -24,6 +24,10 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.LongMapper;
+import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
+import be.yildiz.module.network.protocol.mapper.VersionMapper;
 
 /**
  * Send the version data and the time correction to the client.
@@ -31,6 +35,11 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
  * @author Grégory Van den Borre
  */
 public final class VersionResponse extends NetworkMessage implements ServerResponse {
+
+    static {
+        NetworkMessage.registerMapper(VersionCheck.class,
+                new VersionCheckMapper(new VersionMapper(new IntegerMapper()), new LongMapper()));
+    }
 
     /**
      * Expected version of the client.
