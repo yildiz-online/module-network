@@ -43,8 +43,8 @@ public class SessionTest {
 
         @Test
         public void happyFlow() {
-            Session s = givenASession(PlayerId.get(5));
-            Assert.assertEquals(PlayerId.get(5), s.getPlayer());
+            Session s = givenASession(PlayerId.valueOf(5));
+            Assert.assertEquals(PlayerId.valueOf(5), s.getPlayer());
             Assert.assertTrue(s.isConnected());
             Assert.assertFalse(s.isAuthenticated());
         }
@@ -60,7 +60,7 @@ public class SessionTest {
 
         @Test
         public void happyFlow() {
-            Session s = givenASession(PlayerId.get(5));
+            Session s = givenASession(PlayerId.valueOf(5));
             Assert.assertTrue(s.hasPlayer());
         }
     }
@@ -69,7 +69,7 @@ public class SessionTest {
 
         @Test
         public void happyFlow() {
-            Session s = givenASession(PlayerId.get(5));
+            Session s = givenASession(PlayerId.valueOf(5));
             Assert.assertFalse(s.isAuthenticated());
             s.setAuthenticated();
             Assert.assertTrue(s.isAuthenticated());
@@ -80,14 +80,14 @@ public class SessionTest {
 
         @Test
         public void happyFlow() {
-            Session s = givenASession(PlayerId.get(5));
-            s.setPlayer(PlayerId.get(8));
-            Assert.assertEquals(PlayerId.get(8), s.getPlayer());
+            Session s = givenASession(PlayerId.valueOf(5));
+            s.setPlayer(PlayerId.valueOf(8));
+            Assert.assertEquals(PlayerId.valueOf(8), s.getPlayer());
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() {
-            Session s = givenASession(PlayerId.get(5));
+            Session s = givenASession(PlayerId.valueOf(5));
             s.setPlayer(null);
         }
 
@@ -97,34 +97,34 @@ public class SessionTest {
 
         @Test
         public void happyFlow() {
-            SessionWrapper sw = givenASession(PlayerId.get(5));
+            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage("test");
             Assert.assertEquals("test", sw.getMessage());
         }
 
         @Test
         public void withServerResponse() {
-            SessionWrapper sw = givenASession(PlayerId.get(5));
+            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage(() -> "someMessage");
             Assert.assertEquals("someMessage", sw.getMessage());
         }
 
         @Test(expected = AssertionError.class)
         public void withNullServerResponse() {
-            SessionWrapper sw = givenASession(PlayerId.get(5));
+            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage((ServerResponse) null);
         }
 
         @Test
         public void withSeveralServerResponse() {
-            SessionWrapper sw = givenASession(PlayerId.get(5));
+            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             Set<ServerResponse> responses = Sets.newSet(() -> "1", () -> "2", () -> "3");
             sw.sendMessage(responses);
         }
 
         @Test(expected = AssertionError.class)
         public void withNullSeveralServerResponse() {
-            SessionWrapper sw = givenASession(PlayerId.get(5));
+            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage((Set<ServerResponse>) null);
         }
     }
@@ -137,7 +137,7 @@ public class SessionTest {
 
         private String message;
 
-        public SessionWrapper(PlayerId p) {
+        SessionWrapper(PlayerId p) {
             super(p);
         }
 
@@ -151,7 +151,7 @@ public class SessionTest {
             this.message = message;
         }
 
-        public String getMessage() {
+        String getMessage() {
             return message;
         }
     }
