@@ -28,7 +28,17 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class BooleanMapper implements ObjectMapper<Boolean>{
+class BooleanMapper extends BaseMapper<Boolean>{
+
+    private static final BooleanMapper INSTANCE = new BooleanMapper();
+
+    private BooleanMapper() {
+        super(Boolean.class);
+    }
+
+    public static BooleanMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Boolean from(String s) throws InvalidNetworkMessage {

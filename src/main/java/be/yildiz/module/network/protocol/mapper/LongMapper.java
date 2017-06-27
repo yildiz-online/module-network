@@ -28,7 +28,17 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class LongMapper implements ObjectMapper<Long>{
+class LongMapper extends BaseMapper<Long>{
+
+    private static final LongMapper INSTANCE = new LongMapper();
+
+    private LongMapper() {
+        super(Long.class);
+    }
+
+    public static LongMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Long from(String s) throws InvalidNetworkMessage {

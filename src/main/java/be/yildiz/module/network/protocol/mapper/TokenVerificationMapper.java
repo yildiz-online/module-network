@@ -23,7 +23,6 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.TokenVerification;
@@ -31,16 +30,16 @@ import be.yildiz.module.network.protocol.TokenVerification;
 /**
  * @author Grégory Van den Borre
  */
-public class TokenVerificationMapper implements ObjectMapper<TokenVerification> {
+class TokenVerificationMapper extends BaseMapper<TokenVerification> {
 
-    private final ObjectMapper<PlayerId> playerIdMapper;
+    private static final TokenVerificationMapper INSTANCE = new TokenVerificationMapper();
 
-    private final ObjectMapper<Boolean> booleanMapper;
+    private TokenVerificationMapper() {
+        super(TokenVerification.class);
+    }
 
-    public TokenVerificationMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Boolean> booleanMapper) {
-        super();
-        this.playerIdMapper = playerIdMapper;
-        this.booleanMapper = booleanMapper;
+    public static TokenVerificationMapper getInstance() {
+        return INSTANCE;
     }
 
 
@@ -48,7 +47,7 @@ public class TokenVerificationMapper implements ObjectMapper<TokenVerification> 
     public TokenVerification from(String s) throws InvalidNetworkMessage {
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new TokenVerification(playerIdMapper.from(v[0]), booleanMapper.from(v[1]));
+            return new TokenVerification(PlayerIdMapper.getInstance().from(v[0]), BooleanMapper.getInstance().from(v[1]));
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
         }
@@ -56,8 +55,8 @@ public class TokenVerificationMapper implements ObjectMapper<TokenVerification> 
 
     @Override
     public String to(TokenVerification tokenVerification) {
-        return playerIdMapper.to(tokenVerification.playerId)
+        return PlayerIdMapper.getInstance().to(tokenVerification.playerId)
                 + MessageSeparation.VAR_SEPARATOR
-                + booleanMapper.to(tokenVerification.authenticated);
+                + BooleanMapper.getInstance().to(tokenVerification.authenticated);
     }
 }

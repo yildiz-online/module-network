@@ -31,14 +31,17 @@ import be.yildiz.module.network.protocol.MessageSeparation;
 /**
  * @author Grégory Van den Borre
  */
-public class VersionMapper implements ObjectMapper<Version> {
+class VersionMapper extends BaseMapper<Version> {
 
-    private final ObjectMapper<Integer> integerMapper;
+    private static final VersionMapper INSTANCE = new VersionMapper();
 
-    public VersionMapper(ObjectMapper<Integer> integerMapper) {
-        super();
-        assert integerMapper != null;
-        this.integerMapper = integerMapper;
+    private VersionMapper() {
+        super(Version.class);
+
+    }
+
+    public static VersionMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -46,11 +49,11 @@ public class VersionMapper implements ObjectMapper<Version> {
         assert s!= null;
         String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
-            int major = integerMapper.from(v[0]);
-            int minor = integerMapper.from(v[1]);
-            int sub = integerMapper.from(v[2]);
-            int rev = integerMapper.from(v[3]);
-            Version.VersionType type = Version.VersionType.valueOf(integerMapper.from(v[4]));
+            int major = IntegerMapper.getInstance().from(v[0]);
+            int minor = IntegerMapper.getInstance().from(v[1]);
+            int sub = IntegerMapper.getInstance().from(v[2]);
+            int rev = IntegerMapper.getInstance().from(v[3]);
+            Version.VersionType type = Version.VersionType.valueOf(IntegerMapper.getInstance().from(v[4]));
             return new Version(type, major, minor, sub, rev);
         } catch (NumberFormatException | IndexOutOfBoundsException | UnhandledSwitchCaseException e) {
             throw new InvalidNetworkMessage(e);
@@ -60,14 +63,14 @@ public class VersionMapper implements ObjectMapper<Version> {
     @Override
     public String to(Version version) {
         assert version != null;
-        return integerMapper.to(version.getMajor())
+        return IntegerMapper.getInstance().to(version.getMajor())
                 + MessageSeparation.VAR_SEPARATOR
-                + integerMapper.to(version.getMinor())
+                + IntegerMapper.getInstance().to(version.getMinor())
                 + MessageSeparation.VAR_SEPARATOR
-                + integerMapper.to(version.getSub())
+                + IntegerMapper.getInstance().to(version.getSub())
                 + MessageSeparation.VAR_SEPARATOR
-                + integerMapper.to(version.getRev())
+                + IntegerMapper.getInstance().to(version.getRev())
                 + MessageSeparation.VAR_SEPARATOR
-                + integerMapper.to(version.getType().value);
+                + IntegerMapper.getInstance().to(version.getType().value);
     }
 }

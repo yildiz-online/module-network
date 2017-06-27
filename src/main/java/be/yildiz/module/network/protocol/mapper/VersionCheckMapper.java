@@ -31,30 +31,35 @@ import be.yildiz.module.network.protocol.VersionCheck;
 /**
  * @author Grégory Van den Borre
  */
-public class VersionCheckMapper implements ObjectMapper<VersionCheck> {
+class VersionCheckMapper extends BaseMapper<VersionCheck> {
 
-    private final ObjectMapper<Version> mapper;
+    private static final VersionCheckMapper INSTANCE = new VersionCheckMapper();
 
-    private final ObjectMapper<Long> longMapper;
+    private VersionCheckMapper() {
+        super(VersionCheck.class);
+    }
 
-    public VersionCheckMapper(ObjectMapper<Version> mapper, ObjectMapper<Long> longMapper) {
-        super();
-        this.mapper = mapper;
-        this.longMapper = longMapper;
+    public static VersionCheckMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public VersionCheck from(String s) throws InvalidNetworkMessage {
-        int sep = s.lastIndexOf(MessageSeparation.VAR_SEPARATOR);
-        String vString = s.substring(0, sep);
-        Version version = mapper.from(vString);
-        long date = longMapper.from(s.substring(sep));
-        return new VersionCheck(version, date);
+        try {
+            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            String vString = v[0];
+            String dString = v[1];
+            Version version = VersionMapper.getInstance().from(vString);
+            long date = LongMapper.getInstance().from(dString);
+            return new VersionCheck(version, date);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
     public String to(VersionCheck v) {
-        return mapper.to(v.version) + MessageSeparation.VAR_SEPARATOR
-                + longMapper.to(v.serverTime);
+        return VersionMapper.getInstance().to(v.version) + MessageSeparation.OBJECTS_SEPARATOR
+                + LongMapper.getInstance().to(v.serverTime);
     }
 }

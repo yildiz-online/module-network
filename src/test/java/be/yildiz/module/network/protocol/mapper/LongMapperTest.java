@@ -39,7 +39,7 @@ public class LongMapperTest {
 
         @Test
         public void happyFlow() {
-            new LongMapper();
+            LongMapper.getInstance();
         }
     }
 
@@ -47,18 +47,18 @@ public class LongMapperTest {
 
         @Test
         public void happyFlow() throws InvalidNetworkMessage {
-            long v = new LongMapper().from("5");
+            long v = LongMapper.getInstance().from("5");
             Assert.assertEquals(5, v);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void invalidValue() throws InvalidNetworkMessage {
-            new LongMapper().from("a");
+            LongMapper.getInstance().from("a");
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() throws InvalidNetworkMessage {
-            new LongMapper().from(null);
+            LongMapper.getInstance().from(null);
         }
     }
 
@@ -66,12 +66,12 @@ public class LongMapperTest {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals("5", new LongMapper().to(5L));
+            Assert.assertEquals("5", LongMapper.getInstance().to(5L));
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() {
-            new LongMapper().to(null);
+            LongMapper.getInstance().to(null);
         }
     }
 

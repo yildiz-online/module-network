@@ -21,52 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.module.network.protocol;
+package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.NetworkMessage;
 
 /**
- * Send the version data and the time correction to the client.
- *
  * @author Grégory Van den Borre
  */
-public final class VersionResponse extends NetworkMessage implements ServerResponse {
+public abstract class BaseMapper<T> implements ObjectMapper<T> {
 
-    /**
-     * Expected version of the client.
-     */
-    private final VersionCheck version;
-
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
-     */
-    public VersionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.version = this.from(VersionCheck.class);
+    protected BaseMapper(Class<T> c) {
+        super();
+        NetworkMessage.registerMapper(c, this);
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param expectedVersion Expected client version and server time.
-     */
-    public VersionResponse(final VersionCheck expectedVersion) {
-        super(NetworkMessage.to(expectedVersion, VersionCheck.class));
-        this.version = expectedVersion;
-    }
-
-    /**
-     * @return The ordinal value of ServerCommand VERSION.
-     */
-    @Override
-    public int command() {
-        return Commands.VERSION_RESPONSE;
-    }
-
-    public VersionCheck getVersion() {
-        return version;
-    }
 }

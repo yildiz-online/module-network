@@ -29,23 +29,26 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class TokenStatusMapper implements ObjectMapper<Token.Status> {
+public class TokenStatusMapper extends BaseMapper<Token.Status> {
 
-    private final ObjectMapper<Integer> intMapper;
+    private static final TokenStatusMapper INSTANCE = new TokenStatusMapper();
 
-    public TokenStatusMapper(ObjectMapper<Integer> intMapper) {
-        super();
-        this.intMapper = intMapper;
+    private TokenStatusMapper() {
+        super(Token.Status.class);
+    }
+
+    public static TokenStatusMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public Token.Status from(String s) throws InvalidNetworkMessage {
-        int i = intMapper.from(s);
+        int i = IntegerMapper.getInstance().from(s);
         return Token.Status.valueOf(i);
     }
 
     @Override
     public String to(Token.Status status) {
-        return String.valueOf(status.value);
+        return IntegerMapper.getInstance().to(status.value);
     }
 }

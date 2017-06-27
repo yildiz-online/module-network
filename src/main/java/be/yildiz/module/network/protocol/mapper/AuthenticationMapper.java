@@ -30,7 +30,17 @@ import be.yildiz.module.network.protocol.MessageSeparation;
 /**
  * @author Grégory Van den Borre
  */
-public class AuthenticationMapper implements ObjectMapper<Authentication> {
+public class AuthenticationMapper extends BaseMapper<Authentication> {
+
+    private static final AuthenticationMapper INSTANCE = new AuthenticationMapper();
+
+    private AuthenticationMapper() {
+        super(Authentication.class);
+    }
+
+    public static AuthenticationMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Authentication from(String s) throws InvalidNetworkMessage {

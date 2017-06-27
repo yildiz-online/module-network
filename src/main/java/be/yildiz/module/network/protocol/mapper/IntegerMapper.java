@@ -28,7 +28,17 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class IntegerMapper implements ObjectMapper<Integer>{
+public class IntegerMapper extends BaseMapper<Integer> {
+
+    private static final IntegerMapper INSTANCE = new IntegerMapper();
+
+    private IntegerMapper() {
+        super(Integer.class);
+    }
+
+    public static IntegerMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public Integer from(String s) throws InvalidNetworkMessage {

@@ -29,7 +29,17 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class PlayerIdMapper implements ObjectMapper<PlayerId> {
+public class PlayerIdMapper extends BaseMapper<PlayerId> {
+
+    private static final PlayerIdMapper INSTANCE = new PlayerIdMapper();
+
+    private PlayerIdMapper() {
+        super(PlayerId.class);
+    }
+
+    public static PlayerIdMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public PlayerId from(String s) throws InvalidNetworkMessage {

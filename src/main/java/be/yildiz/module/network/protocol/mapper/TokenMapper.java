@@ -24,35 +24,31 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Token;
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenMapper implements ObjectMapper<Token> {
+public class TokenMapper extends BaseMapper<Token> {
 
-    private final ObjectMapper<PlayerId> playerIdMapper;
+    private static final TokenMapper INSTANCE = new TokenMapper();
 
-    private final ObjectMapper<Integer> integerMapper;
+    private TokenMapper() {
+        super(Token.class);
+    }
 
-    private final ObjectMapper<Token.Status> tokenStatusMapper;
-
-    public TokenMapper(ObjectMapper<PlayerId> playerIdMapper, ObjectMapper<Integer> integerMapper, ObjectMapper<Token.Status> tokenStatusMapper) {
-        super();
-        this.playerIdMapper = playerIdMapper;
-        this.integerMapper = integerMapper;
-        this.tokenStatusMapper = tokenStatusMapper;
+    public static TokenMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public Token from(String s) throws InvalidNetworkMessage {
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return Token.any(playerIdMapper.from(v[0]),
-                    integerMapper.from(v[1]),
-                    tokenStatusMapper.from(v[2]));
+            return Token.any(PlayerIdMapper.getInstance().from(v[0]),
+                    IntegerMapper.getInstance().from(v[1]),
+                    TokenStatusMapper.getInstance().from(v[2]));
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
         }
@@ -60,8 +56,8 @@ public class TokenMapper implements ObjectMapper<Token> {
 
     @Override
     public String to(Token token) {
-        return playerIdMapper.to(token.getId())
-                + MessageSeparation.VAR_SEPARATOR + integerMapper.to(token.getKey())
-                + MessageSeparation.VAR_SEPARATOR + tokenStatusMapper.to(token.getStatus());
+        return PlayerIdMapper.getInstance().to(token.getId())
+                + MessageSeparation.VAR_SEPARATOR + IntegerMapper.getInstance().to(token.getKey())
+                + MessageSeparation.VAR_SEPARATOR + TokenStatusMapper.getInstance().to(token.getStatus());
     }
 }

@@ -34,7 +34,7 @@ import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
 public final class AuthenticationRequest extends NetworkMessage implements ServerRequest {
 
     static {
-        NetworkMessage.registerMapper(Authentication.class, new AuthenticationMapper());
+        AuthenticationMapper.getInstance();
     }
 
     /**

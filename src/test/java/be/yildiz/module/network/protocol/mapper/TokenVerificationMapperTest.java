@@ -81,7 +81,7 @@ public class TokenVerificationMapperTest {
     }
 
     private static TokenVerificationMapper givenAMapper() {
-        return new TokenVerificationMapper(new PlayerIdMapper(), new BooleanMapper());
+        return TokenVerificationMapper.getInstance();
     }
 
 }

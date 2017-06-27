@@ -40,12 +40,7 @@ public class VersionMapperTest {
 
         @Test
         public void happyFlow() {
-            new VersionMapper(new IntegerMapper());
-        }
-
-        @Test(expected = AssertionError.class)
-        public void withNullMapper() {
-            new VersionMapper(null);
+            VersionMapper.getInstance();
         }
     }
 
@@ -53,70 +48,62 @@ public class VersionMapperTest {
 
         @Test
         public void happyFlow() throws InvalidNetworkMessage {
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
             Version v = new Version(Version.VersionType.BETA, 1, 4, 3 , 8);
-            String s = vm.to(v);
-            Version result = vm.from(s);
+            String s = VersionMapper.getInstance().to(v);
+            Version result = VersionMapper.getInstance().from(s);
             Assert.assertEquals(v, result);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void messageTooShort() throws InvalidNetworkMessage {
             String message = "1@4@3@8";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void wrongType() throws InvalidNetworkMessage {
             String message = "1@4@3@8@a";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void unknownType() throws InvalidNetworkMessage {
             String message = "1@4@3@8@5";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void wrongMajor() throws InvalidNetworkMessage {
             String message = "a@4@3@8@1";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void wrongMinor() throws InvalidNetworkMessage {
             String message = "1@a@3@8@1";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void wrongSub() throws InvalidNetworkMessage {
             String message = "1@4@a@8@1";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = InvalidNetworkMessage.class)
         public void wrongRev() throws InvalidNetworkMessage {
             String message = "1@4@3@a@1";
-            VersionMapper vm = new VersionMapper(new IntegerMapper());
-            vm.from(message);
+            VersionMapper.getInstance().from(message);
         }
 
         @Test(expected = AssertionError.class)
         public void nullFrom() throws InvalidNetworkMessage {
-            new VersionMapper(new IntegerMapper()).from(null);
+            VersionMapper.getInstance().from(null);
         }
 
         @Test(expected = AssertionError.class)
         public void nullTo() {
-            new VersionMapper(new IntegerMapper()).to(null);
+            VersionMapper.getInstance().to(null);
         }
     }
 
