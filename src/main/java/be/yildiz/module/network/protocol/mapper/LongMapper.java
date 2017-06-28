@@ -28,7 +28,7 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-class LongMapper extends BaseMapper<Long>{
+public class LongMapper extends BaseMapper<Long>{
 
     private static final LongMapper INSTANCE = new LongMapper();
 
