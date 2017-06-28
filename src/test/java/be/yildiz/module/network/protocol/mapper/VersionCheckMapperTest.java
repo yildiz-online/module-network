@@ -23,37 +23,37 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
+import be.yildiz.common.Version;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.VersionCheck;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-class BooleanMapper extends BaseMapper<Boolean>{
+@RunWith(Enclosed.class)
+public class VersionCheckMapperTest {
 
-    private static final BooleanMapper INSTANCE = new BooleanMapper();
+    public static class Constructor {
 
-    private BooleanMapper() {
-        super(Boolean.class);
-    }
-
-    public static BooleanMapper getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public Boolean from(String s) throws InvalidNetworkMessage {
-        assert s != null;
-        if(s.equals("t")) {
-            return true;
-        } else if(s.equals("f")) {
-            return false;
+        @Test
+        public void happyFlow() {
+            VersionCheckMapper.getInstance();
         }
-        throw new InvalidNetworkMessage("Invalid boolean:" + s);
     }
 
-    @Override
-    public String to(Boolean b) {
-        assert b != null;
-        return b ? "t" : "f";
+    public static class FromTo {
+
+        @Test
+        public void happyFlow() throws InvalidNetworkMessage {
+            VersionCheck v = new VersionCheck(new Version(Version.VersionType.ALPHA, 1, 5, 7, 3), 17);
+            String s = VersionCheckMapper.getInstance().to(v);
+            VersionCheck v2 = VersionCheckMapper.getInstance().from(s);
+            Assert.assertEquals(v, v2);
+        }
     }
+
 }

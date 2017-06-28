@@ -42,6 +42,7 @@ public class IntegerMapper extends BaseMapper<Integer> {
 
     @Override
     public Integer from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return Integer.valueOf(s);
         } catch (NumberFormatException e) {
@@ -51,6 +52,7 @@ public class IntegerMapper extends BaseMapper<Integer> {
 
     @Override
     public String to(Integer integer) {
+        assert integer != null;
         return String.valueOf(integer);
     }
 }

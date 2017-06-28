@@ -36,7 +36,29 @@ public class VersionCheck {
 
     public VersionCheck(Version version, long time) {
         super();
+        assert version != null;
         this.version = version;
         this.serverTime = time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        VersionCheck that = (VersionCheck) o;
+
+        return serverTime == that.serverTime && version.equals(that.version);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = version.hashCode();
+        result = 31 * result + (int) (serverTime ^ (serverTime >>> 32));
+        return result;
     }
 }
