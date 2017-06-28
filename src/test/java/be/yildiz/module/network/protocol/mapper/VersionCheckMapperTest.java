@@ -41,7 +41,7 @@ public class VersionCheckMapperTest {
 
         @Test
         public void happyFlow() {
-            VersionCheckMapper.getInstance();
+            Assert.assertNotNull(VersionCheckMapper.getInstance());
         }
     }
 
