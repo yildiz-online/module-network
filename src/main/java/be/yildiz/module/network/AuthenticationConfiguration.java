@@ -41,7 +41,11 @@ public interface AuthenticationConfiguration {
     //@Ensures("result >= 0", "result <= 65635")
     int getAuthenticationPort();
 
-    public static class AuthenticationConfigurationInvariant {
+    class AuthenticationConfigurationInvariant {
+
+        private AuthenticationConfigurationInvariant() {
+            super();
+        }
 
         public static void check(String host, int port) {
             checkHost(host);
