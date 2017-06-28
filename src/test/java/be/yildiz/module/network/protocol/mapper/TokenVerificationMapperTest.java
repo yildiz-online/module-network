@@ -26,62 +26,26 @@ package be.yildiz.module.network.protocol.mapper;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.TokenVerification;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class TokenVerificationMapperTest {
+public class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification>{
 
-    public static class FromTo {
-
-        @Test
-        public void happyFlow() throws InvalidNetworkMessage {
-            PlayerId p = PlayerId.valueOf(4);
-            boolean b = true;
-            TokenVerification tv = new TokenVerification(p, b);
-            TokenVerificationMapper mapper = givenAMapper();
-            String message = mapper.to(tv);
-            TokenVerification result = mapper.from(message);
-            Assert.assertEquals(tv.playerId, result.playerId);
-            Assert.assertEquals(tv.authenticated, result.authenticated);
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void tooShortMessage() throws InvalidNetworkMessage {
-            TokenVerificationMapper mapper = givenAMapper();
-            String message = "4";
-            mapper.from(message);
-        }
-
-        @Test
-        public void tooLongMessage() throws InvalidNetworkMessage {
-            TokenVerificationMapper mapper = givenAMapper();
-            String message = "4@t@e";
-            mapper.from(message);
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void invalidPlayerId() throws InvalidNetworkMessage {
-            TokenVerificationMapper mapper = givenAMapper();
-            String message = "a@t";
-            mapper.from(message);
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void invalidAuthenticated() throws InvalidNetworkMessage {
-            TokenVerificationMapper mapper = givenAMapper();
-            String message = "4@x";
-            mapper.from(message);
-        }
+    public TokenVerificationMapperTest() {
+        super(TokenVerificationMapper.getInstance(), new TokenVerification(PlayerId.valueOf(4), true));
     }
 
-    private static TokenVerificationMapper givenAMapper() {
-        return TokenVerificationMapper.getInstance();
+    @Test(expected = InvalidNetworkMessage.class)
+    public void invalidPlayerId() throws InvalidNetworkMessage {
+        String message = "a@t";
+        TokenVerificationMapper.getInstance().from(message);
     }
 
+    @Test(expected = InvalidNetworkMessage.class)
+    public void invalidAuthenticated() throws InvalidNetworkMessage {
+        String message = "4@x";
+        TokenVerificationMapper.getInstance().from(message);
+    }
 }

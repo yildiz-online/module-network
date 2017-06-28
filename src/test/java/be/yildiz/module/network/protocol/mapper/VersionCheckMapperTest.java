@@ -24,36 +24,14 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.VersionCheck;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class VersionCheckMapperTest {
+public class VersionCheckMapperTest extends BaseMapperTest<VersionCheck> {
 
-    public static class Constructor {
-
-        @Test
-        public void happyFlow() {
-            Assert.assertNotNull(VersionCheckMapper.getInstance());
-        }
+    public VersionCheckMapperTest() {
+        super(VersionCheckMapper.getInstance(), new VersionCheck(new Version(Version.VersionType.ALPHA, 1, 5, 7, 3), 17));
     }
-
-    public static class FromTo {
-
-        @Test
-        public void happyFlow() throws InvalidNetworkMessage {
-            VersionCheck v = new VersionCheck(new Version(Version.VersionType.ALPHA, 1, 5, 7, 3), 17);
-            String s = VersionCheckMapper.getInstance().to(v);
-            VersionCheck v2 = VersionCheckMapper.getInstance().from(s);
-            Assert.assertEquals(v, v2);
-        }
-    }
-
 }

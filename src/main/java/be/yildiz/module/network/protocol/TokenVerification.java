@@ -40,4 +40,25 @@ public class TokenVerification {
         this.playerId = playerId;
         this.authenticated = authenticated;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TokenVerification that = (TokenVerification) o;
+
+        return authenticated == that.authenticated && playerId.equals(that.playerId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = playerId.hashCode();
+        result = 31 * result + (authenticated ? 1 : 0);
+        return result;
+    }
 }

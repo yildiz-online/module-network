@@ -45,6 +45,7 @@ class TokenVerificationMapper extends BaseMapper<TokenVerification> {
 
     @Override
     public TokenVerification from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
             return new TokenVerification(PlayerIdMapper.getInstance().from(v[0]), BooleanMapper.getInstance().from(v[1]));
@@ -55,6 +56,7 @@ class TokenVerificationMapper extends BaseMapper<TokenVerification> {
 
     @Override
     public String to(TokenVerification tokenVerification) {
+        assert tokenVerification != null;
         return PlayerIdMapper.getInstance().to(tokenVerification.playerId)
                 + MessageSeparation.VAR_SEPARATOR
                 + BooleanMapper.getInstance().to(tokenVerification.authenticated);

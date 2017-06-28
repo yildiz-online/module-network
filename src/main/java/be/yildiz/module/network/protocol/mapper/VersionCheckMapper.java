@@ -45,6 +45,7 @@ class VersionCheckMapper extends BaseMapper<VersionCheck> {
 
     @Override
     public VersionCheck from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
             String vString = v[0];
@@ -59,6 +60,7 @@ class VersionCheckMapper extends BaseMapper<VersionCheck> {
 
     @Override
     public String to(VersionCheck v) {
+        assert v != null;
         return VersionMapper.getInstance().to(v.version) + MessageSeparation.OBJECTS_SEPARATOR
                 + LongMapper.getInstance().to(v.serverTime);
     }
