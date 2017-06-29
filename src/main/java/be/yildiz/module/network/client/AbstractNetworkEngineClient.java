@@ -28,7 +28,6 @@ import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.ServerRequest;
 
 import java.util.List;
 

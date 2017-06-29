@@ -29,12 +29,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class PlayerIdMapper extends BaseMapper<PlayerId> {
+public class PlayerIdMapper implements ObjectMapper<PlayerId> {
 
     private static final PlayerIdMapper INSTANCE = new PlayerIdMapper();
 
     private PlayerIdMapper() {
-        super(PlayerId.class);
+        super();
     }
 
     public static PlayerIdMapper getInstance() {

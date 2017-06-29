@@ -31,13 +31,12 @@ import be.yildiz.module.network.protocol.MessageSeparation;
 /**
  * @author Grégory Van den Borre
  */
-class VersionMapper extends BaseMapper<Version> {
+class VersionMapper implements ObjectMapper<Version> {
 
     private static final VersionMapper INSTANCE = new VersionMapper();
 
     private VersionMapper() {
-        super(Version.class);
-
+        super();
     }
 
     public static VersionMapper getInstance() {

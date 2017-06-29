@@ -25,7 +25,6 @@ package be.yildiz.module.network.server;
 
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.protocol.ServerResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;

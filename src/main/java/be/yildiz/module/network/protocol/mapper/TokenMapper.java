@@ -30,12 +30,12 @@ import be.yildiz.module.network.protocol.MessageSeparation;
 /**
  * @author Grégory Van den Borre
  */
-public class TokenMapper extends BaseMapper<Token> {
+public class TokenMapper implements ObjectMapper<Token> {
 
     private static final TokenMapper INSTANCE = new TokenMapper();
 
     private TokenMapper() {
-        super(Token.class);
+        super();
     }
 
     public static TokenMapper getInstance() {

@@ -24,7 +24,6 @@
 package be.yildiz.module.network.server;
 
 import be.yildiz.common.log.Logger;
-import be.yildiz.module.network.protocol.ConnectionRequest;
 
 /**
  * @author Grégory Van den Borre

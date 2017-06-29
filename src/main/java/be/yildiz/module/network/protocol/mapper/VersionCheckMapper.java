@@ -31,12 +31,12 @@ import be.yildiz.module.network.protocol.VersionCheck;
 /**
  * @author Grégory Van den Borre
  */
-class VersionCheckMapper extends BaseMapper<VersionCheck> {
+public class VersionCheckMapper implements ObjectMapper<VersionCheck> {
 
     private static final VersionCheckMapper INSTANCE = new VersionCheckMapper();
 
     private VersionCheckMapper() {
-        super(VersionCheck.class);
+        super();
     }
 
     public static VersionCheckMapper getInstance() {

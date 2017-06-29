@@ -30,12 +30,12 @@ import be.yildiz.module.network.protocol.MessageSeparation;
 /**
  * @author Grégory Van den Borre
  */
-public class AuthenticationMapper extends BaseMapper<Authentication> {
+public class AuthenticationMapper implements ObjectMapper<Authentication> {
 
     private static final AuthenticationMapper INSTANCE = new AuthenticationMapper();
 
     private AuthenticationMapper() {
-        super(Authentication.class);
+        super();
     }
 
     public static AuthenticationMapper getInstance() {

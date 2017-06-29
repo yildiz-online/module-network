@@ -23,8 +23,6 @@
 
 package be.yildiz.module.network.client;
 
-import be.yildiz.module.network.protocol.ServerRequest;
-
 /**
  * Empty network implementation.
  *

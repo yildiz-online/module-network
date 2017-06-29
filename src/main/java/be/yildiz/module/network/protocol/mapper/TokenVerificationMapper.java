@@ -30,12 +30,12 @@ import be.yildiz.module.network.protocol.TokenVerification;
 /**
  * @author Grégory Van den Borre
  */
-class TokenVerificationMapper extends BaseMapper<TokenVerification> {
+public class TokenVerificationMapper implements ObjectMapper<TokenVerification> {
 
     private static final TokenVerificationMapper INSTANCE = new TokenVerificationMapper();
 
     private TokenVerificationMapper() {
-        super(TokenVerification.class);
+        super();
     }
 
     public static TokenVerificationMapper getInstance() {

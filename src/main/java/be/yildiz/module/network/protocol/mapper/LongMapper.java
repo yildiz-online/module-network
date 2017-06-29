@@ -28,12 +28,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class LongMapper extends BaseMapper<Long>{
+public class LongMapper implements ObjectMapper<Long>{
 
     private static final LongMapper INSTANCE = new LongMapper();
 
     private LongMapper() {
-        super(Long.class);
+        super();
     }
 
     public static LongMapper getInstance() {

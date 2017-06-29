@@ -25,7 +25,6 @@ package be.yildiz.module.network.server;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
-import be.yildiz.module.network.protocol.ServerResponse;
 
 import java.util.Set;
 

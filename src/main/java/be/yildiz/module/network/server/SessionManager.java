@@ -28,7 +28,6 @@ import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.ConnectionRequest;
 import be.yildiz.module.network.protocol.MessageWrapper;
 
 import java.util.*;

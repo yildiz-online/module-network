@@ -29,12 +29,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class TokenStatusMapper extends BaseMapper<Token.Status> {
+public class TokenStatusMapper implements ObjectMapper<Token.Status> {
 
     private static final TokenStatusMapper INSTANCE = new TokenStatusMapper();
 
     private TokenStatusMapper() {
-        super(Token.Status.class);
+        super();
     }
 
     public static TokenStatusMapper getInstance() {

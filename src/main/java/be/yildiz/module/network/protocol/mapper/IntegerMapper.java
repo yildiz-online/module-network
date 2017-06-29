@@ -28,12 +28,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class IntegerMapper extends BaseMapper<Integer> {
+public class IntegerMapper implements ObjectMapper<Integer> {
 
     private static final IntegerMapper INSTANCE = new IntegerMapper();
 
     private IntegerMapper() {
-        super(Integer.class);
+        super();
     }
 
     public static IntegerMapper getInstance() {

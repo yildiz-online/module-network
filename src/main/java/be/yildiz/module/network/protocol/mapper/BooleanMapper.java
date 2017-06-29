@@ -28,12 +28,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 /**
  * @author Grégory Van den Borre
  */
-public class BooleanMapper extends BaseMapper<Boolean>{
+public class BooleanMapper implements ObjectMapper<Boolean>{
 
     private static final BooleanMapper INSTANCE = new BooleanMapper();
 
     private BooleanMapper() {
-        super(Boolean.class);
+        super();
     }
 
     public static BooleanMapper getInstance() {

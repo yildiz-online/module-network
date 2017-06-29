@@ -23,50 +23,37 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.common.Token;
+import be.yildiz.module.network.protocol.mapper.TokenMapper;
+import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
+import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
 
 /**
- * Send the version data and the time correction to the client.
- *
  * @author Grégory Van den Borre
  */
-public final class VersionResponse extends NetworkMessage implements ServerResponse {
+public class NetworkMessageFactory {
 
-    /**
-     * Expected version of the client.
-     */
-    private final VersionCheck version;
-
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
-     */
-    public VersionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.version = this.from(VersionCheck.class);
+    public NetworkMessage<TokenVerification> message(TokenVerification t) {
+        return new NetworkMessage<>(t, TokenVerificationMapper.getInstance(), 98);
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param expectedVersion Expected client version and server time.
-     */
-    public VersionResponse(final VersionCheck expectedVersion) {
-        super(NetworkMessage.to(expectedVersion, VersionCheck.class));
-        this.version = expectedVersion;
+    public NetworkMessage<Token>check(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), 98);
     }
 
-    /**
-     * @return The ordinal value of ServerCommand VERSION.
-     */
-    @Override
-    public int command() {
-        return Commands.VERSION_RESPONSE;
+    public NetworkMessage<Token>connect(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), 25);
     }
 
-    public VersionCheck getVersion() {
-        return version;
+    public NetworkMessage<VersionCheck> message(VersionCheck v) {
+        return new NetworkMessage<>(v, VersionCheckMapper.getInstance(), 0);
+    }
+
+    public NetworkMessage<Token> request(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), 10);
+    }
+
+    public NetworkMessage<Token> response(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), 99);
     }
 }
