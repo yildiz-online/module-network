@@ -24,6 +24,7 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
+import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.mapper.TokenMapper;
 import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
 import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
@@ -55,5 +56,13 @@ public class NetworkMessageFactory {
 
     public NetworkMessage<Token> response(Token t) {
         return new NetworkMessage<>(t, TokenMapper.getInstance(), 99);
+    }
+
+    public TokenVerification getTokenVerification(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenVerificationMapper.getInstance()).getDto();
+    }
+
+    public Token getTokenRequest(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenMapper.getInstance()).getDto();
     }
 }

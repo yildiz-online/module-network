@@ -23,6 +23,8 @@
 
 package be.yildiz.module.network.client;
 
+import be.yildiz.module.network.protocol.NetworkMessage;
+
 /**
  * Empty network implementation.
  *
@@ -35,7 +37,7 @@ public final class DummyNetworkEngine extends AbstractNetworkEngineClient {
     }
 
     @Override
-    public void sendMessage(final ServerRequest message) {
+    public void sendMessage(final NetworkMessage message) {
         //Does nothing.
     }
 

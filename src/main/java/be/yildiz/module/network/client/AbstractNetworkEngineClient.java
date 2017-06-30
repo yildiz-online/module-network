@@ -28,6 +28,7 @@ import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
+import be.yildiz.module.network.protocol.NetworkMessage;
 
 import java.util.List;
 
@@ -106,7 +107,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      *
      * @param message Message to send.
      */
-    public abstract void sendMessage(ServerRequest message);
+    public abstract void sendMessage(NetworkMessage message);
 
     /**
      * Send a message to the server.

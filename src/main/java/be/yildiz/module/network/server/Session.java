@@ -25,6 +25,7 @@ package be.yildiz.module.network.server;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
+import be.yildiz.module.network.protocol.NetworkMessage;
 
 import java.util.Set;
 
@@ -84,7 +85,7 @@ public abstract class Session {
      *
      * @param message Message to send to the client.
      */
-    public final void sendMessage(final ServerResponse message) {
+    public final void sendMessage(final NetworkMessage message) {
         assert message != null;
         this.sendMessage(message.buildMessage());
     }
@@ -94,7 +95,7 @@ public abstract class Session {
      *
      * @param messageList List of messages to send to the client.
      */
-    public final void sendMessage(final Set<ServerResponse> messageList) {
+    public final void sendMessage(final Set<NetworkMessage> messageList) {
         assert messageList != null;
         messageList.forEach(this::sendMessage);
     }

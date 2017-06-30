@@ -23,12 +23,14 @@
 
 package be.yildiz.module.network.server;
 
+import be.yildiz.common.Token;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
+import be.yildiz.module.network.protocol.NetworkMessageFactory;
 
 import java.util.*;
 
@@ -52,7 +54,9 @@ public abstract class SessionManager {
      */
     private final Session disconnectedSession = new SessionManager.DisconnectedSession();
 
-    public abstract void authenticate(ConnectionRequest request);
+    protected final NetworkMessageFactory factory = new NetworkMessageFactory();
+
+    public abstract void authenticate(Token request);
 
     /**
      * @return The list of all connected players.
@@ -119,8 +123,8 @@ public abstract class SessionManager {
             this.sessionListeners.forEach(l -> l.messageReceived(session, message));
         } else {
             try {
-                ConnectionRequest request = new ConnectionRequest(message);
-                session.setPlayer(request.getToken().getId());
+                Token request = factory.getTokenRequest(message);
+                session.setPlayer(request.getId());
                 this.connectedPlayerList.put(session.getPlayer(), session);
                 this.authenticate(request);
             } catch (InvalidNetworkMessage e) {

@@ -27,6 +27,7 @@ import be.yildiz.common.Token;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.client.AbstractNetworkEngineClient;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
+import be.yildiz.module.network.protocol.TokenVerification;
 
 /**
  * Manage the sessions, only setAuthenticated session are stored.
@@ -40,8 +41,6 @@ public final class AuthenticationSessionManager extends SessionManager {
      */
     private final AbstractNetworkEngineClient client;
 
-    private final NetworkMessageFactory factory = new NetworkMessageFactory();
-
     /**
      * Create a new AuthenticationSessionManager.
      *
@@ -52,9 +51,9 @@ public final class AuthenticationSessionManager extends SessionManager {
         super();
         this.client = client;
         this.client.addNetworkListener(message -> {
-            TokenVerificationResponse r = new TokenVerificationResponse(message);
-            if (r.getVerification().authenticated) {
-                Session session = getSessionByPlayer(r.getVerification().playerId);
+            TokenVerification r = factory.getTokenVerification(message);
+            if (r.authenticated) {
+                Session session = getSessionByPlayer(r.playerId);
                 setAuthenticated(session);
             }
         });

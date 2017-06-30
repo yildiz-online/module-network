@@ -42,6 +42,9 @@ public final class NetworkMessage<T> {
 
     private final int command;
 
+    /**
+     * Mapped dto, does not contain the command and begin/end message separators.
+     */
     private final String message;
 
     /**
@@ -61,11 +64,23 @@ public final class NetworkMessage<T> {
      *
      * @param message Received message, cannot be null.
      */
-    protected NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int command) throws InvalidNetworkMessage {
+    public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper) throws InvalidNetworkMessage {
         this.mapper = mapper;
-        this.message = message.message;
-        this.command = command;
-        this.dto = this.mapper.from(message.message);
+        String[] msgs = message.message
+                .replaceAll(MessageSeparation.MESSAGE_BEGIN, "")
+                .replaceAll(MessageSeparation.MESSAGE_END, "")
+                .split(MessageSeparation.COMMAND_SEPARATOR);
+        if(msgs.length > 1) {
+            this.message = msgs[1];
+        } else {
+            this.message = "";
+        }
+        try {
+            this.command = Integer.valueOf(msgs[0]);
+        } catch (NumberFormatException e) {
+            throw new InvalidNetworkMessage(e);
+        }
+        this.dto = this.mapper.from(this.message);
     }
 
     /**
@@ -85,18 +100,17 @@ public final class NetworkMessage<T> {
     }
 
     /**
-     * Append all parameters to create a unique message string.
+     * Build the message with the begin message separator, the command, the parsed dto and the end message separator.
      *
      * @return the built message.
      */
     public final String buildMessage() {
-        final StringBuilder message = new StringBuilder();
-        message.append(MessageSeparation.MESSAGE_BEGIN);
-        message.append(this.command());
-        message.append(MessageSeparation.COMMAND_SEPARATOR);
-        message.append(this.message);
-        message.append(MessageSeparation.MESSAGE_END);
-        return message.toString();
+        return String.format("%s%d%s%s%s",
+                MessageSeparation.MESSAGE_BEGIN,
+                this.command(),
+                MessageSeparation.COMMAND_SEPARATOR,
+                this.message,
+                MessageSeparation.MESSAGE_END);
     }
 
 
@@ -110,5 +124,9 @@ public final class NetworkMessage<T> {
     @Override
     public final String toString() {
         return this.buildMessage();
+    }
+
+    public T getDto() {
+        return dto;
     }
 }
