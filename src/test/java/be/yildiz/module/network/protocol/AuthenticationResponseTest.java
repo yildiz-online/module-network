@@ -25,7 +25,6 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -39,38 +38,13 @@ public class AuthenticationResponseTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
-    public static class Constructor {
-
-        @Test
-        public void happyFlow() {
-            AuthenticationResponse response = new AuthenticationResponse(ok);
-            Assert.assertEquals(ok, response.getToken());
-        }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullToken() {
-            new AuthenticationResponse((Token)null);
-        }
-
-        @Test
-        public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@1@0");
-            AuthenticationResponse response = new AuthenticationResponse(mw);
-            Assert.assertEquals(ok, response.getToken());
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void withInvalidMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@0");
-            new AuthenticationResponse(mw);
-        }
-    }
+    private static final NetworkMessageFactory factory = new NetworkMessageFactory();
 
     public static class Command {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_RESPONSE, new AuthenticationResponse(ok).command());
+            Assert.assertEquals(Commands.AUTHENTICATION_RESPONSE, factory.authenticationResponse(ok).command());
         }
     }
 }

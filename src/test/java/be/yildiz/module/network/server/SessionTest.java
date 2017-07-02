@@ -23,8 +23,8 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.module.network.protocol.NetworkMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -104,27 +104,20 @@ public class SessionTest {
         @Test
         public void withServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            sw.sendMessage(() -> "someMessage");
+            sw.sendMessage("someMessage");
             Assert.assertEquals("someMessage", sw.getMessage());
         }
 
         @Test(expected = AssertionError.class)
         public void withNullServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            sw.sendMessage((ServerResponse) null);
-        }
-
-        @Test
-        public void withSeveralServerResponse() {
-            SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            Set<ServerResponse> responses = Sets.newSet(() -> "1", () -> "2", () -> "3");
-            sw.sendMessage(responses);
+            sw.sendMessage((NetworkMessage) null);
         }
 
         @Test(expected = AssertionError.class)
         public void withNullSeveralServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            sw.sendMessage((Set<ServerResponse>) null);
+            sw.sendMessage((Set<NetworkMessage>) null);
         }
     }
 

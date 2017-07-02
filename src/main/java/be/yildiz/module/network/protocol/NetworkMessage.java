@@ -64,7 +64,7 @@ public final class NetworkMessage<T> {
      *
      * @param message Received message, cannot be null.
      */
-    public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper) throws InvalidNetworkMessage {
+    public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand) throws InvalidNetworkMessage {
         this.mapper = mapper;
         String[] msgs = message.message
                 .replaceAll(MessageSeparation.MESSAGE_BEGIN, "")
@@ -79,6 +79,9 @@ public final class NetworkMessage<T> {
             this.command = Integer.valueOf(msgs[0]);
         } catch (NumberFormatException e) {
             throw new InvalidNetworkMessage(e);
+        }
+        if(this.command != expectedCommand) {
+            throw new InvalidNetworkMessage("Expected command is " + expectedCommand + " received is " + command);
         }
         this.dto = this.mapper.from(this.message);
     }

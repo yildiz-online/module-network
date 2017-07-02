@@ -23,7 +23,6 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -35,49 +34,13 @@ import org.junit.runner.RunWith;
 @RunWith(Enclosed.class)
 public class AuthenticationRequestTest {
 
-
-
-    public static class Constructor {
-
-        @Test
-        public void happyFlowString() {
-            AuthenticationRequest ar = new AuthenticationRequest(new Authentication("testLogin", "testPass"));
-            Assert.assertEquals("testLogin", ar.getAuthentication().login);
-            Assert.assertEquals("testPass", ar.getAuthentication().password);
-        }
-
-        //FIXME move to authentication test
-        @Test(expected = AssertionError.class)
-        public void withNullLogin() {
-            new AuthenticationRequest(new Authentication(null, "testPass"));
-        }
-
-        //FIXME move to authentication test
-        @Test(expected = AssertionError.class)
-        public void withNullPassword() {
-            new AuthenticationRequest(new Authentication("testLogin", null));
-        }
-
-        @Test
-        public void happyFlowMessage() throws InvalidNetworkMessage {
-            AuthenticationRequest ar = new AuthenticationRequest(new Authentication("testLogin", "testPass"));
-            String message = ar.buildMessage().replace("#", "").replace("&", "");
-            AuthenticationRequest ar2 = new AuthenticationRequest(new MessageWrapper(message));
-            Assert.assertEquals(ar.getAuthentication(), ar2.getAuthentication());
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void tooShortMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_testLogin");
-            new AuthenticationRequest(mw);
-        }
-    }
+    private static final NetworkMessageFactory factory = new NetworkMessageFactory();
 
     public static class Command {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, new AuthenticationRequest(new Authentication("","")).command());
+            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, factory.authenticationRequest(new Authentication("","")).command());
         }
     }
 }

@@ -25,7 +25,6 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -38,34 +37,6 @@ import org.junit.runner.RunWith;
 public class ConnectionRequestTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
-
-    public static class Constructor {
-
-        @Test
-        public void happyFlow() {
-            ConnectionRequest cr = new ConnectionRequest(ok);
-            Assert.assertEquals(ok, cr.getToken());
-        }
-
-        @Test(expected = NullPointerException.class)
-        public void withNull() {
-            new ConnectionRequest((Token)null);
-        }
-
-
-        @Test
-        public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@1@0");
-            ConnectionRequest cr = new ConnectionRequest(mw);
-            Assert.assertEquals(ok, cr.getToken());
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void withInvalidMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@0");
-            new ConnectionRequest(mw);
-        }
-    }
 
     public static class Command {
 

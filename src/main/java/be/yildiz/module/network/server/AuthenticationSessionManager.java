@@ -26,7 +26,6 @@ package be.yildiz.module.network.server;
 import be.yildiz.common.Token;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.client.AbstractNetworkEngineClient;
-import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildiz.module.network.protocol.TokenVerification;
 
 /**
@@ -51,7 +50,7 @@ public final class AuthenticationSessionManager extends SessionManager {
         super();
         this.client = client;
         this.client.addNetworkListener(message -> {
-            TokenVerification r = factory.getTokenVerification(message);
+            TokenVerification r = factory.tokenVerified(message);
             if (r.authenticated) {
                 Session session = getSessionByPlayer(r.playerId);
                 setAuthenticated(session);
@@ -76,6 +75,6 @@ public final class AuthenticationSessionManager extends SessionManager {
     //@requires request != null
     @Override
     public final void authenticate(final Token request) {
-        this.client.sendMessage(factory.request(request).buildMessage());
+        this.client.sendMessage(factory.authenticationResponse(request).buildMessage());
     }
 }

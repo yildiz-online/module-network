@@ -23,47 +23,9 @@
 
 package be.yildiz.module.network.protocol;
 
-import be.yildiz.common.BaseTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
-
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
 public class AuthenticationTest {
 
-    public static class Constructor {
-
-        @Test
-        public void happyFlow() {
-            Authentication auth = new Authentication("ok", "ok2");
-            Assert.assertEquals("ok", auth.login);
-            Assert.assertEquals("ok2", auth.password);
-        }
-
-        @Test(expected = AssertionError.class)
-        public void nullLogin() {
-            new Authentication(null, "ok");
-        }
-
-        @Test(expected = AssertionError.class)
-        public void nullPassword() {
-            new Authentication("ok", null);
-        }
-    }
-
-    public static class EqualsHashcode {
-
-        @Test
-        public void test() {
-            Authentication base = new Authentication("ok", "ok2");
-            Authentication same = new Authentication("ok", "ok2");
-            Authentication diff = new Authentication("ok", "ok");
-            BaseTest<Authentication> bt = new BaseTest<>(base, same, diff);
-            bt.all();
-        }
-    }
 }

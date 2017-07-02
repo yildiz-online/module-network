@@ -31,12 +31,12 @@ package be.yildiz.module.network.protocol;
 public final class Commands {
 
     /**
-     * Client request for an authentication.
+     * Client request to the authentication server for an authentication.
      */
     public static final int AUTHENTICATION_REQUEST = 10;
 
     /**
-     * Server response for an authentication.
+     * Authentication server response for an authentication to the client.
      */
     public static final int AUTHENTICATION_RESPONSE = 99;
 
@@ -46,7 +46,7 @@ public final class Commands {
     public static final int TOKEN_REQUEST = 25;
 
     /**
-     * Game server request to check a token validity.
+     * Game server request to check a token validity to the authentication server.
      */
     public static final int TOKEN_VERIFICATION_REQUEST = 98;
 

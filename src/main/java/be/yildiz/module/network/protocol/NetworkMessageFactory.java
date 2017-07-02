@@ -25,6 +25,7 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
 import be.yildiz.module.network.protocol.mapper.TokenMapper;
 import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
 import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
@@ -34,35 +35,40 @@ import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
  */
 public class NetworkMessageFactory {
 
-    public NetworkMessage<TokenVerification> message(TokenVerification t) {
-        return new NetworkMessage<>(t, TokenVerificationMapper.getInstance(), 98);
+    public NetworkMessage<TokenVerification> tokenVerified(TokenVerification t) {
+        return new NetworkMessage<>(t, TokenVerificationMapper.getInstance(), Commands.TOKEN_VERIFICATION_RESPONSE);
     }
 
-    public NetworkMessage<Token>check(Token t) {
-        return new NetworkMessage<>(t, TokenMapper.getInstance(), 98);
+    public TokenVerification tokenVerified(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenVerificationMapper.getInstance(), Commands.TOKEN_VERIFICATION_RESPONSE).getDto();
     }
 
-    public NetworkMessage<Token>connect(Token t) {
-        return new NetworkMessage<>(t, TokenMapper.getInstance(), 25);
+    public NetworkMessage<Token>tokenVerification(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), Commands.TOKEN_VERIFICATION_REQUEST);
+    }
+
+    public Token tokenVerification(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.TOKEN_VERIFICATION_REQUEST).getDto();
     }
 
     public NetworkMessage<VersionCheck> message(VersionCheck v) {
         return new NetworkMessage<>(v, VersionCheckMapper.getInstance(), 0);
     }
 
-    public NetworkMessage<Token> request(Token t) {
-        return new NetworkMessage<>(t, TokenMapper.getInstance(), 10);
+
+    public NetworkMessage<Authentication> authenticationRequest(Authentication dto) {
+        return new NetworkMessage<>(dto, AuthenticationMapper.getInstance(), Commands.AUTHENTICATION_REQUEST);
     }
 
-    public NetworkMessage<Token> response(Token t) {
-        return new NetworkMessage<>(t, TokenMapper.getInstance(), 99);
+    public Authentication authenticationRequest(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, AuthenticationMapper.getInstance(), Commands.AUTHENTICATION_REQUEST).getDto();
     }
 
-    public TokenVerification getTokenVerification(MessageWrapper message) throws InvalidNetworkMessage {
-        return new NetworkMessage<>(message, TokenVerificationMapper.getInstance()).getDto();
+    public NetworkMessage<Token> authenticationResponse(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), Commands.AUTHENTICATION_RESPONSE);
     }
 
-    public Token getTokenRequest(MessageWrapper message) throws InvalidNetworkMessage {
-        return new NetworkMessage<>(message, TokenMapper.getInstance()).getDto();
+    public Token authenticationResponse(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.AUTHENTICATION_RESPONSE).getDto();
     }
 }
