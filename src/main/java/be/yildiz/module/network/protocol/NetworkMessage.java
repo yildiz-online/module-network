@@ -38,8 +38,6 @@ public final class NetworkMessage<T> {
      */
     private final T dto;
 
-    private final ObjectMapper<T> mapper;
-
     private final int command;
 
     /**
@@ -54,9 +52,8 @@ public final class NetworkMessage<T> {
     public NetworkMessage(final T dto, final ObjectMapper<T> mapper, int command) {
         super();
         this.dto = dto;
-        this.mapper = mapper;
         this.command = command;
-        this.message = this.mapper.to(this.dto);
+        this.message = mapper.to(this.dto);
     }
 
     /**
@@ -65,7 +62,6 @@ public final class NetworkMessage<T> {
      * @param message Received message, cannot be null.
      */
     public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand) throws InvalidNetworkMessage {
-        this.mapper = mapper;
         String[] msgs = message.message
                 .replaceAll(MessageSeparation.MESSAGE_BEGIN, "")
                 .replaceAll(MessageSeparation.MESSAGE_END, "")
@@ -83,7 +79,7 @@ public final class NetworkMessage<T> {
         if(this.command != expectedCommand) {
             throw new InvalidNetworkMessage("Expected command is " + expectedCommand + " received is " + command);
         }
-        this.dto = this.mapper.from(this.message);
+        this.dto = mapper.from(this.message);
     }
 
     /**
