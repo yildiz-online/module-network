@@ -39,38 +39,13 @@ public class TokenVerificationRequestTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
-    public static class Constructor {
-
-        @Test
-        public void happyFlow() {
-            TokenVerificationRequest response = new TokenVerificationRequest(ok);
-            Assert.assertEquals(ok, response.getToken());
-        }
-
-        @Test(expected = NullPointerException.class)
-        public void withNullToken() {
-            new TokenVerificationRequest((Token)null);
-        }
-
-        @Test
-        public void happyFlowMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@1@0");
-            TokenVerificationRequest response = new TokenVerificationRequest(mw);
-            Assert.assertEquals(ok, response.getToken());
-        }
-
-        @Test(expected = InvalidNetworkMessage.class)
-        public void withInvalidMessage() throws InvalidNetworkMessage {
-            MessageWrapper mw = new MessageWrapper("10_0@0");
-            new TokenVerificationRequest(mw);
-        }
-    }
+    private static final NetworkMessageFactory factory = new NetworkMessageFactory();
 
     public static class Command {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.TOKEN_VERIFICATION_REQUEST, new TokenVerificationRequest(ok).command());
+            Assert.assertEquals(Commands.TOKEN_VERIFICATION_REQUEST, factory.tokenVerification(ok).command());
         }
     }
 }

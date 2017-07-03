@@ -38,11 +38,13 @@ public class ConnectionRequestTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
+    private static final NetworkMessageFactory factory = new NetworkMessageFactory();
+
     public static class Command {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.TOKEN_REQUEST, new ConnectionRequest(ok).command());
+            Assert.assertEquals(Commands.CONNECTION_REQUEST, factory.connectionRequest(ok).command());
         }
     }
 }

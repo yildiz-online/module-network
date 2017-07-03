@@ -41,9 +41,9 @@ public final class Commands {
     public static final int AUTHENTICATION_RESPONSE = 99;
 
     /**
-     * Client request for a token.
+     * Client request to connect to the game server.
      */
-    public static final int TOKEN_REQUEST = 25;
+    public static final int CONNECTION_REQUEST = 25;
 
     /**
      * Game server request to check a token validity to the authentication server.

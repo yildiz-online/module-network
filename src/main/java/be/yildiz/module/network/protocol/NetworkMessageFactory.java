@@ -43,10 +43,30 @@ public class NetworkMessageFactory {
         return new NetworkMessage<>(message, TokenVerificationMapper.getInstance(), Commands.TOKEN_VERIFICATION_RESPONSE).getDto();
     }
 
+    public NetworkMessage<Token>connectionRequest(Token t) {
+        return new NetworkMessage<>(t, TokenMapper.getInstance(), Commands.CONNECTION_REQUEST);
+    }
+
+    /**
+     * Client requesting the server to connect, authenticating with the token received from the authentication server.
+     * @param message Request to send.
+     * @return The dto in the message.
+     * @throws InvalidNetworkMessage If the message is not correctly formatted.
+     */
+    public Token connectionRequest(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.CONNECTION_REQUEST).getDto();
+    }
+
     public NetworkMessage<Token>tokenVerification(Token t) {
         return new NetworkMessage<>(t, TokenMapper.getInstance(), Commands.TOKEN_VERIFICATION_REQUEST);
     }
 
+    /**
+     * Server requesting to the authentication for a token verification.
+     * @param message Request to send.
+     * @return The dto in the message.
+     * @throws InvalidNetworkMessage If the message is not correctly formatted.
+     */
     public Token tokenVerification(MessageWrapper message) throws InvalidNetworkMessage {
         return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.TOKEN_VERIFICATION_REQUEST).getDto();
     }
