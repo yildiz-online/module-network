@@ -71,8 +71,12 @@ public class NetworkMessageFactory {
         return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.TOKEN_VERIFICATION_REQUEST).getDto();
     }
 
-    public NetworkMessage<VersionCheck> message(VersionCheck v) {
+    public NetworkMessage<VersionCheck> versionRequest(VersionCheck v) {
         return new NetworkMessage<>(v, VersionCheckMapper.getInstance(), 0);
+    }
+
+    public NetworkMessage<VersionCheck> versionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, VersionCheckMapper.getInstance(), 0);
     }
 
 
