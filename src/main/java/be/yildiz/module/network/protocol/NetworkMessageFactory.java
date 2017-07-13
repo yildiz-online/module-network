@@ -24,8 +24,9 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
+import be.yildiz.common.authentication.Credentials;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.AuthenticationMapper;
+import be.yildiz.module.network.protocol.mapper.CredentialsMapper;
 import be.yildiz.module.network.protocol.mapper.TokenMapper;
 import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
 import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
@@ -80,12 +81,12 @@ public class NetworkMessageFactory {
     }
 
 
-    public NetworkMessage<Authentication> authenticationRequest(Authentication dto) {
-        return new NetworkMessage<>(dto, AuthenticationMapper.getInstance(), Commands.AUTHENTICATION_REQUEST);
+    public NetworkMessage<Credentials> authenticationRequest(Credentials dto) {
+        return new NetworkMessage<>(dto, CredentialsMapper.getInstance(), Commands.AUTHENTICATION_REQUEST);
     }
 
-    public Authentication authenticationRequest(MessageWrapper message) throws InvalidNetworkMessage {
-        return new NetworkMessage<>(message, AuthenticationMapper.getInstance(), Commands.AUTHENTICATION_REQUEST).getDto();
+    public Credentials authenticationRequest(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, CredentialsMapper.getInstance(), Commands.AUTHENTICATION_REQUEST).getDto();
     }
 
     public NetworkMessage<Token> authenticationResponse(Token t) {

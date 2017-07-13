@@ -23,37 +23,37 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
+import be.yildiz.common.authentication.Credentials;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.Authentication;
 import be.yildiz.module.network.protocol.MessageSeparation;
 
 /**
  * @author Grégory Van den Borre
  */
-public class AuthenticationMapper implements ObjectMapper<Authentication> {
+public class CredentialsMapper implements ObjectMapper<Credentials> {
 
-    private static final AuthenticationMapper INSTANCE = new AuthenticationMapper();
+    private static final CredentialsMapper INSTANCE = new CredentialsMapper();
 
-    private AuthenticationMapper() {
+    private CredentialsMapper() {
         super();
     }
 
-    public static AuthenticationMapper getInstance() {
+    public static CredentialsMapper getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public Authentication from(String s) throws InvalidNetworkMessage {
+    public Credentials from(String s) throws InvalidNetworkMessage {
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new Authentication(v[0], v[1]);
+            return Credentials.unchecked(v[0], v[1]);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
         }
     }
 
     @Override
-    public String to(Authentication authentication) {
+    public String to(Credentials authentication) {
         return authentication.login + MessageSeparation.VAR_SEPARATOR + authentication.password;
     }
 }

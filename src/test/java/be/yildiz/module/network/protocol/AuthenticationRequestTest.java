@@ -23,6 +23,7 @@
 
 package be.yildiz.module.network.protocol;
 
+import be.yildiz.common.authentication.Credentials;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -40,7 +41,7 @@ public class AuthenticationRequestTest {
 
         @Test
         public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, factory.authenticationRequest(new Authentication("","")).command());
+            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, factory.authenticationRequest(Credentials.unchecked("","")).command());
         }
     }
 }
