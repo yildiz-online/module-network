@@ -69,7 +69,7 @@ public abstract class SessionManager {
      * @return The list of all connected sessions.
      */
     public final List<Session> getActiveSessions() {
-        return Collections.unmodifiableList(new ArrayList<Session>(this.connectedPlayerList.values()));
+        return Collections.unmodifiableList(new ArrayList<>(this.connectedPlayerList.values()));
     }
 
     /**
