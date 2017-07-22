@@ -123,7 +123,7 @@ public abstract class SessionManager {
             this.sessionListeners.forEach(l -> l.messageReceived(session, message));
         } else {
             try {
-                Token request = factory.tokenVerification(message);
+                Token request = factory.connectionRequest(message);
                 session.setPlayer(request.getId());
                 this.connectedPlayerList.put(session.getPlayer(), session);
                 this.authenticate(request);
