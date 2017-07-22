@@ -140,14 +140,14 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
     protected final void connectionSuccessful() {
         this.connected = true;
         Logger.info("Client connected to server.");
-        this.networkListenerList.forEach(NetworkListener::connected);
+        Lists.newList(this.networkListenerList).forEach(NetworkListener::connected);
     }
 
     @Override
     public final void connectionFailed() {
         this.connected = false;
         Logger.info("Cannot connect to server.");
-        this.networkListenerList.forEach(NetworkListener::connectionFailed);
+        Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionFailed);
     }
 
     @Override
@@ -155,7 +155,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
         if (this.connected) {
             this.connected = false;
             Logger.info("Connection lost to server.");
-            this.networkListenerList.forEach(NetworkListener::connectionLost);
+            Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionLost);
         }
     }
 
