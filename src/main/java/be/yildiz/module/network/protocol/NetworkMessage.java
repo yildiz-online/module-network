@@ -46,8 +46,10 @@ public final class NetworkMessage<T> {
     private final String message;
 
     /**
-     * Full constructor.
-     *
+     * Build a NetworkMessage from an object.
+     * @param dto Object to convert into a message.
+     * @param mapper Mapper to convert the object.
+     * @param command Command value to set to the message.
      */
     public NetworkMessage(final T dto, final ObjectMapper<T> mapper, int command) {
         super();
@@ -60,6 +62,9 @@ public final class NetworkMessage<T> {
      * Build a NetworkMessage from a received message.
      *
      * @param message Received message, cannot be null.
+     * @param mapper Mapper to transform the message into an object.
+     * @param expectedCommand Command value expected.
+     * @throws InvalidNetworkMessage If the message cannot be parsed by the mapper, or if the expected command does not match.
      */
     public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand) throws InvalidNetworkMessage {
         String[] msgs = message.message
