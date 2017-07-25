@@ -39,7 +39,7 @@ public class LongMapperTest {
 
         @Test
         public void happyFlow() {
-            LongMapper.getInstance();
+            Assert.assertNotNull(LongMapper.getInstance());
         }
     }
 
