@@ -44,6 +44,7 @@ public class CredentialsMapper implements ObjectMapper<Credentials> {
 
     @Override
     public Credentials from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
             return Credentials.unchecked(v[0], v[1]);
@@ -54,6 +55,7 @@ public class CredentialsMapper implements ObjectMapper<Credentials> {
 
     @Override
     public String to(Credentials authentication) {
+        assert authentication != null;
         return authentication.login + MessageSeparation.VAR_SEPARATOR + authentication.password;
     }
 }
