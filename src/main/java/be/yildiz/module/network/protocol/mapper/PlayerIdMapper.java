@@ -43,6 +43,7 @@ public class PlayerIdMapper implements ObjectMapper<PlayerId> {
 
     @Override
     public PlayerId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return PlayerId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -52,6 +53,7 @@ public class PlayerIdMapper implements ObjectMapper<PlayerId> {
 
     @Override
     public String to(PlayerId playerId) {
+        assert playerId != null;
         return String.valueOf(playerId.value);
     }
 }

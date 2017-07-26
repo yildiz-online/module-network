@@ -22,7 +22,6 @@ public abstract class BaseMapperTest <T>{
     public void happyFlow() throws InvalidNetworkMessage {
         String to = mapper.to(baseObject);
         T from = mapper.from(to);
-        Assert.assertFalse(baseObject == from);
         Assert.assertEquals(baseObject, from);
     }
 
