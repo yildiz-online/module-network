@@ -46,6 +46,7 @@ public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
 
     @Override
     public final Collection<T> from(String s) throws InvalidNetworkMessage{
+        assert s != null;
         if(s.isEmpty()) {
             return Collections.emptyList();
         }
@@ -59,6 +60,7 @@ public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
 
     @Override
     public final String to(Collection<T> collection) {
+        assert collection != null;
         final List<T> l = Lists.newList(collection);
         final StringBuilder sb = new StringBuilder();
         for (T t : l) {
