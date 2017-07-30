@@ -75,6 +75,6 @@ public final class AuthenticationSessionManager extends SessionManager {
     //@requires request != null
     @Override
     public final void authenticate(final Token request) {
-        this.client.sendMessage(factory.authenticationResponse(request).buildMessage());
+        this.client.sendMessage(factory.tokenVerification(request).buildMessage());
     }
 }
