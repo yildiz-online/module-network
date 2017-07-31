@@ -67,7 +67,7 @@ public class CollectionMapper<T> implements ObjectMapper<Collection<T>> {
             sb.append(this.mapper.to(t));
             sb.append(MessageSeparation.COLLECTION_SEPARATOR);
         }
-        if (sb.length() > 0) {
+        if (sb.charAt(sb.length() - 1) == MessageSeparation.COLLECTION_SEPARATOR.charAt(0)) {
             sb.deleteCharAt(sb.length() - 1);
         }
         return sb.toString();
