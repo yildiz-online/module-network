@@ -62,6 +62,24 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     private boolean connected;
 
+    /**
+     * Flag to check if the system is currently trying to connect, to avoid retrying while this is not complete
+     */
+    private boolean connecting;
+
+    private final ConnectionRetryStrategy connectionRetryStrategy = ConnectionRetryStrategy.none();
+
+    /**
+     * Url of the host to try to connect.
+     */
+    private String address;
+
+    /**
+     * Port of the host to try to connect.
+     */
+    private int port;
+
+
     public AbstractNetworkEngineClient() {
         super();
     }
@@ -81,6 +99,9 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
                     Logger.error(e);
                 }
             }
+        }
+        if(!this.connected && !this.connecting && this.connectionRetryStrategy.canRetryToConnect()) {
+            this.connectImpl(this.address, this.port);
         }
     }
 
@@ -122,7 +143,14 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      * @param address Server address.
      * @param port    Network port to use.
      */
-    public abstract void connect(String address, int port);
+    public final void connect(String address, int port) {
+        this.address = address;
+        this.port = port;
+        this.connecting = true;
+        this.connectImpl(address, port);
+    }
+
+    public abstract void connectImpl(String address, int port);
 
     /**
      * Free resources used by the engine.
@@ -139,6 +167,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      */
     protected final void connectionSuccessful() {
         this.connected = true;
+        this.connecting = false;
         Logger.info("Client connected to server.");
         Lists.newList(this.networkListenerList).forEach(NetworkListener::connected);
     }
@@ -146,15 +175,17 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
     @Override
     public final void connectionFailed() {
         this.connected = false;
-        Logger.info("Cannot connect to server.");
+        this.connecting = false;
+        Logger.warning("Cannot connect to server.");
         Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionFailed);
     }
 
     @Override
     public final void connectionLost() {
+        this.connecting = false;
         if (this.connected) {
             this.connected = false;
-            Logger.info("Connection lost to server.");
+            Logger.warning("Connection lost to server.");
             Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionLost);
         }
     }
