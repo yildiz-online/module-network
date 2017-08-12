@@ -47,7 +47,7 @@ public final class DummyNetworkEngine extends AbstractNetworkEngineClient {
     }
 
     @Override
-    public void connect(final String address, final int port) {
+    public void connectImpl(final String address, final int port) {
         //Does nothing.
     }
 
