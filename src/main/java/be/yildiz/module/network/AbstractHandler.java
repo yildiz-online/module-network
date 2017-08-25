@@ -23,10 +23,11 @@
 
 package be.yildiz.module.network;
 
-import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.server.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The handler controls the way the network will react to incoming message in its concrete implementation, the abstract part will manage the message construction.
@@ -34,6 +35,8 @@ import be.yildiz.module.network.server.Session;
  * @author Grégory Van den Borre
  */
 public abstract class AbstractHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHandler.class);
 
     public AbstractHandler() {
         super();
@@ -48,7 +51,7 @@ public abstract class AbstractHandler {
     //@Requires("session != null")
     //@Requires("message != null")
     public void processMessages(final Session session, final String message) {
-        Logger.debug("Unprocessed network message: " + message);
+        LOGGER.debug("Unprocessed network message: " + message);
         String messageWithoutStartChar = message.replaceAll(MessageSeparation.MESSAGE_BEGIN, "");
         String[] messages = messageWithoutStartChar.split(MessageSeparation.MESSAGE_END);
         for (String c : messages) {

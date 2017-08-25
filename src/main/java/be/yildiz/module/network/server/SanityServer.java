@@ -23,7 +23,8 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -35,6 +36,8 @@ import java.net.ServerSocket;
  */
 public class SanityServer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SanityServer.class);
+
     /**
      * Test to create a server socket on a given port and address.
      *
@@ -45,12 +48,12 @@ public class SanityServer {
     //@requires address != null
     public void test(final int port, final String address) {
         String log = "Testing network host " + address + " port " + port;
-        Logger.debug(log + "...");
+        LOGGER.debug(log + "...");
         try (ServerSocket ss = new ServerSocket()){
             ss.bind(new InetSocketAddress(address, 0));
-            Logger.debug(log + " successful.");
+            LOGGER.debug(log + " successful.");
         } catch (Exception e) {
-            Logger.error(log + " error.");
+            LOGGER.error(log + " error.");
             throw new IllegalArgumentException(e);
         }
     }

@@ -24,16 +24,19 @@
 package be.yildiz.module.network.server;
 
 import be.yildiz.common.Token;
-import be.yildiz.common.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Grégory Van den Borre
  */
 public class DummySessionManager extends SessionManager {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DummySessionManager.class);
+
     @Override
     public void authenticate(final Token t) {
-        Logger.info("Dummy authentication for " + t.getId());
+        LOGGER.info("Dummy authentication for " + t.getId());
         Session session = getSessionByPlayer(t.getId());
         this.setAuthenticated(session);
     }

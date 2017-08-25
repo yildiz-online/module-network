@@ -27,10 +27,11 @@ import be.yildiz.common.Token;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -38,6 +39,8 @@ import java.util.*;
  * @author Grégory Van den Borre
  */
 public abstract class SessionManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionManager.class);
 
     /**
      * List of listeners for sessions.
@@ -128,7 +131,7 @@ public abstract class SessionManager {
                 this.connectedPlayerList.put(session.getPlayer(), session);
                 this.authenticate(request);
             } catch (InvalidNetworkMessage e) {
-                Logger.warning("Message from unauthenticated player " + session.getPlayer());
+                LOGGER.warn("Message from unauthenticated player " + session.getPlayer());
             }
         }
     }
@@ -151,12 +154,12 @@ public abstract class SessionManager {
 
         @Override
         public void sendMessage(final String message) {
-            Logger.debug("Not sending message(disconnected session): " + message);
+            LOGGER.debug("Not sending message(disconnected session): " + message);
         }
 
         @Override
         protected void closeSession() {
-            Logger.debug("Not closing session(disconnected session)");
+            LOGGER.debug("Not closing session(disconnected session)");
         }
 
         @Override

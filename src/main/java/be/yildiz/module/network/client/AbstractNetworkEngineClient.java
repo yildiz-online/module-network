@@ -24,11 +24,12 @@
 package be.yildiz.module.network.client;
 
 import be.yildiz.common.collections.Lists;
-import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 public abstract class AbstractNetworkEngineClient implements ClientCallBack {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNetworkEngineClient.class);
 
     /**
      * List containing all messages received from the server, waiting to be processed.
@@ -96,7 +99,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
                 try {
                     networkListenerList.get(i).parse(message);
                 } catch (InvalidNetworkMessage e) {
-                    Logger.error(e);
+                    LOGGER.error("Invalid message", e);
                 }
             }
         }
@@ -168,7 +171,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
     protected final void connectionSuccessful() {
         this.connected = true;
         this.connecting = false;
-        Logger.info("Client connected to server.");
+        LOGGER.info("Client connected to server.");
         Lists.newList(this.networkListenerList).forEach(NetworkListener::connected);
     }
 
@@ -176,7 +179,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
     public final void connectionFailed() {
         this.connected = false;
         this.connecting = false;
-        Logger.warning("Cannot connect to server.");
+        LOGGER.warn("Cannot connect to server.");
         Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionFailed);
     }
 
@@ -185,7 +188,7 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
         this.connecting = false;
         if (this.connected) {
             this.connected = false;
-            Logger.warning("Connection lost to server.");
+            LOGGER.warn("Connection lost to server.");
             Lists.newList(this.networkListenerList).forEach(NetworkListener::connectionLost);
         }
     }

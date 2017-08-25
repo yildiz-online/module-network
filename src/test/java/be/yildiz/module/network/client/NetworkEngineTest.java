@@ -23,7 +23,6 @@
 
 package be.yildiz.module.network.client;
 
-import be.yildiz.common.log.Logger;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import org.junit.Assert;
@@ -57,7 +56,6 @@ public class NetworkEngineTest {
 
     @Test
     public void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
-        Logger.disable();
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -70,7 +68,6 @@ public class NetworkEngineTest {
 
     @Test
     public void testConnectionFailed() {
-        Logger.disable();
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -82,7 +79,6 @@ public class NetworkEngineTest {
 
     @Test
     public void testConnectionLost() {
-        Logger.disable();
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -96,7 +92,6 @@ public class NetworkEngineTest {
 
     @Test
     public void testIsConnected() {
-        Logger.disable();
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         Assert.assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
@@ -108,7 +103,6 @@ public class NetworkEngineTest {
 
     @Test
     public void testDisconnect() {
-        Logger.disable();
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         ne.connectionSuccessful();
         Assert.assertTrue(ne.isConnected());
