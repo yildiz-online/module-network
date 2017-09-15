@@ -25,26 +25,26 @@ package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.Token;
 import be.yildiz.common.id.PlayerId;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class AuthenticationResponseTest {
+class AuthenticationResponseTest {
 
     private static final Token ok = Token.authenticated(PlayerId.WORLD, 0, 1);
 
     private static final NetworkMessageFactory factory = new NetworkMessageFactory();
 
-    public static class Command {
+    @Nested
+    class Command {
 
         @Test
-        public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_RESPONSE, factory.authenticationResponse(ok).command());
+        void happyFlow() {
+            assertEquals(Commands.AUTHENTICATION_RESPONSE, factory.authenticationResponse(ok).command());
         }
     }
 }

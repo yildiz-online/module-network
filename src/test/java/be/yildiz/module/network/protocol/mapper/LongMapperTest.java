@@ -24,54 +24,56 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class LongMapperTest {
+class LongMapperTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
-            Assert.assertNotNull(LongMapper.getInstance());
+        void happyFlow() {
+            assertNotNull(LongMapper.getInstance());
         }
     }
 
-    public static class From {
+    @Nested
+    class From {
 
         @Test
-        public void happyFlow() throws InvalidNetworkMessage {
+        void happyFlow() throws InvalidNetworkMessage {
             long v = LongMapper.getInstance().from("5");
-            Assert.assertEquals(5, v);
+            assertEquals(5, v);
         }
 
-        @Test(expected = InvalidNetworkMessage.class)
-        public void invalidValue() throws InvalidNetworkMessage {
-            LongMapper.getInstance().from("a");
+        @Test
+        void invalidValue() throws InvalidNetworkMessage {
+            assertThrows(InvalidNetworkMessage.class, () -> LongMapper.getInstance().from("a"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() throws InvalidNetworkMessage {
-            LongMapper.getInstance().from(null);
+        @Test
+        void withNull() throws InvalidNetworkMessage {
+            assertThrows(AssertionError.class, () -> LongMapper.getInstance().from(null));
         }
     }
 
-    public static class To {
+    @Nested
+    class To {
 
         @Test
-        public void happyFlow() {
-            Assert.assertEquals("5", LongMapper.getInstance().to(5L));
+        void happyFlow() {
+            assertEquals("5", LongMapper.getInstance().to(5L));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            LongMapper.getInstance().to(null);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> LongMapper.getInstance().to(null));
         }
     }
 

@@ -2,8 +2,10 @@ package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
@@ -19,32 +21,32 @@ public abstract class BaseMapperTest <T>{
     }
 
     @Test
-    public void happyFlow() throws InvalidNetworkMessage {
+    void happyFlow() throws InvalidNetworkMessage {
         String to = mapper.to(baseObject);
         T from = mapper.from(to);
-        Assert.assertEquals(baseObject, from);
+        assertEquals(baseObject, from);
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void tooShort() throws InvalidNetworkMessage {
+    @Test
+    void tooShort() throws InvalidNetworkMessage {
         String to = mapper.to(baseObject);
         if (to.contains(MessageSeparation.OBJECTS_SEPARATOR)) {
-            mapper.from(to.substring(0, to.indexOf(MessageSeparation.OBJECTS_SEPARATOR)));
+            assertThrows(AssertionError.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.OBJECTS_SEPARATOR))));
         } else if (to.contains(MessageSeparation.VAR_SEPARATOR)) {
-            mapper.from(to.substring(0, to.indexOf(MessageSeparation.VAR_SEPARATOR)));
+            assertThrows(AssertionError.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.VAR_SEPARATOR))));
         } else {
-            mapper.from("");
+            assertThrows(AssertionError.class, () -> mapper.from(""));
         }
     }
 
-    @Test(expected = AssertionError.class)
-    public void fromNull() throws InvalidNetworkMessage {
-        mapper.from(null);
+    @Test
+    void fromNull() throws InvalidNetworkMessage {
+        assertThrows(AssertionError.class, () -> mapper.from(null));
     }
 
-    @Test(expected = AssertionError.class)
-    public void toNull() {
-        mapper.to(null);
+    @Test
+    void toNull() {
+        assertThrows(AssertionError.class, () -> mapper.to(null));
     }
 
 }

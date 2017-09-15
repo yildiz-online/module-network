@@ -25,44 +25,45 @@ package be.yildiz.module.network;
 
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.server.Session;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * @author Grégory Van den Borre
  */
-public class HandlerTest {
+class HandlerTest {
 
     private final Session session = Mockito.mock(Session.class);
 
     @Test
-    public void testProcessMessages1message() {
+    void testProcessMessages1message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "aSmallTest");
-        Assert.assertEquals(1, h.messages.size());
-        Assert.assertEquals("aSmallTest", h.messages.get(0).message);
+        assertEquals(1, h.messages.size());
+        assertEquals("aSmallTest", h.messages.get(0).message);
     }
 
     @Test
-    public void testProcessMessagesEmptyMessage() {
+    void testProcessMessagesEmptyMessage() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "");
-        Assert.assertEquals(1, h.messages.size());
-        Assert.assertEquals("", h.messages.get(0).message);
+        assertEquals(1, h.messages.size());
+        assertEquals("", h.messages.get(0).message);
     }
 
     @Test
-    public void testProcessMessages3message() {
+    void testProcessMessages3message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "&abc#&def#&ghi#");
-        Assert.assertEquals(3, h.messages.size());
-        Assert.assertEquals("abc", h.messages.get(0).message);
-        Assert.assertEquals("def", h.messages.get(1).message);
-        Assert.assertEquals("ghi", h.messages.get(2).message);
+        assertEquals(3, h.messages.size());
+        assertEquals("abc", h.messages.get(0).message);
+        assertEquals("def", h.messages.get(1).message);
+        assertEquals("ghi", h.messages.get(2).message);
     }
 
     private static class TestHandler extends AbstractHandler {

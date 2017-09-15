@@ -23,29 +23,32 @@
 
 package be.yildiz.module.network.protocol;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MessageWrapperTest {
+class MessageWrapperTest {
 
     @Test
-    public void testMessageWrapper() {
+    void testMessageWrapper() {
         MessageWrapper m = new MessageWrapper("bla");
-        Assert.assertEquals("bla", m.message);
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testMessageWrapperNullConstructorParam() {
-        new MessageWrapper(null);
+        assertEquals("bla", m.message);
     }
 
     @Test
-    public void testToString() {
+    void testMessageWrapperNullConstructorParam() {
+        assertThrows(AssertionError.class, () -> new MessageWrapper(null));
+    }
+
+    @Test
+    void testToString() {
         MessageWrapper m = new MessageWrapper("bla");
-        Assert.assertEquals("bla", m.toString());
+        assertEquals("bla", m.toString());
     }
 
 }

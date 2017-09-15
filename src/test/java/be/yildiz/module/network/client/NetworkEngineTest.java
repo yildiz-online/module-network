@@ -25,37 +25,39 @@ package be.yildiz.module.network.client;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Grégory Van den Borre
  */
-public class NetworkEngineTest {
+class NetworkEngineTest {
 
     @Test
-    public void testDelayMessageToNextFrame() {
+    void testDelayMessageToNextFrame() {
         //FIXME implements
     }
 
     @Test
-    public void testSendMessageServerRequest() {
+    void testSendMessageServerRequest() {
         //FIXME implements
     }
 
     @Test
-    public void testSendMessageString() {
+    void testSendMessageString() {
         //FIXME implements
     }
 
     @Test
-    public void testClose() {
+    void testClose() {
         //FIXME implements
     }
 
     @Test
-    public void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
+    void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -67,52 +69,52 @@ public class NetworkEngineTest {
     }
 
     @Test
-    public void testConnectionFailed() {
+    void testConnectionFailed() {
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
-        Assert.assertFalse(ne.isConnected());
+        assertFalse(ne.isConnected());
         ne.connectionFailed();
         Mockito.verify(l).connectionFailed();
-        Assert.assertFalse(ne.isConnected());
+        assertFalse(ne.isConnected());
     }
 
     @Test
-    public void testConnectionLost() {
+    void testConnectionLost() {
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
-        Assert.assertFalse(ne.isConnected());
+        assertFalse(ne.isConnected());
         ne.connectionSuccessful();
-        Assert.assertTrue(ne.isConnected());
+        assertTrue(ne.isConnected());
         ne.connectionLost();
         Mockito.verify(l).connectionLost();
-        Assert.assertFalse(ne.isConnected());
+        assertFalse(ne.isConnected());
     }
 
     @Test
-    public void testIsConnected() {
+    void testIsConnected() {
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
-        Assert.assertFalse(ne.isConnected());
+        assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         ne.connectionSuccessful();
         Mockito.verify(l).connected();
-        Assert.assertTrue(ne.isConnected());
+        assertTrue(ne.isConnected());
     }
 
     @Test
-    public void testDisconnect() {
+    void testDisconnect() {
         AbstractNetworkEngineClient ne = new DummyNetworkEngine();
         ne.connectionSuccessful();
-        Assert.assertTrue(ne.isConnected());
+        assertTrue(ne.isConnected());
         ne.disconnect();
         //Still true as no listener has notified that the connection is indeed lost.
-        Assert.assertTrue(ne.isConnected());
+        assertTrue(ne.isConnected());
     }
 
     @Test
-    public void testNetworkEngine() {
+    void testNetworkEngine() {
 
     }
 

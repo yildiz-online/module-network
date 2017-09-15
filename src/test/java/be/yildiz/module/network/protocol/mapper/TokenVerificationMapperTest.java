@@ -26,26 +26,28 @@ package be.yildiz.module.network.protocol.mapper;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.TokenVerification;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification>{
+class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification>{
 
-    public TokenVerificationMapperTest() {
+    TokenVerificationMapperTest() {
         super(TokenVerificationMapper.getInstance(), new TokenVerification(PlayerId.valueOf(4), true));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void invalidPlayerId() throws InvalidNetworkMessage {
+    @Test
+    void invalidPlayerId() throws InvalidNetworkMessage {
         String message = "a@t";
-        TokenVerificationMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> TokenVerificationMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void invalidAuthenticated() throws InvalidNetworkMessage {
+    @Test
+    void invalidAuthenticated() throws InvalidNetworkMessage {
         String message = "4@x";
-        TokenVerificationMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> TokenVerificationMapper.getInstance().from(message));
     }
 }

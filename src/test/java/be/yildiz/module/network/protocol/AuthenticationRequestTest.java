@@ -24,24 +24,24 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.authentication.Credentials;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class AuthenticationRequestTest {
+class AuthenticationRequestTest {
 
     private static final NetworkMessageFactory factory = new NetworkMessageFactory();
 
-    public static class Command {
+    @Nested
+    class Command {
 
         @Test
-        public void happyFlow() {
-            Assert.assertEquals(Commands.AUTHENTICATION_REQUEST, factory.authenticationRequest(Credentials.unchecked("","")).command());
+        void happyFlow() {
+            assertEquals(Commands.AUTHENTICATION_REQUEST, factory.authenticationRequest(Credentials.unchecked("","")).command());
         }
     }
 }

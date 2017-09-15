@@ -25,65 +25,68 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class BooleanMapperTest {
 
-    public static class Constructor {
+class BooleanMapperTest {
+
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
-            Assert.assertNotNull(BooleanMapper.getInstance());
+        void happyFlow() {
+            assertNotNull(BooleanMapper.getInstance());
         }
     }
 
-    public static class From {
+    @Nested
+    class From {
 
         @Test
-        public void happyFlow() throws InvalidNetworkMessage {
+        void happyFlow() throws InvalidNetworkMessage {
             boolean v = BooleanMapper.getInstance().from("t");
-            Assert.assertEquals(true, v);
+            assertEquals(true, v);
         }
 
         @Test
-        public void happyFlowFalse() throws InvalidNetworkMessage {
+        void happyFlowFalse() throws InvalidNetworkMessage {
             boolean v = BooleanMapper.getInstance().from("f");
-            Assert.assertEquals(false, v);
+            assertEquals(false, v);
         }
 
-        @Test(expected = InvalidNetworkMessage.class)
-        public void invalidValue() throws InvalidNetworkMessage {
-            BooleanMapper.getInstance().from("a");
+        @Test
+        void invalidValue() throws InvalidNetworkMessage {
+            assertThrows(InvalidNetworkMessage.class, () -> BooleanMapper.getInstance().from("a"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() throws InvalidNetworkMessage {
-            BooleanMapper.getInstance().from(null);
+        @Test
+        void withNull() throws InvalidNetworkMessage {
+            assertThrows(AssertionError.class, () -> BooleanMapper.getInstance().from(null));
         }
     }
 
-    public static class To {
+    @Nested
+    class To {
 
         @Test
-        public void happyFlow() {
-            Assert.assertEquals("t", BooleanMapper.getInstance().to(true));
+        void happyFlow() {
+            assertEquals("t", BooleanMapper.getInstance().to(true));
         }
 
         @Test
-        public void happyFlowFalse() {
-            Assert.assertEquals("f", BooleanMapper.getInstance().to(false));
+        void happyFlowFalse() {
+            assertEquals("f", BooleanMapper.getInstance().to(false));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            BooleanMapper.getInstance().to(null);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> BooleanMapper.getInstance().to(null));
         }
     }
 

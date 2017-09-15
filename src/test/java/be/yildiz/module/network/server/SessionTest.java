@@ -25,99 +25,103 @@ package be.yildiz.module.network.server;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class SessionTest {
+class SessionTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Session s = givenASession(PlayerId.valueOf(5));
-            Assert.assertEquals(PlayerId.valueOf(5), s.getPlayer());
-            Assert.assertTrue(s.isConnected());
-            Assert.assertFalse(s.isAuthenticated());
+            assertEquals(PlayerId.valueOf(5), s.getPlayer());
+            assertTrue(s.isConnected());
+            assertFalse(s.isAuthenticated());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            givenASession(null);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> givenASession(null));
         }
 
     }
 
-    public static class HasPlayer {
+    @Nested
+    class HasPlayer {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Session s = givenASession(PlayerId.valueOf(5));
-            Assert.assertTrue(s.hasPlayer());
+            assertTrue(s.hasPlayer());
         }
     }
 
-    public static class SetAuthenticated {
+    @Nested
+    class SetAuthenticated {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Session s = givenASession(PlayerId.valueOf(5));
-            Assert.assertFalse(s.isAuthenticated());
+            assertFalse(s.isAuthenticated());
             s.setAuthenticated();
-            Assert.assertTrue(s.isAuthenticated());
+            assertTrue(s.isAuthenticated());
         }
     }
 
-    public static class SetPlayer {
+    @Nested
+    class SetPlayer {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Session s = givenASession(PlayerId.valueOf(5));
             s.setPlayer(PlayerId.valueOf(8));
-            Assert.assertEquals(PlayerId.valueOf(8), s.getPlayer());
+            assertEquals(PlayerId.valueOf(8), s.getPlayer());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
+        @Test
+        void withNull() {
             Session s = givenASession(PlayerId.valueOf(5));
-            s.setPlayer(null);
+            assertThrows(AssertionError.class, () -> s.setPlayer(null));
         }
 
     }
 
-    public static class SendMessage {
+    @Nested
+    class SendMessage {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage("test");
-            Assert.assertEquals("test", sw.getMessage());
+            assertEquals("test", sw.getMessage());
         }
 
         @Test
-        public void withServerResponse() {
+        void withServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
             sw.sendMessage("someMessage");
-            Assert.assertEquals("someMessage", sw.getMessage());
+            assertEquals("someMessage", sw.getMessage());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullServerResponse() {
+        @Test
+        void withNullServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            sw.sendMessage((NetworkMessage) null);
+            assertThrows(AssertionError.class, () -> sw.sendMessage((NetworkMessage) null));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullSeveralServerResponse() {
+        @Test
+        void withNullSeveralServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            sw.sendMessage((Set<NetworkMessage>) null);
+            assertThrows(AssertionError.class, () -> sw.sendMessage((Set<NetworkMessage>) null));
         }
     }
 

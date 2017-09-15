@@ -25,31 +25,32 @@
 package be.yildiz.module.network.protocol;
 
 import be.yildiz.common.id.PlayerId;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class TokenVerificationTest {
+class TokenVerificationTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             boolean b = true;
             PlayerId playerId = PlayerId.valueOf(8);
             TokenVerification tv = new TokenVerification(playerId, b);
-            Assert.assertEquals(playerId, tv.playerId);
-            Assert.assertEquals(b, tv.authenticated);
+            assertEquals(playerId, tv.playerId);
+            assertEquals(b, tv.authenticated);
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullParam1() {
-            new TokenVerification(null, true);
+        @Test
+        void withNullParam1() {
+            assertThrows(AssertionError.class, () -> new TokenVerification(null, true));
         }
     }
 }

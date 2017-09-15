@@ -25,51 +25,53 @@ package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class VersionMapperTest extends BaseMapperTest<Version>{
+class VersionMapperTest extends BaseMapperTest<Version>{
 
-    public VersionMapperTest() {
+    VersionMapperTest() {
         super(VersionMapper.getInstance(), new Version(Version.VersionType.ALPHA, 4, 8, 1, 2));
     }
 
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void wrongType() throws InvalidNetworkMessage {
+    @Test
+    void wrongType() throws InvalidNetworkMessage {
         String message = "1@4@3@8@a";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void unknownType() throws InvalidNetworkMessage {
+    @Test
+    void unknownType() throws InvalidNetworkMessage {
         String message = "1@4@3@8@5";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void wrongMajor() throws InvalidNetworkMessage {
+    @Test
+    void wrongMajor() throws InvalidNetworkMessage {
         String message = "a@4@3@8@1";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void wrongMinor() throws InvalidNetworkMessage {
+    @Test
+    void wrongMinor() throws InvalidNetworkMessage {
         String message = "1@a@3@8@1";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void wrongSub() throws InvalidNetworkMessage {
+    @Test
+    void wrongSub() throws InvalidNetworkMessage {
         String message = "1@4@a@8@1";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 
-    @Test(expected = InvalidNetworkMessage.class)
-    public void wrongRev() throws InvalidNetworkMessage {
+    @Test
+    void wrongRev() throws InvalidNetworkMessage {
         String message = "1@4@3@a@1";
-        VersionMapper.getInstance().from(message);
+        assertThrows(InvalidNetworkMessage.class, () -> VersionMapper.getInstance().from(message));
     }
 }

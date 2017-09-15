@@ -23,16 +23,16 @@
 
 package be.yildiz.module.network.client;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ClientCallBackTest {
+class ClientCallBackTest {
 
     @Test
-    public void testHandShakeComplete() {
+    void testHandShakeComplete() {
         ClientCallBack callback = Mockito.mock(ClientCallBack.class);
         callback.handShakeComplete();
     }

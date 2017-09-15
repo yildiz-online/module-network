@@ -26,24 +26,24 @@ package be.yildiz.module.network.protocol;
 import be.yildiz.common.Token;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.protocol.mapper.TokenMapper;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class AbstractTokenMessageTest {
+class AbstractTokenMessageTest {
 
-    public static class GetToken {
+    @Nested
+    class GetToken {
 
         @Test
-        public void happyFlow() {
+         void happyFlow() {
             Token t = Token.authenticated(PlayerId.WORLD, 10L, 5);
             NetworkMessage<Token> message = givenAMessage(t);
-            Assert.assertEquals(t,message.getDto());
+            assertEquals(t,message.getDto());
         }
     }
 

@@ -23,36 +23,37 @@
 
 package be.yildiz.module.network;
 
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class AuthenticationConfigurationInvariantTest {
+class AuthenticationConfigurationInvariantTest {
 
-    public static class Check {
+    @Nested
+    class Check {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             AuthenticationConfiguration.AuthenticationConfigurationInvariant.check("ok", 10);
         }
 
-        @Test(expected = NullPointerException.class)
-        public void withNullHost() {
-            AuthenticationConfiguration.AuthenticationConfigurationInvariant.check(null, 10);
+        @Test
+        void withNullHost() {
+            assertThrows(NullPointerException.class, () -> AuthenticationConfiguration.AuthenticationConfigurationInvariant.check(null, 10));
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void withPortNegative() {
-            AuthenticationConfiguration.AuthenticationConfigurationInvariant.check("ok", -1);
+        @Test
+        void withPortNegative() {
+            assertThrows(IllegalArgumentException.class, () -> AuthenticationConfiguration.AuthenticationConfigurationInvariant.check("ok", -1));
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void withPortTooHigh() {
-            AuthenticationConfiguration.AuthenticationConfigurationInvariant.check("ok", 65636);
+        @Test
+        void withPortTooHigh() {
+            assertThrows(IllegalArgumentException.class, () -> AuthenticationConfiguration.AuthenticationConfigurationInvariant.check("ok", 65636));
         }
     }
 }

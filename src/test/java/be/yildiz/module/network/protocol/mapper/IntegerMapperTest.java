@@ -25,54 +25,56 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class IntegerMapperTest {
+class IntegerMapperTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
-            Assert.assertNotNull(IntegerMapper.getInstance());
+        void happyFlow() {
+            assertNotNull(IntegerMapper.getInstance());
         }
     }
 
-    public static class From {
+    @Nested
+    class From {
 
         @Test
-        public void happyFlow() throws InvalidNetworkMessage {
+        void happyFlow() throws InvalidNetworkMessage {
             int v = IntegerMapper.getInstance().from("5");
-            Assert.assertEquals(5, v);
+            assertEquals(5, v);
         }
 
-        @Test(expected = InvalidNetworkMessage.class)
-        public void invalidValue() throws InvalidNetworkMessage {
-            IntegerMapper.getInstance().from("a");
+        @Test
+        void invalidValue() throws InvalidNetworkMessage {
+            assertThrows(InvalidNetworkMessage.class, () -> IntegerMapper.getInstance().from("a"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() throws InvalidNetworkMessage {
-            IntegerMapper.getInstance().from(null);
+        @Test
+        void withNull() throws InvalidNetworkMessage {
+            assertThrows(AssertionError.class, () -> IntegerMapper.getInstance().from(null));
         }
     }
 
-    public static class To {
+    @Nested
+    class To {
 
         @Test
-        public void happyFlow() {
-            Assert.assertEquals("5", IntegerMapper.getInstance().to(5));
+        void happyFlow() {
+            assertEquals("5", IntegerMapper.getInstance().to(5));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            IntegerMapper.getInstance().to(null);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> IntegerMapper.getInstance().to(null));
         }
     }
 
