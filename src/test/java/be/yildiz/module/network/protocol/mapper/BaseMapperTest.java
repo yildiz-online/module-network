@@ -31,11 +31,11 @@ public abstract class BaseMapperTest <T>{
     void tooShort() throws InvalidNetworkMessage {
         String to = mapper.to(baseObject);
         if (to.contains(MessageSeparation.OBJECTS_SEPARATOR)) {
-            assertThrows(AssertionError.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.OBJECTS_SEPARATOR))));
+            assertThrows(InvalidNetworkMessage.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.OBJECTS_SEPARATOR))));
         } else if (to.contains(MessageSeparation.VAR_SEPARATOR)) {
-            assertThrows(AssertionError.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.VAR_SEPARATOR))));
+            assertThrows(InvalidNetworkMessage.class, () -> mapper.from(to.substring(0, to.indexOf(MessageSeparation.VAR_SEPARATOR))));
         } else {
-            assertThrows(AssertionError.class, () -> mapper.from(""));
+            assertThrows(InvalidNetworkMessage.class, () -> mapper.from(""));
         }
     }
 
