@@ -23,6 +23,7 @@
 
 package be.yildiz.module.network.server;
 
+import be.yildiz.common.exeption.InitializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class SanityServer {
      */
     //@requires port >= 0 && port <= 65535
     //@requires address != null
-    public void test(final int port, final String address) {
+    public static void test(final int port, final String address) {
         String log = "Testing network host " + address + " port " + port;
         LOGGER.debug(log + "...");
         try (ServerSocket ss = new ServerSocket()){
@@ -54,7 +55,7 @@ public class SanityServer {
             LOGGER.debug(log + " successful.");
         } catch (Exception e) {
             LOGGER.error(log + " error.");
-            throw new IllegalArgumentException(e);
+            throw new InitializationException(e);
         }
     }
 
