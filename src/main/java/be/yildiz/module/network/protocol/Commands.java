@@ -60,6 +60,10 @@ public final class Commands {
      */
     public static final int VERSION_RESPONSE = 0;
 
+    public static final int ACCOUNT_CREATION = 96;
+
+    public static final int ACCOUNT_VALIDATION = 97;
+
     /**
      * Private constructor to prevent instantiations.
      */

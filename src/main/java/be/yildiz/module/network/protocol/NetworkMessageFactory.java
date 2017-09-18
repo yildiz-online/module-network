@@ -26,10 +26,7 @@ package be.yildiz.module.network.protocol;
 import be.yildiz.common.Token;
 import be.yildiz.common.authentication.Credentials;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.CredentialsMapper;
-import be.yildiz.module.network.protocol.mapper.TokenMapper;
-import be.yildiz.module.network.protocol.mapper.TokenVerificationMapper;
-import be.yildiz.module.network.protocol.mapper.VersionCheckMapper;
+import be.yildiz.module.network.protocol.mapper.*;
 
 /**
  * @author Grégory Van den Borre
@@ -95,5 +92,13 @@ public class NetworkMessageFactory {
 
     public Token authenticationResponse(MessageWrapper message) throws InvalidNetworkMessage {
         return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.AUTHENTICATION_RESPONSE).getDto();
+    }
+
+    public TemporaryAccountDto accountCreation(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, TemporaryAccountMapper.getInstance(), Commands.ACCOUNT_CREATION).getDto();
+    }
+
+    public NetworkMessage<TemporaryAccountCreationResultDto> accountCreationResult(TemporaryAccountCreationResultDto result) {
+        return new NetworkMessage<>(result, TemporaryAccountResultMapper.getInstance(), Commands.ACCOUNT_CREATION);
     }
 }
