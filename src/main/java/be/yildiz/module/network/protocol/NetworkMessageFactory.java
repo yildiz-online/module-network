@@ -101,4 +101,8 @@ public class NetworkMessageFactory {
     public NetworkMessage<TemporaryAccountCreationResultDto> accountCreationResult(TemporaryAccountCreationResultDto result) {
         return new NetworkMessage<>(result, TemporaryAccountResultMapper.getInstance(), Commands.ACCOUNT_CREATION);
     }
+
+    public AccountValidationDto accountValidation(MessageWrapper message) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(message, AccountValidationMapper.getInstance(), Commands.ACCOUNT_VALIDATION).getDto();
+    }
 }

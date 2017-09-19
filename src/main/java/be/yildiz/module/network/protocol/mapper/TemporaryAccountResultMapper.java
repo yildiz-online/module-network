@@ -47,7 +47,7 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
     public TemporaryAccountCreationResultDto from(String s) throws InvalidNetworkMessage {
         TemporaryAccountCreationResultDto dto = new TemporaryAccountCreationResultDto();
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
             dto.setAccountExisting(BooleanMapper.getInstance().from(v[0]));
             dto.setEmailExisting(BooleanMapper.getInstance().from(v[1]));
             dto.setEmailMissing(BooleanMapper.getInstance().from(v[2]));
@@ -65,19 +65,19 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
     @Override
     public String to(TemporaryAccountCreationResultDto dto) {
         return BooleanMapper.getInstance().to(dto.isAccountExisting())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailExisting())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailMissing())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailInvalid())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidLogin())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidPassword())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isTechnicalIssue())
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + dto.getToken();
     }
 }
