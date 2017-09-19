@@ -45,4 +45,26 @@ public class AccountValidationDto {
     public String getToken() {
         return token;
     }
+
+
+    @Override
+    public int hashCode() {
+        int result = login.hashCode();
+        result = 31 * result + token.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AccountValidationDto that = (AccountValidationDto) o;
+
+        return login.equals(that.login) && token.equals(that.token);
+    }
 }

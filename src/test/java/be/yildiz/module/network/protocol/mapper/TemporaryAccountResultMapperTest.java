@@ -24,39 +24,15 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.AccountValidationDto;
-import be.yildiz.module.network.protocol.MessageSeparation;
+
+import be.yildiz.module.network.protocol.TemporaryAccountCreationResultDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class AccountValidationMapper implements ObjectMapper<AccountValidationDto> {
+class TemporaryAccountResultMapperTest extends BaseMapperTest<TemporaryAccountCreationResultDto>{
 
-    private static final AccountValidationMapper INSTANCE = new AccountValidationMapper();
-
-    private AccountValidationMapper() {
-        super();
-    }
-
-    public static AccountValidationMapper getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public AccountValidationDto from(String s) throws InvalidNetworkMessage {
-        assert s != null;
-        try {
-            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
-            return new AccountValidationDto(v[0], v[1]);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
-        }
-    }
-
-    @Override
-    public String to(AccountValidationDto dto) {
-        assert dto != null;
-        return dto.getLogin() + MessageSeparation.OBJECTS_SEPARATOR + dto.getToken();
+    TemporaryAccountResultMapperTest() {
+        super(TemporaryAccountResultMapper.getInstance(),new TemporaryAccountCreationResultDto());
     }
 }
