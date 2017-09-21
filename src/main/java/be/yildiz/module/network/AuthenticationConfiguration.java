@@ -41,6 +41,12 @@ public interface AuthenticationConfiguration {
     //@Ensures("result >= 0", "result <= 65635")
     int getAuthenticationPort();
 
+    String getBrokerDataFolder();
+
+    String getBrokerHost();
+
+    int getBrokerPort();
+
     class AuthenticationConfigurationInvariant {
 
         private AuthenticationConfigurationInvariant() {
