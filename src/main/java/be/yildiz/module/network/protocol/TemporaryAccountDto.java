@@ -54,6 +54,28 @@ public class TemporaryAccountDto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TemporaryAccountDto that = (TemporaryAccountDto) o;
+
+        return login.equals(that.login) && password.equals(that.password) && email.equals(that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = login.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + email.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return login + ":" + password + ":" + email;
     }

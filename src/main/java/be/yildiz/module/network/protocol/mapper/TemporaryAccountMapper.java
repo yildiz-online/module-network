@@ -45,8 +45,9 @@ public class TemporaryAccountMapper implements ObjectMapper<TemporaryAccountDto>
 
     @Override
     public TemporaryAccountDto from(final String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
             return new TemporaryAccountDto(v[0], v[1], v[2]);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
@@ -55,10 +56,11 @@ public class TemporaryAccountMapper implements ObjectMapper<TemporaryAccountDto>
 
     @Override
     public String to(final TemporaryAccountDto dto) {
+        assert dto != null;
         return dto.getLogin()
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + dto.getPassword()
-                + MessageSeparation.VAR_SEPARATOR
+                + MessageSeparation.OBJECTS_SEPARATOR
                 + dto.getEmail();
     }
 }

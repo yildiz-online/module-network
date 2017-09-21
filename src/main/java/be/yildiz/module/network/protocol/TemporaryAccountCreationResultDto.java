@@ -36,7 +36,7 @@ public class TemporaryAccountCreationResultDto {
     private boolean invalidLogin;
     private boolean invalidPassword;
     private boolean technicalIssue;
-    private String token;
+    private String token = "null";
 
     public void setEmailMissing(boolean missing) {
         this.emailMissing = missing;
@@ -100,5 +100,32 @@ public class TemporaryAccountCreationResultDto {
 
     public String getToken() {
         return token;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TemporaryAccountCreationResultDto that = (TemporaryAccountCreationResultDto) o;
+
+        return emailMissing == that.emailMissing && emailInvalid == that.emailInvalid && accountExisting == that.accountExisting && emailExisting == that.emailExisting && invalidLogin == that.invalidLogin && invalidPassword == that.invalidPassword && technicalIssue == that.technicalIssue && token.equals(that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (emailMissing ? 1 : 0);
+        result = 31 * result + (emailInvalid ? 1 : 0);
+        result = 31 * result + (accountExisting ? 1 : 0);
+        result = 31 * result + (emailExisting ? 1 : 0);
+        result = 31 * result + (invalidLogin ? 1 : 0);
+        result = 31 * result + (invalidPassword ? 1 : 0);
+        result = 31 * result + (technicalIssue ? 1 : 0);
+        result = 31 * result + token.hashCode();
+        return result;
     }
 }

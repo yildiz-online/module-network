@@ -94,6 +94,10 @@ public class NetworkMessageFactory {
         return new NetworkMessage<>(message, TokenMapper.getInstance(), Commands.AUTHENTICATION_RESPONSE).getDto();
     }
 
+    public NetworkMessage<TemporaryAccountDto> accountCreation(TemporaryAccountDto dto) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(dto, TemporaryAccountMapper.getInstance(), Commands.ACCOUNT_CREATION);
+    }
+
     public TemporaryAccountDto accountCreation(MessageWrapper message) throws InvalidNetworkMessage {
         return new NetworkMessage<>(message, TemporaryAccountMapper.getInstance(), Commands.ACCOUNT_CREATION).getDto();
     }
@@ -104,5 +108,9 @@ public class NetworkMessageFactory {
 
     public AccountValidationDto accountValidation(MessageWrapper message) throws InvalidNetworkMessage {
         return new NetworkMessage<>(message, AccountValidationMapper.getInstance(), Commands.ACCOUNT_VALIDATION).getDto();
+    }
+
+    public NetworkMessage<AccountValidationDto> accountValidation(AccountValidationDto dto) {
+        return new NetworkMessage<>(dto, AccountValidationMapper.getInstance(), Commands.ACCOUNT_VALIDATION);
     }
 }
