@@ -74,7 +74,7 @@ public class TemporaryAccountCreationResultDto {
         return emailMissing;
     }
 
-    public boolean isEmailInvalid() {
+    public boolean isInvalidEmail() {
         return emailInvalid;
     }
 
@@ -96,6 +96,17 @@ public class TemporaryAccountCreationResultDto {
 
     public boolean isTechnicalIssue() {
         return technicalIssue;
+    }
+
+    public boolean hasError() {
+        return
+                this.isAccountExisting()
+                || this.isEmailExisting()
+                || this.isInvalidLogin()
+                || this.isInvalidPassword()
+                || this.isInvalidEmail()
+                || this.isTechnicalIssue()
+                || this.isEmailExisting();
     }
 
     public String getToken() {

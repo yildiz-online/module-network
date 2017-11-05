@@ -72,7 +72,7 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailMissing())
                 + MessageSeparation.OBJECTS_SEPARATOR
-                + BooleanMapper.getInstance().to(dto.isEmailInvalid())
+                + BooleanMapper.getInstance().to(dto.isInvalidEmail())
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidLogin())
                 + MessageSeparation.OBJECTS_SEPARATOR
