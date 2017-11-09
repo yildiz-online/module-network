@@ -39,11 +39,11 @@ public class AccountValidationDto {
     }
 
     public String getLogin() {
-        return login;
+        return this.login;
     }
 
     public String getToken() {
-        return token;
+        return this.token;
     }
 
 
