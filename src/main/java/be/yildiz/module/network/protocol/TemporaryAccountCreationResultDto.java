@@ -99,13 +99,12 @@ public class TemporaryAccountCreationResultDto {
     }
 
     public boolean hasError() {
-        return
-                this.isAccountExisting()
-                || this.isEmailExisting()
+        return this.isAccountExisting()
                 || this.isInvalidLogin()
                 || this.isInvalidPassword()
                 || this.isInvalidEmail()
                 || this.isTechnicalIssue()
+                || this.isEmailMissing()
                 || this.isEmailExisting();
     }
 
