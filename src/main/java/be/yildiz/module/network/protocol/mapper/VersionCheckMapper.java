@@ -24,9 +24,11 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.VersionCheck;
+import be.yildizgames.common.mapping.LongMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,24 +46,24 @@ public class VersionCheckMapper implements ObjectMapper<VersionCheck> {
     }
 
     @Override
-    public VersionCheck from(String s) throws InvalidNetworkMessage {
+    public VersionCheck from(String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            String[] v = s.split(Separator.OBJECTS_SEPARATOR);
             String vString = v[0];
             String dString = v[1];
             Version version = VersionMapper.getInstance().from(vString);
             long date = LongMapper.getInstance().from(dString);
             return new VersionCheck(version, date);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
     @Override
     public String to(VersionCheck v) {
         assert v != null;
-        return VersionMapper.getInstance().to(v.version) + MessageSeparation.OBJECTS_SEPARATOR
+        return VersionMapper.getInstance().to(v.version) + Separator.OBJECTS_SEPARATOR
                 + LongMapper.getInstance().to(v.serverTime);
     }
 }

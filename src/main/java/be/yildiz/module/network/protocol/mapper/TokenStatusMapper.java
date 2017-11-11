@@ -24,7 +24,9 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Token;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildizgames.common.mapping.IntegerMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -42,7 +44,7 @@ public class TokenStatusMapper implements ObjectMapper<Token.Status> {
     }
 
     @Override
-    public Token.Status from(String s) throws InvalidNetworkMessage {
+    public Token.Status from(String s) throws MappingException {
         int i = IntegerMapper.getInstance().from(s);
         return Token.Status.valueOf(i);
     }

@@ -26,11 +26,12 @@ package be.yildiz.module.network.protocol.mapper;
 
 
 import be.yildiz.module.network.protocol.AccountValidationDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre
  */
-class AccountValidationMapperTest extends BaseMapperTest<AccountValidationDto>{
+class AccountValidationMapperTest extends BaseMapperTest<AccountValidationDto> {
 
     AccountValidationMapperTest() {
         super(AccountValidationMapper.getInstance(), new AccountValidationDto("myLogin", "zez45-dscsd-54dezd5"));

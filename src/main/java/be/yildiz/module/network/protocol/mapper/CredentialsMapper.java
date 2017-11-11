@@ -24,8 +24,9 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.authentication.Credentials;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -43,19 +44,19 @@ public class CredentialsMapper implements ObjectMapper<Credentials> {
     }
 
     @Override
-    public Credentials from(String s) throws InvalidNetworkMessage {
+    public Credentials from(String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(Separator.VAR_SEPARATOR);
             return Credentials.unchecked(v[0], v[1]);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
     @Override
     public String to(Credentials authentication) {
         assert authentication != null;
-        return authentication.login + MessageSeparation.VAR_SEPARATOR + authentication.password;
+        return authentication.login + Separator.VAR_SEPARATOR + authentication.password;
     }
 }

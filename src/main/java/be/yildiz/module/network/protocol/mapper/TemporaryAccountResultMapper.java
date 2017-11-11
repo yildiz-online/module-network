@@ -24,14 +24,16 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.TemporaryAccountCreationResultDto;
+import be.yildizgames.common.mapping.BooleanMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAccountCreationResultDto>{
+public class TemporaryAccountResultMapper implements ObjectMapper<TemporaryAccountCreationResultDto> {
 
     private static final TemporaryAccountResultMapper INSTANCE = new TemporaryAccountResultMapper();
 
@@ -44,11 +46,11 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
     }
 
     @Override
-    public TemporaryAccountCreationResultDto from(String s) throws InvalidNetworkMessage {
+    public TemporaryAccountCreationResultDto from(String s) throws MappingException {
         assert s != null;
         TemporaryAccountCreationResultDto dto = new TemporaryAccountCreationResultDto();
         try {
-            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            String[] v = s.split(Separator.OBJECTS_SEPARATOR);
             dto.setAccountExisting(BooleanMapper.getInstance().from(v[0]));
             dto.setEmailExisting(BooleanMapper.getInstance().from(v[1]));
             dto.setEmailMissing(BooleanMapper.getInstance().from(v[2]));
@@ -59,7 +61,7 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
             dto.setToken(v[7]);
             return dto;
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -67,19 +69,19 @@ public class TemporaryAccountResultMapper implements ObjectMapper <TemporaryAcco
     public String to(TemporaryAccountCreationResultDto dto) {
         assert dto != null;
         return BooleanMapper.getInstance().to(dto.isAccountExisting())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailExisting())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isEmailMissing())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidEmail())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidLogin())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isInvalidPassword())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BooleanMapper.getInstance().to(dto.isTechnicalIssue())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + dto.getToken();
     }
 }

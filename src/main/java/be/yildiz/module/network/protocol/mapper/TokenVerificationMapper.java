@@ -23,9 +23,8 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.TokenVerification;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -44,13 +43,13 @@ public class TokenVerificationMapper implements ObjectMapper<TokenVerification> 
 
 
     @Override
-    public TokenVerification from(String s) throws InvalidNetworkMessage {
+    public TokenVerification from(String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(Separator.VAR_SEPARATOR);
             return new TokenVerification(PlayerIdMapper.getInstance().from(v[0]), BooleanMapper.getInstance().from(v[1]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -58,7 +57,7 @@ public class TokenVerificationMapper implements ObjectMapper<TokenVerification> 
     public String to(TokenVerification tokenVerification) {
         assert tokenVerification != null;
         return PlayerIdMapper.getInstance().to(tokenVerification.playerId)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + BooleanMapper.getInstance().to(tokenVerification.authenticated);
     }
 }

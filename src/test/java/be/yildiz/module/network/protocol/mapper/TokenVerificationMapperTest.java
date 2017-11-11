@@ -26,6 +26,7 @@ package be.yildiz.module.network.protocol.mapper;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.TokenVerification;
+import be.yildizgames.common.mapping.BaseMapperTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification>{
+class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification> {
 
     TokenVerificationMapperTest() {
         super(TokenVerificationMapper.getInstance(), new TokenVerification(PlayerId.valueOf(4), true));

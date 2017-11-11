@@ -25,6 +25,7 @@ package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildizgames.common.mapping.BaseMapperTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class VersionMapperTest extends BaseMapperTest<Version>{
+class VersionMapperTest extends BaseMapperTest<Version> {
 
     VersionMapperTest() {
         super(VersionMapper.getInstance(), new Version(Version.VersionType.ALPHA, 4, 8, 1, 2));

@@ -26,11 +26,12 @@ package be.yildiz.module.network.protocol.mapper;
 
 
 import be.yildiz.module.network.protocol.TemporaryAccountDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre
  */
-class TemporaryAccountMapperTest extends BaseMapperTest<TemporaryAccountDto>{
+class TemporaryAccountMapperTest extends BaseMapperTest<TemporaryAccountDto> {
 
     TemporaryAccountMapperTest() {
         super(TemporaryAccountMapper.getInstance(), new TemporaryAccountDto("login", "pass", "email@email.com"));

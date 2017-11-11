@@ -24,9 +24,10 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.AccountValidationDto;
-import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,19 +45,19 @@ public class AccountValidationMapper implements ObjectMapper<AccountValidationDt
     }
 
     @Override
-    public AccountValidationDto from(String s) throws InvalidNetworkMessage {
+    public AccountValidationDto from(String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            String[] v = s.split(Separator.OBJECTS_SEPARATOR);
             return new AccountValidationDto(v[0], v[1]);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
     @Override
     public String to(AccountValidationDto dto) {
         assert dto != null;
-        return dto.getLogin() + MessageSeparation.OBJECTS_SEPARATOR + dto.getToken();
+        return dto.getLogin() + Separator.OBJECTS_SEPARATOR + dto.getToken();
     }
 }

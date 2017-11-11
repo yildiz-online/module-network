@@ -25,6 +25,7 @@ package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
 import be.yildiz.module.network.protocol.VersionCheck;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre

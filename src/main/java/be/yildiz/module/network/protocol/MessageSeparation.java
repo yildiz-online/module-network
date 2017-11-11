@@ -31,11 +31,6 @@ package be.yildiz.module.network.protocol;
 public final class MessageSeparation {
 
     /**
-     * Separator to used when different objects are concatenated.
-     */
-    public static final String COLLECTION_SEPARATOR = ",";
-
-    /**
      * Separator to used when different message are concatenated, placed at the end of the message.
      */
     public static final String MESSAGE_END = "#";
@@ -45,15 +40,6 @@ public final class MessageSeparation {
      */
     public static final String MESSAGE_BEGIN = "&";
 
-    /**
-     * Separator between different attribute of a same complex object.
-     */
-    public static final String VAR_SEPARATOR = "@";
-
-    /**
-     * Separator between different objects of a message.
-     */
-    public static final String OBJECTS_SEPARATOR = "@@";
 
     static final String COMMAND_SEPARATOR = "_";
 

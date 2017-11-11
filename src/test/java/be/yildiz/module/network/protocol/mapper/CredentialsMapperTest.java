@@ -26,11 +26,12 @@ package be.yildiz.module.network.protocol.mapper;
 
 
 import be.yildiz.common.authentication.Credentials;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre
  */
-public class CredentialsMapperTest extends BaseMapperTest<Credentials>{
+public class CredentialsMapperTest extends BaseMapperTest<Credentials> {
 
     public CredentialsMapperTest() {
         super(CredentialsMapper.getInstance(), Credentials.unchecked("login", "pass"));

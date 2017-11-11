@@ -24,9 +24,10 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.TemporaryAccountDto;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,13 +45,13 @@ public class TemporaryAccountMapper implements ObjectMapper<TemporaryAccountDto>
     }
 
     @Override
-    public TemporaryAccountDto from(final String s) throws InvalidNetworkMessage {
+    public TemporaryAccountDto from(final String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            String[] v = s.split(Separator.OBJECTS_SEPARATOR);
             return new TemporaryAccountDto(v[0], v[1], v[2]);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -58,9 +59,9 @@ public class TemporaryAccountMapper implements ObjectMapper<TemporaryAccountDto>
     public String to(final TemporaryAccountDto dto) {
         assert dto != null;
         return dto.getLogin()
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + dto.getPassword()
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + dto.getEmail();
     }
 }

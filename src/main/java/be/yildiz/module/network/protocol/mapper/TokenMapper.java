@@ -24,8 +24,7 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Token;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -43,21 +42,21 @@ public class TokenMapper implements ObjectMapper<Token> {
     }
 
     @Override
-    public Token from(String s) throws InvalidNetworkMessage {
+    public Token from(String s) throws MappingException {
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(Separator.VAR_SEPARATOR);
             return Token.any(PlayerIdMapper.getInstance().from(v[0]),
                     IntegerMapper.getInstance().from(v[1]),
                     TokenStatusMapper.getInstance().from(v[2]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
     @Override
     public String to(Token token) {
         return PlayerIdMapper.getInstance().to(token.getId())
-                + MessageSeparation.VAR_SEPARATOR + IntegerMapper.getInstance().to(token.getKey())
-                + MessageSeparation.VAR_SEPARATOR + TokenStatusMapper.getInstance().to(token.getStatus());
+                + Separator.VAR_SEPARATOR + IntegerMapper.getInstance().to(token.getKey())
+                + Separator.VAR_SEPARATOR + TokenStatusMapper.getInstance().to(token.getStatus());
     }
 }
