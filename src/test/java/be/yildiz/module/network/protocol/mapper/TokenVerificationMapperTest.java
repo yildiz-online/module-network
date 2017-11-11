@@ -27,6 +27,7 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.TokenVerification;
 import be.yildizgames.common.mapping.BaseMapperTest;
+import be.yildizgames.common.mapping.MappingException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,14 +42,14 @@ class TokenVerificationMapperTest extends BaseMapperTest<TokenVerification> {
     }
 
     @Test
-    void invalidPlayerId() throws InvalidNetworkMessage {
+    void invalidPlayerId() {
         String message = "a@t";
-        assertThrows(InvalidNetworkMessage.class, () -> TokenVerificationMapper.getInstance().from(message));
+        assertThrows(MappingException.class, () -> TokenVerificationMapper.getInstance().from(message));
     }
 
     @Test
-    void invalidAuthenticated() throws InvalidNetworkMessage {
+    void invalidAuthenticated() {
         String message = "4@x";
-        assertThrows(InvalidNetworkMessage.class, () -> TokenVerificationMapper.getInstance().from(message));
+        assertThrows(MappingException.class, () -> TokenVerificationMapper.getInstance().from(message));
     }
 }
