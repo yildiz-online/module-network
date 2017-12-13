@@ -23,11 +23,11 @@
 
 package be.yildiz.module.network.client;
 
-import be.yildiz.common.collections.Lists;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
+import be.yildizgames.common.collection.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

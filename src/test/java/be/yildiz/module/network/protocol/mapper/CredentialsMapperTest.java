@@ -25,7 +25,7 @@
 package be.yildiz.module.network.protocol.mapper;
 
 
-import be.yildiz.common.authentication.Credentials;
+import be.yildizgames.common.authentication.Credentials;
 import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**

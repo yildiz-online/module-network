@@ -23,7 +23,7 @@
 
 package be.yildiz.module.network.protocol.mapper;
 
-import be.yildiz.common.authentication.Credentials;
+import be.yildizgames.common.authentication.Credentials;
 import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
