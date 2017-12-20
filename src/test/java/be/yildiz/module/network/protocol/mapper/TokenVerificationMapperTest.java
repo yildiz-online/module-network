@@ -24,7 +24,6 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.TokenVerification;
 import be.yildizgames.common.mapping.BaseMapperTest;
 import be.yildizgames.common.mapping.MappingException;

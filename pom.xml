@@ -47,8 +47,18 @@
   <dependencies>
     <dependency>
       <groupId>be.yildiz-games</groupId>
-      <artifactId>common-shared</artifactId>
-      <version>3.0.1-SNAPSHOT</version>
+      <artifactId>common-logging</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>common-exception</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>common-collection</artifactId>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
@@ -57,10 +67,8 @@
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
-      <artifactId>common-shared</artifactId>
-      <version>3.0.1-SNAPSHOT</version>
-      <type>test-jar</type>
-      <scope>test</scope>
+      <artifactId>common-model</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
@@ -83,11 +91,6 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>be.yildiz-games</groupId>
-      <artifactId>common-authentication</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

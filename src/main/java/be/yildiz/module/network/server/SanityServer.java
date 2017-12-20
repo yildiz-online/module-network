@@ -23,7 +23,7 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.exeption.InitializationException;
+import be.yildizgames.common.exception.technical.InitializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

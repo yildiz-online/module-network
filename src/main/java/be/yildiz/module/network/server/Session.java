@@ -23,8 +23,8 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.protocol.NetworkMessage;
+import be.yildizgames.common.model.PlayerId;
 import org.slf4j.LoggerFactory;
 
 import java.util.Set;

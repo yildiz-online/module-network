@@ -23,7 +23,6 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.Token;
 import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.client.AbstractNetworkEngineClient;
 import be.yildiz.module.network.protocol.TokenVerification;

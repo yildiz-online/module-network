@@ -23,13 +23,12 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.Token;
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildizgames.common.collection.Lists;
 import be.yildizgames.common.collection.Maps;
+import be.yildizgames.common.model.PlayerId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
