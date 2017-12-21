@@ -23,9 +23,7 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildizgames.common.collection.Lists;
 import be.yildizgames.common.collection.Maps;
 import be.yildizgames.common.model.PlayerId;
@@ -55,10 +53,6 @@ public abstract class SessionManager {
      * Constant for a disconnected session.
      */
     private final Session disconnectedSession = new SessionManager.DisconnectedSession();
-
-    protected final NetworkMessageFactory factory = new NetworkMessageFactory();
-
-    public abstract void authenticate(Token request);
 
     /**
      * @return The list of all connected players.
@@ -95,17 +89,6 @@ public abstract class SessionManager {
     }
 
     /**
-     * Set a session as setAuthenticated and thus as connected.
-     *
-     * @param session Session to add.
-     */
-    public final void setAuthenticated(final Session session) {
-        session.setAuthenticated();
-        this.connectedPlayerList.put(session.getPlayer(), session);
-        this.sessionListeners.forEach(l -> l.clientAuthenticated(session));
-    }
-
-    /**
      * Add a new session listener to be notified when messages are received or when client had setAuthenticated.
      *
      * @param listener SessionListener to add.
@@ -124,16 +107,22 @@ public abstract class SessionManager {
         if (session.isAuthenticated()) {
             this.sessionListeners.forEach(l -> l.messageReceived(session, message));
         } else {
-            try {
-                Token request = factory.connectionRequest(message);
-                session.setPlayer(request.getId());
-                this.connectedPlayerList.put(session.getPlayer(), session);
-                this.authenticate(request);
-            } catch (InvalidNetworkMessage e) {
-                LOGGER.warn("Message from unauthenticated player " + session.getPlayer());
-            }
+            authenticate(session, message);
         }
     }
+
+    /**
+     * Set a session as setAuthenticated and thus as connected.
+     *
+     * @param session Session to add.
+     */
+    public final void setAuthenticated(final Session session) {
+        session.setAuthenticated();
+        this.connectedPlayerList.put(session.getPlayer(), session);
+        this.sessionListeners.forEach(l -> l.clientAuthenticated(session));
+    }
+
+    protected abstract void authenticate(Session session, MessageWrapper message);
 
     public abstract void update();
 

@@ -24,7 +24,6 @@
 package be.yildiz.module.network.protocol.mapper;
 
 import be.yildiz.common.Version;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.common.mapping.BaseMapperTest;
 import be.yildizgames.common.mapping.MappingException;
 import org.junit.jupiter.api.Test;

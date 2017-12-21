@@ -23,16 +23,18 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.module.network.AuthenticationConfiguration;
 import be.yildiz.module.network.client.AbstractNetworkEngineClient;
+import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.TokenVerification;
+import be.yildizgames.common.authentication.AuthenticationConfiguration;
+import be.yildizgames.common.authentication.protocol.Token;
 
 /**
  * Manage the sessions, only setAuthenticated session are stored.
  *
  * @author Grégory Van den Borre
  */
-public final class AuthenticationSessionManager extends SessionManager {
+public final class AuthenticationTokenSessionManager extends SessionManager {
 
     /**
      * Network client engine.
@@ -40,12 +42,12 @@ public final class AuthenticationSessionManager extends SessionManager {
     private final AbstractNetworkEngineClient client;
 
     /**
-     * Create a new AuthenticationSessionManager.
+     * Create a new AuthenticationTokenSessionManager.
      *
      * @param client Client to be connected to the authentication server.
      * @param config Contains the connection configuration.
      */
-    public AuthenticationSessionManager(final AbstractNetworkEngineClient client, final AuthenticationConfiguration config) {
+    public AuthenticationTokenSessionManager(final AbstractNetworkEngineClient client, final AuthenticationConfiguration config) {
         super();
         this.client = client;
         this.client.addNetworkListener(message -> {
@@ -56,6 +58,20 @@ public final class AuthenticationSessionManager extends SessionManager {
             }
         });
         this.client.connect(config);
+    }
+
+
+
+    @Override
+    protected void authenticate(Session session, MessageWrapper message) {
+        try {
+            Token request = factory.connectionRequest(message);
+            session.setPlayer(request.getId());
+            this.connectedPlayerList.put(session.getPlayer(), session);
+            this.authenticate(request);
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -72,7 +88,6 @@ public final class AuthenticationSessionManager extends SessionManager {
      * @param request Received AuthenticationRequest.
      */
     //@requires request != null
-    @Override
     public final void authenticate(final Token request) {
         this.client.sendMessage(factory.tokenVerification(request).buildMessage());
     }

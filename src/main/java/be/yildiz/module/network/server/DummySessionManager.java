@@ -23,7 +23,7 @@
 
 package be.yildiz.module.network.server;
 
-import be.yildiz.common.Token;
+import be.yildizgames.common.authentication.protocol.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +38,7 @@ public class DummySessionManager extends SessionManager {
     public void authenticate(final Token t) {
         LOGGER.info("Dummy authentication for " + t.getId());
         Session session = getSessionByPlayer(t.getId());
+        session.setAuthenticated();
         this.setAuthenticated(session);
     }
 

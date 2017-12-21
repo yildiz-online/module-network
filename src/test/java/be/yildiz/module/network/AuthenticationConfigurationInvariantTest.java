@@ -23,6 +23,7 @@
 
 package be.yildiz.module.network;
 
+import be.yildizgames.common.authentication.AuthenticationConfiguration;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
