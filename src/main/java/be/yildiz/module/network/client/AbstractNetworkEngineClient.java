@@ -26,7 +26,6 @@ package be.yildiz.module.network.client;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildizgames.common.authentication.AuthenticationConfiguration;
 import be.yildizgames.common.collection.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -197,15 +196,6 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
      * Disconnect the client without closing it.
      */
     public abstract void disconnect();
-
-    /**
-     * Connect to an authentication server.
-     * @param config Configuration to connect.
-     * @throws NullPointerException if config is null.
-     */
-    public void connect(final AuthenticationConfiguration config) {
-        this.connect(config.getAuthenticationHost(), config.getAuthenticationPort());
-    }
 
     public boolean isConnected() {
         return connected;
