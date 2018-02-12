@@ -49,13 +49,12 @@ public class SanityServer {
     //@requires port >= 0 && port <= 65535
     //@requires address != null
     public static void test(final int port, final String address) {
-        String log = "Testing network host " + address + " port " + port;
-        LOGGER.debug(log + "...");
+        LOGGER.debug("Testing network host {}, port {}...", address, port);
         try (ServerSocket ss = new ServerSocket()){
             ss.bind(new InetSocketAddress(address, 0));
-            LOGGER.debug(log + " successful.");
+            LOGGER.debug("Connexion to host {}, port {} successful.", address, port);
         } catch (Exception e) {
-            LOGGER.error(log + " error.");
+            LOGGER.error("Connexion to host {}, port {} failure.", address, port);
             throw new InitializationException(e);
         }
     }

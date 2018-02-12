@@ -114,7 +114,7 @@ public final class NetworkMessage<T> {
      *
      * @return the built message.
      */
-    public final String buildMessage() {
+    public String buildMessage() {
         return String.format("%s%d%s%s%s",
                 MessageSeparation.MESSAGE_BEGIN,
                 this.command(),
@@ -132,7 +132,7 @@ public final class NetworkMessage<T> {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.buildMessage();
     }
 
