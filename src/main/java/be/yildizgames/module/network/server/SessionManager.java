@@ -24,8 +24,6 @@
 
 package be.yildizgames.module.network.server;
 
-import be.yildizgames.common.collection.Lists;
-import be.yildizgames.common.collection.Maps;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import org.slf4j.Logger;
@@ -33,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,12 +46,12 @@ public abstract class SessionManager {
     /**
      * List of listeners for sessions.
      */
-    private final List<SessionListener> sessionListeners = Lists.newList();
+    private final List<SessionListener> sessionListeners = new ArrayList<>();
 
     /**
      * Map to link the player to their associated session, those players may not be setAuthenticated.
      */
-    private final Map<PlayerId, Session> connectedPlayerList = Maps.newMap();
+    private final Map<PlayerId, Session> connectedPlayerList = new HashMap<>();
 
     /**
      * Constant for a disconnected session.
