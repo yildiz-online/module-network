@@ -25,6 +25,7 @@
 package be.yildizgames.module.network.client;
 
 import be.yildizgames.common.logging.LogFactory;
+import be.yildizgames.module.network.client.dummy.DummyNetworkEngineClientProvider;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.protocol.NetworkMessage;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 
 /**
  * The network engine can connect to a server, send messages, receive messages, delay message handling, notify listeners when an event occurs.
@@ -40,9 +42,9 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public abstract class AbstractNetworkEngineClient implements ClientCallBack {
+public abstract class NetworkEngineClient implements ClientCallBack {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(AbstractNetworkEngineClient.class);
+    private static final Logger LOGGER = LogFactory.getInstance().getLogger(NetworkEngineClient.class);
 
     /**
      * List containing all messages received from the server, waiting to be processed.
@@ -83,8 +85,13 @@ public abstract class AbstractNetworkEngineClient implements ClientCallBack {
     private int port;
 
 
-    public AbstractNetworkEngineClient() {
+    public NetworkEngineClient() {
         super();
+    }
+
+    public static NetworkEngineClient getEngine() {
+        ServiceLoader<NetworkEngineClientProvider> provider = ServiceLoader.load(NetworkEngineClientProvider.class);
+        return provider.findFirst().orElseGet(DummyNetworkEngineClientProvider::new).getEngine();
     }
 
     /**

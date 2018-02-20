@@ -24,6 +24,7 @@
 
 package be.yildizgames.module.network.client;
 
+import be.yildizgames.module.network.client.dummy.DummyNetworkEngine;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ class NetworkEngineTest {
 
     @Test
     void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
-        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        NetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         MessageWrapper mw = new MessageWrapper("a test");
@@ -71,7 +72,7 @@ class NetworkEngineTest {
 
     @Test
     void testConnectionFailed() {
-        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        NetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         assertFalse(ne.isConnected());
@@ -82,7 +83,7 @@ class NetworkEngineTest {
 
     @Test
     void testConnectionLost() {
-        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        NetworkEngineClient ne = new DummyNetworkEngine();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         assertFalse(ne.isConnected());
@@ -95,7 +96,7 @@ class NetworkEngineTest {
 
     @Test
     void testIsConnected() {
-        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        NetworkEngineClient ne = new DummyNetworkEngine();
         assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -106,7 +107,7 @@ class NetworkEngineTest {
 
     @Test
     void testDisconnect() {
-        AbstractNetworkEngineClient ne = new DummyNetworkEngine();
+        NetworkEngineClient ne = new DummyNetworkEngine();
         ne.connectionSuccessful();
         assertTrue(ne.isConnected());
         ne.disconnect();
