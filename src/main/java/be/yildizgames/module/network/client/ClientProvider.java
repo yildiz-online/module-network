@@ -23,45 +23,10 @@
  * THE  SOFTWARE.
  */
 
-package be.yildizgames.module.network.client.dummy;
+package be.yildizgames.module.network.client;
 
-import be.yildizgames.module.network.client.NetworkEngineClient;
-import be.yildizgames.module.network.protocol.NetworkMessage;
+public interface ClientProvider {
 
-/**
- * Empty network implementation.
- *
- * @author Grégory Van den Borre
- */
-public final class DummyNetworkEngine extends NetworkEngineClient {
-
-    public DummyNetworkEngine() {
-        super();
-    }
-
-    @Override
-    public void sendMessage(final NetworkMessage message) {
-        //Does nothing.
-    }
-
-    @Override
-    public void sendMessage(final String message) {
-        //Does nothing.
-    }
-
-    @Override
-    public void connectImpl(final String address, final int port) {
-        //Does nothing.
-    }
-
-    @Override
-    public void close() {
-        //Does nothing.
-    }
-
-    @Override
-    public void disconnect() {
-        //Does nothing.
-    }
+    Client getEngine();
 
 }

@@ -23,10 +23,17 @@
  * THE  SOFTWARE.
  */
 
-package be.yildizgames.module.network.client;
+package be.yildizgames.module.network.client.dummy;
 
-public interface NetworkEngineClientProvider {
+import be.yildizgames.module.network.client.Client;
+import be.yildizgames.module.network.client.ClientProvider;
 
-    NetworkEngineClient getEngine();
-
+/**
+ * @author Grégory Van den Borre
+ */
+public class DummyClientProvider implements ClientProvider {
+    @Override
+    public Client getEngine() {
+        return new DummyClient();
+    }
 }

@@ -24,7 +24,7 @@
 
 package be.yildizgames.module.network.client;
 
-import be.yildizgames.module.network.client.dummy.DummyNetworkEngine;
+import be.yildizgames.module.network.client.dummy.DummyClient;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import org.junit.jupiter.api.Test;
@@ -60,7 +60,7 @@ class NetworkEngineTest {
 
     @Test
     void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
-        NetworkEngineClient ne = new DummyNetworkEngine();
+        Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         MessageWrapper mw = new MessageWrapper("a test");
@@ -72,7 +72,7 @@ class NetworkEngineTest {
 
     @Test
     void testConnectionFailed() {
-        NetworkEngineClient ne = new DummyNetworkEngine();
+        Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         assertFalse(ne.isConnected());
@@ -83,7 +83,7 @@ class NetworkEngineTest {
 
     @Test
     void testConnectionLost() {
-        NetworkEngineClient ne = new DummyNetworkEngine();
+        Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
         assertFalse(ne.isConnected());
@@ -96,7 +96,7 @@ class NetworkEngineTest {
 
     @Test
     void testIsConnected() {
-        NetworkEngineClient ne = new DummyNetworkEngine();
+        Client ne = new DummyClient();
         assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -107,7 +107,7 @@ class NetworkEngineTest {
 
     @Test
     void testDisconnect() {
-        NetworkEngineClient ne = new DummyNetworkEngine();
+        Client ne = new DummyClient();
         ne.connectionSuccessful();
         assertTrue(ne.isConnected());
         ne.disconnect();

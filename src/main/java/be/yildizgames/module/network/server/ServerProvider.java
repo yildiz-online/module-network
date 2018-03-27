@@ -24,34 +24,10 @@
 
 package be.yildizgames.module.network.server;
 
-import be.yildizgames.module.network.exceptions.NetworkException;
-import be.yildizgames.module.network.server.dummy.DummyServerProvider;
-
-import java.util.ServiceLoader;
-
 /**
- * A server will wait for and accept connections from clients.
- *
  * @author Grégory Van den Borre
  */
-public abstract class Server {
+public interface ServerProvider {
 
-    public static Server getEngine() {
-        ServiceLoader<ServerProvider> provider = ServiceLoader.load(ServerProvider.class);
-        return provider.findFirst().orElseGet(DummyServerProvider::new).getEngine();
-    }
-
-    /**
-     * Initialize and start the server.
-     */
-    public abstract void startServer();
-
-    protected final void throwError(String message) {
-        throw new NetworkException(message);
-    }
-
-    protected final void throwError(String message, Exception e) {
-        throw new NetworkException(message, e);
-    }
-
+    Server getEngine();
 }

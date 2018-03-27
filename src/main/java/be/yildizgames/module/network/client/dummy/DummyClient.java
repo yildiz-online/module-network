@@ -25,15 +25,43 @@
 
 package be.yildizgames.module.network.client.dummy;
 
-import be.yildizgames.module.network.client.NetworkEngineClient;
-import be.yildizgames.module.network.client.NetworkEngineClientProvider;
+import be.yildizgames.module.network.client.Client;
+import be.yildizgames.module.network.protocol.NetworkMessage;
 
 /**
+ * Empty network implementation.
+ *
  * @author Grégory Van den Borre
  */
-public class DummyNetworkEngineClientProvider implements NetworkEngineClientProvider {
-    @Override
-    public NetworkEngineClient getEngine() {
-        return new DummyNetworkEngine();
+public final class DummyClient extends Client {
+
+    public DummyClient() {
+        super();
     }
+
+    @Override
+    public void sendMessage(final NetworkMessage message) {
+        //Does nothing.
+    }
+
+    @Override
+    public void sendMessage(final String message) {
+        //Does nothing.
+    }
+
+    @Override
+    public void connectImpl(final String address, final int port) {
+        //Does nothing.
+    }
+
+    @Override
+    public void close() {
+        //Does nothing.
+    }
+
+    @Override
+    public void disconnect() {
+        //Does nothing.
+    }
+
 }
