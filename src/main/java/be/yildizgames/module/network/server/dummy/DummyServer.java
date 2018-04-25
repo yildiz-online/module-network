@@ -24,7 +24,9 @@
 
 package be.yildizgames.module.network.server.dummy;
 
+import be.yildizgames.module.network.DecoderEncoder;
 import be.yildizgames.module.network.server.Server;
+import be.yildizgames.module.network.server.SessionManager;
 
 /**
  * @author Grégory Van den Borre
@@ -32,7 +34,12 @@ import be.yildizgames.module.network.server.Server;
 public class DummyServer extends Server {
 
     @Override
-    public final void startServer() {
+    public final void startServer(String address, int port, SessionManager sessionManager, DecoderEncoder codec) {
+
+    }
+
+    @Override
+    public final void startServer(int port, SessionManager sessionManager, DecoderEncoder codec) {
 
     }
 }

@@ -51,7 +51,7 @@ public abstract class AbstractHandler {
      */
     //@Requires("session != null")
     //@Requires("message != null")
-    void processMessages(final Session session, final String message) {
+    public void processMessages(final Session session, final String message) {
         LOGGER.debug("Unprocessed network message: {}", message);
         String messageWithoutStartChar = message.replaceAll(MessageSeparation.MESSAGE_BEGIN, "");
         String[] messages = messageWithoutStartChar.split(MessageSeparation.MESSAGE_END);

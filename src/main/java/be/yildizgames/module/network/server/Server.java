@@ -24,6 +24,7 @@
 
 package be.yildizgames.module.network.server;
 
+import be.yildizgames.module.network.DecoderEncoder;
 import be.yildizgames.module.network.exceptions.NetworkException;
 import be.yildizgames.module.network.server.dummy.DummyServerProvider;
 
@@ -43,8 +44,20 @@ public abstract class Server {
 
     /**
      * Initialize and start the server.
+     * @param address Address to connect to.
+     * @param port Port to connect to.
+     * @param sessionManager Session manager to handle connexions.
+     * @param codec Transmission codec.
      */
-    public abstract void startServer();
+    public abstract void startServer(String address, int port, SessionManager sessionManager, DecoderEncoder codec);
+
+    /**
+     * Initialize and start the server.
+     * @param port Port to connect to.
+     * @param sessionManager Session manager to handle connexions.
+     * @param codec Transmission codec.
+     */
+    public abstract void startServer(int port, SessionManager sessionManager, DecoderEncoder codec);
 
     protected final void throwError(String message) {
         throw new NetworkException(message);
