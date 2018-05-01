@@ -24,22 +24,28 @@
 
 package be.yildizgames.module.network.client;
 
-import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
-import be.yildizgames.module.network.protocol.MessageWrapper;
-
 /**
- * Listener for network events like connection and message reception.
+ * Listener for connection events.
  *
  * @author Grégory Van den Borre
  */
-@FunctionalInterface
-public interface NetworkListener extends ConnectionListener {
+public interface ConnectionListener {
 
     /**
-     * Fired when a message is received.
-     *
-     * @param message Message received from the network.
-     * @throws InvalidNetworkMessage If the message cannot be parsed.
+     * Fired when the physical connection is made with the server.
      */
-    void parse(final MessageWrapper message) throws InvalidNetworkMessage;
+    default void connected() {
+    }
+
+    /**
+     * Fired when the physical connection cannot be made with the server.
+     */
+    default void connectionFailed() {
+    }
+
+    /**
+     * Fired when the connection is lost after being successful.
+     */
+    default void connectionLost() {
+    }
 }
