@@ -24,6 +24,8 @@
 
 package be.yildizgames.module.network.protocol;
 
+import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
+
 /**
  * Wrap a network message.
  *
@@ -36,6 +38,10 @@ public final class MessageWrapper {
      */
     public final String message;
 
+    public final int command;
+
+    public final String content;
+
     /**
      * Create an instance from a String.
      *
@@ -45,6 +51,13 @@ public final class MessageWrapper {
         super();
         assert message != null;
         this.message = message;
+        final String[] base = message.split(MessageSeparation.COMMAND_SEPARATOR);
+        try {
+            this.command = Integer.parseInt(base[0]);
+            this.content = base[1];
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage("Invalid message: " + message, e);
+        }
     }
 
     @Override
