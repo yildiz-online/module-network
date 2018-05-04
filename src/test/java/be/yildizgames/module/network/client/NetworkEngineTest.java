@@ -63,7 +63,7 @@ class NetworkEngineTest {
         Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
-        MessageWrapper mw = new MessageWrapper("a test");
+        MessageWrapper mw = new MessageWrapper("1_a test");
         ne.messageReceived(mw);
         Mockito.verifyZeroInteractions(l);
         ne.update();

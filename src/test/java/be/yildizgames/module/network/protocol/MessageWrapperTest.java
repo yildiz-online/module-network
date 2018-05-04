@@ -37,8 +37,8 @@ class MessageWrapperTest {
 
     @Test
     void testMessageWrapper() {
-        MessageWrapper m = new MessageWrapper("bla");
-        assertEquals("bla", m.message);
+        MessageWrapper m = new MessageWrapper("1_bla");
+        assertEquals("bla", m.content);
     }
 
     @Test
@@ -48,8 +48,8 @@ class MessageWrapperTest {
 
     @Test
     void testToString() {
-        MessageWrapper m = new MessageWrapper("bla");
-        assertEquals("bla", m.toString());
+        MessageWrapper m = new MessageWrapper("1_bla");
+        assertEquals("1_bla", m.toString());
     }
 
 }

@@ -24,8 +24,10 @@
 
 package be.yildizgames.module.network;
 
+import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.server.Session;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -44,27 +46,25 @@ class HandlerTest {
     @Test
     void testProcessMessages1message() {
         TestHandler h = new TestHandler();
-        h.processMessages(session, "aSmallTest");
+        h.processMessages(session, "1_aSmallTest");
         assertEquals(1, h.messages.size());
-        assertEquals("aSmallTest", h.messages.get(0).message);
+        assertEquals("aSmallTest", h.messages.get(0).content);
     }
 
     @Test
     void testProcessMessagesEmptyMessage() {
         TestHandler h = new TestHandler();
-        h.processMessages(session, "");
-        assertEquals(1, h.messages.size());
-        assertEquals("", h.messages.get(0).message);
+        Assertions.assertThrows(InvalidNetworkMessage.class, () -> h.processMessages(session, ""));
     }
 
     @Test
     void testProcessMessages3message() {
         TestHandler h = new TestHandler();
-        h.processMessages(session, "&abc#&def#&ghi#");
+        h.processMessages(session, "&1_abc#&2_def#&3_ghi#");
         assertEquals(3, h.messages.size());
-        assertEquals("abc", h.messages.get(0).message);
-        assertEquals("def", h.messages.get(1).message);
-        assertEquals("ghi", h.messages.get(2).message);
+        assertEquals("abc", h.messages.get(0).content);
+        assertEquals("def", h.messages.get(1).content);
+        assertEquals("ghi", h.messages.get(2).content);
     }
 
     private static class TestHandler extends AbstractHandler {
