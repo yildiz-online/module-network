@@ -35,11 +35,11 @@ public class DummyServer extends Server {
 
     @Override
     public final void startServer(String address, int port, SessionManager sessionManager, DecoderEncoder codec) {
-
+        // Empty implementation.
     }
 
     @Override
     public final void startServer(int port, SessionManager sessionManager, DecoderEncoder codec) {
-
+        // Empty implementation.
     }
 }

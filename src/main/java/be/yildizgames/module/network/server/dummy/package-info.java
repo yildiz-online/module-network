@@ -22,22 +22,8 @@
  *
  */
 
-package be.yildizgames.module.network.client;
-
-import be.yildizgames.module.network.protocol.MessageWrapper;
-
 /**
- * Listener for network events like connection and message reception.
- *
+ * This package contains a dummy implementation for the server.
  * @author Grégory Van den Borre
  */
-@FunctionalInterface
-public interface NetworkListener extends ConnectionListener {
-
-    /**
-     * Fired when a message is received.
-     *
-     * @param message Message received from the network.
-     */
-    void parse(final MessageWrapper message);
-}
+package be.yildizgames.module.network.server.dummy;

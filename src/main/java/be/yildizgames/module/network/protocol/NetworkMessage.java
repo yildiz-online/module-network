@@ -66,9 +66,8 @@ public final class NetworkMessage<T> {
      * @param message Received message, cannot be null.
      * @param mapper Mapper to transform the message into an object.
      * @param expectedCommand Command value expected.
-     * @throws InvalidNetworkMessage If the message cannot be parsed by the mapper, or if the expected command does not match.
      */
-    public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand) throws InvalidNetworkMessage {
+    public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand){
         String[] msgs = message.message
                 .replaceAll(MessageSeparation.MESSAGE_BEGIN, "")
                 .replaceAll(MessageSeparation.MESSAGE_END, "")
@@ -98,9 +97,8 @@ public final class NetworkMessage<T> {
      *
      * @param message Message containing the command.
      * @return The number corresponding to the command.
-     * @throws InvalidNetworkMessage If the message cannot be correctly parsed.
      */
-    public static int getCommandFromMessage(final MessageWrapper message) throws InvalidNetworkMessage {
+    public static int getCommandFromMessage(final MessageWrapper message) {
         final String[] base = message.message.split(MessageSeparation.COMMAND_SEPARATOR);
         try {
             return Integer.parseInt(base[0]);

@@ -41,6 +41,13 @@ public class SanityServer {
     private static final Logger LOGGER = LogFactory.getInstance().getLogger(SanityServer.class);
 
     /**
+     * Private to prevent instantiation.
+     */
+    private SanityServer() {
+        super();
+    }
+
+    /**
      * Test to create a server socket on a given port and address.
      *
      * @param port    Socket port to test.
