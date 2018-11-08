@@ -43,7 +43,7 @@ import java.util.ServiceLoader;
  *
  * @author Grégory Van den Borre
  */
-public abstract class Client implements ClientCallBack {
+public abstract class Client implements ClientCallBack, MessageSender {
 
     private static final Logger LOGGER = LogFactory.getInstance().getLogger(Client.class);
 
@@ -139,6 +139,7 @@ public abstract class Client implements ClientCallBack {
      *
      * @param message Message to send.
      */
+    @Override
     public abstract void sendMessage(NetworkMessage message);
 
     /**
