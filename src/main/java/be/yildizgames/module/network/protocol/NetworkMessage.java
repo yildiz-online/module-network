@@ -24,7 +24,6 @@
 
 package be.yildizgames.module.network.protocol;
 
-import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 
@@ -85,11 +84,7 @@ public final class NetworkMessage<T> {
         if(this.command != expectedCommand) {
             throw new InvalidNetworkMessage("Expected command is " + expectedCommand + " received is " + command);
         }
-        try {
-            this.dto = mapper.from(this.message);
-        } catch (MappingException e) {
-            throw new InvalidNetworkMessage(e);
-        }
+        this.dto = mapper.from(this.message);
     }
 
     /**
