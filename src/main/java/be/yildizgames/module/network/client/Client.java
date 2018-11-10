@@ -43,7 +43,7 @@ import java.util.ServiceLoader;
  *
  * @author Grégory Van den Borre
  */
-public abstract class Client implements ClientCallBack, MessageSender {
+public abstract class Client implements NetworkClient, ClientCallBack {
 
     private static final Logger LOGGER = LogFactory.getInstance().getLogger(Client.class);
 
@@ -121,6 +121,7 @@ public abstract class Client implements ClientCallBack, MessageSender {
      *
      * @param listener Listener to add.
      */
+    @Override
     public final void addNetworkListener(final NetworkListener listener) {
         this.networkListenerList.add(listener);
     }
@@ -149,12 +150,7 @@ public abstract class Client implements ClientCallBack, MessageSender {
      */
     public abstract void sendMessage(String message);
 
-    /**
-     * Try to connect to the server.
-     *
-     * @param address Server address.
-     * @param port    Network port to use.
-     */
+    @Override
     public final void connect(String address, int port) {
         this.address = address;
         this.port = port;
