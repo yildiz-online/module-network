@@ -24,6 +24,8 @@
  */
 package be.yildizgames.module.network.client;
 
+import be.yildizgames.module.network.protocol.MessageWrapper;
+
 public interface NetworkClient extends MessageSender{
 
     void addNetworkListener(final NetworkListener listener);
@@ -37,4 +39,5 @@ public interface NetworkClient extends MessageSender{
     void connect(String address, int port);
 
 
+    void delayMessageToNextFrame(MessageWrapper message);
 }
