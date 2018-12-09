@@ -38,6 +38,10 @@ public interface NetworkClient extends MessageSender{
      */
     void connect(String address, int port);
 
+    /**
+     * Disconnect the client without closing it.
+     */
+    void disconnect();
 
     void delayMessageToNextFrame(MessageWrapper message);
 }

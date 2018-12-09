@@ -202,11 +202,6 @@ public abstract class Client implements NetworkClient, ClientCallBack {
         throw new NetworkException(message);
     }
 
-    /**
-     * Disconnect the client without closing it.
-     */
-    public abstract void disconnect();
-
     public boolean isConnected() {
         return connected;
     }
