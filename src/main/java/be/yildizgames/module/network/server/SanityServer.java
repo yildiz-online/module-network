@@ -24,8 +24,8 @@
 
 package be.yildizgames.module.network.server;
 
-import be.yildizgames.common.exception.technical.InitializationException;
 import be.yildizgames.common.logging.LogFactory;
+import be.yildizgames.module.network.exceptions.NetworkException;
 import org.slf4j.Logger;
 
 import java.net.InetSocketAddress;
@@ -62,7 +62,7 @@ public class SanityServer {
             LOGGER.debug("Connexion to host {}, port {} successful.", address, port);
         } catch (Exception e) {
             LOGGER.error("Connexion to host {}, port {} failure.", address, port);
-            throw new InitializationException(e);
+            throw new NetworkException("Connexion failure");
         }
     }
 
