@@ -24,10 +24,10 @@
 
 package be.yildizgames.module.network.server;
 
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +41,7 @@ import java.util.Set;
  */
 public abstract class SessionManager {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(SessionManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionManager.class);
 
     /**
      * List of listeners for sessions.

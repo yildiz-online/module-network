@@ -24,9 +24,9 @@
 
 package be.yildizgames.module.network.server;
 
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.module.network.exceptions.NetworkException;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -38,7 +38,7 @@ import java.net.ServerSocket;
  */
 public class SanityServer {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(SanityServer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SanityServer.class);
 
     /**
      * Private to prevent instantiation.

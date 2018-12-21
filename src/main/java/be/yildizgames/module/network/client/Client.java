@@ -24,13 +24,13 @@
 
 package be.yildizgames.module.network.client;
 
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.module.network.client.dummy.DummyClientProvider;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.exceptions.NetworkException;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.protocol.NetworkMessage;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ import java.util.ServiceLoader;
  */
 public abstract class Client implements NetworkClient, ClientCallBack {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(Client.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
 
     /**
      * List containing all messages received from the server, waiting to be processed.

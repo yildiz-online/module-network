@@ -24,11 +24,11 @@
 
 package be.yildizgames.module.network;
 
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.module.network.protocol.MessageSeparation;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.server.Session;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The handler controls the way the network will react to incoming message in its concrete implementation, the abstract part will manage the message construction.
@@ -37,7 +37,7 @@ import org.slf4j.Logger;
  */
 public abstract class AbstractHandler {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(AbstractHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHandler.class);
 
     protected AbstractHandler() {
         super();
