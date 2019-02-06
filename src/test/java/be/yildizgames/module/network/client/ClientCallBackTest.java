@@ -30,10 +30,10 @@ import org.mockito.Mockito;
 /**
  * @author Grégory Van den Borre
  */
-class ClientCallBackTest {
+public class ClientCallBackTest {
 
     @Test
-    void testHandShakeComplete() {
+    public void testHandShakeComplete() {
         ClientCallBack callback = Mockito.mock(ClientCallBack.class);
         callback.handShakeComplete();
     }

@@ -36,30 +36,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-class NetworkEngineTest {
+public class NetworkEngineTest {
 
     @Test
-    void testDelayMessageToNextFrame() {
+    public void testDelayMessageToNextFrame() {
         //FIXME implements
     }
 
     @Test
-    void testSendMessageServerRequest() {
+    public void testSendMessageServerRequest() {
         //FIXME implements
     }
 
     @Test
-    void testSendMessageString() {
+    public void testSendMessageString() {
         //FIXME implements
     }
 
     @Test
-    void testClose() {
+    public void testClose() {
         //FIXME implements
     }
 
     @Test
-    void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
+    public void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
         Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -71,7 +71,7 @@ class NetworkEngineTest {
     }
 
     @Test
-    void testConnectionFailed() {
+    public void testConnectionFailed() {
         Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -82,7 +82,7 @@ class NetworkEngineTest {
     }
 
     @Test
-    void testConnectionLost() {
+    public void testConnectionLost() {
         Client ne = new DummyClient();
         NetworkListener l = Mockito.mock(NetworkListener.class);
         ne.addNetworkListener(l);
@@ -95,7 +95,7 @@ class NetworkEngineTest {
     }
 
     @Test
-    void testIsConnected() {
+    public void testIsConnected() {
         Client ne = new DummyClient();
         assertFalse(ne.isConnected());
         NetworkListener l = Mockito.mock(NetworkListener.class);
@@ -106,7 +106,7 @@ class NetworkEngineTest {
     }
 
     @Test
-    void testDisconnect() {
+    public void testDisconnect() {
         Client ne = new DummyClient();
         ne.connectionSuccessful();
         assertTrue(ne.isConnected());
@@ -116,7 +116,7 @@ class NetworkEngineTest {
     }
 
     @Test
-    void testNetworkEngine() {
+    public void testNetworkEngine() {
 
     }
 

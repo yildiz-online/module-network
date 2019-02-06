@@ -39,12 +39,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Grégory Van den Borre
  */
-class HandlerTest {
+public class HandlerTest {
 
     private final Session session = Mockito.mock(Session.class);
 
     @Test
-    void testProcessMessages1message() {
+    public void testProcessMessages1message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "1_aSmallTest");
         assertEquals(1, h.messages.size());
@@ -52,13 +52,13 @@ class HandlerTest {
     }
 
     @Test
-    void testProcessMessagesEmptyMessage() {
+    public void testProcessMessagesEmptyMessage() {
         TestHandler h = new TestHandler();
         Assertions.assertThrows(InvalidNetworkMessage.class, () -> h.processMessages(session, ""));
     }
 
     @Test
-    void testProcessMessages3message() {
+    public void testProcessMessages3message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "&1_abc#&2_def#&3_ghi#");
         assertEquals(3, h.messages.size());
