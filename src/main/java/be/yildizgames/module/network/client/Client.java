@@ -103,9 +103,9 @@ public abstract class Client implements NetworkClient, ClientCallBack {
         this.delayedMessage.clear();
         while (!this.messageReceivedList.isEmpty()) {
             final MessageWrapper message = this.messageReceivedList.remove(0);
-            for(int i = 0; i < this.networkListenerList.size(); i++) {
+            for (NetworkListener networkListener : this.networkListenerList) {
                 try {
-                    networkListenerList.get(i).parse(message);
+                    networkListener.parse(message);
                 } catch (InvalidNetworkMessage e) {
                     LOGGER.error("Invalid message", e);
                 }
