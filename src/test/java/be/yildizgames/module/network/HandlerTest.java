@@ -24,12 +24,13 @@
 
 package be.yildizgames.module.network;
 
+import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.server.Session;
+import be.yildizgames.module.network.server.SessionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class HandlerTest {
 
-    private final Session session = Mockito.mock(Session.class);
+    private final Session session = SessionTest.givenASession(PlayerId.WORLD);
 
     @Test
     public void testProcessMessages1message() {

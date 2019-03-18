@@ -129,7 +129,7 @@ public class SessionTest {
         }
     }
 
-    private static SessionWrapper givenASession(PlayerId p) {
+    public static SessionWrapper givenASession(PlayerId p) {
         return new SessionWrapper(p);
     }
 
