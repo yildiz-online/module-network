@@ -141,7 +141,7 @@ public abstract class SessionManager {
          * Simple constructor.
          */
         private DisconnectedSession() {
-            super(null);
+            super(PlayerId.valueOf(-5));
         }
 
         @Override
