@@ -26,8 +26,6 @@ package be.yildizgames.module.network.server;
 
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.protocol.NetworkMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
@@ -38,7 +36,7 @@ import java.util.Set;
  */
 public abstract class Session {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Session.class);
+    private static final System.Logger LOGGER = System.getLogger(Session.class.getName());
 
     /**
      * Associated player.
@@ -71,7 +69,7 @@ public abstract class Session {
      * Called when the client is disconnected.
      */
     public final void disconnect() {
-        LOGGER.info("{} disconnected.", this.getPlayer());
+        LOGGER.log(System.Logger.Level.INFO, "{} disconnected.", this.getPlayer());
         this.connected = false;
         this.authenticated = false;
         this.closeSession();

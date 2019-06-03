@@ -25,8 +25,6 @@
 package be.yildizgames.module.network.server;
 
 import be.yildizgames.module.network.exceptions.NetworkException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -38,7 +36,7 @@ import java.net.ServerSocket;
  */
 public class SanityServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SanityServer.class);
+    private static final System.Logger LOGGER = System.getLogger(SanityServer.class.getName());
 
     /**
      * Private to prevent instantiation.
@@ -56,12 +54,12 @@ public class SanityServer {
     //@requires port >= 0 && port <= 65535
     //@requires address != null
     public static void test(final int port, final String address) {
-        LOGGER.debug("Testing network host {}, port {}...", address, port);
+        LOGGER.log(System.Logger.Level.DEBUG, "Testing network host {}, port {}...", address, port);
         try (ServerSocket ss = new ServerSocket()){
             ss.bind(new InetSocketAddress(address, 0));
-            LOGGER.debug("Connexion to host {}, port {} successful.", address, port);
+            LOGGER.log(System.Logger.Level.DEBUG, "Connexion to host {}, port {} successful.", address, port);
         } catch (Exception e) {
-            LOGGER.error("Connexion to host {}, port {} failure.", address, port);
+            LOGGER.log(System.Logger.Level.ERROR, "Connexion to host {}, port {} failure.", address, port);
             throw new NetworkException("Connexion failure");
         }
     }

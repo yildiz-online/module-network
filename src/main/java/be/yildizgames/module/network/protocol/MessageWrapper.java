@@ -38,8 +38,14 @@ public final class MessageWrapper {
      */
     public final String message;
 
+    /**
+     * Command unique id, subset of the wrapped message.
+     */
     public final int command;
 
+    /**
+     * Body of the message, subset of the wrapped message.
+     */
     public final String content;
 
     /**
@@ -49,7 +55,6 @@ public final class MessageWrapper {
      */
     public MessageWrapper(final String message) {
         super();
-        assert message != null;
         this.message = message;
         final String[] base = message.split(MessageSeparation.COMMAND_SEPARATOR);
         try {

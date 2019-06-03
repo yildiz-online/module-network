@@ -25,51 +25,7 @@
 package be.yildizgames.module.network.protocol;
 
 /**
- * List of generic command values.
- *
  * @author Grégory Van den Borre
  */
-public final class Commands {
-
-    /**
-     * Client request to the authentication server for an authentication.
-     */
-    public static final int AUTHENTICATION_REQUEST = 10;
-
-    /**
-     * Authentication server response for an authentication to the client.
-     */
-    public static final int AUTHENTICATION_RESPONSE = 99;
-
-    /**
-     * Client request to connect to the game server.
-     */
-    public static final int CONNECTION_REQUEST = 25;
-
-    /**
-     * Game server request to check a token validity to the authentication server.
-     */
-    public static final int TOKEN_VERIFICATION_REQUEST = 98;
-
-    /**
-     * Authentication server response to check a token validity.
-     */
-    public static final int TOKEN_VERIFICATION_RESPONSE = 98;
-
-    /**
-     * Server response for the version.
-     */
-    public static final int VERSION_RESPONSE = 0;
-
-    public static final int ACCOUNT_CREATION = 96;
-
-    public static final int ACCOUNT_VALIDATION = 97;
-
-    /**
-     * Private constructor to prevent instantiations.
-     */
-    private Commands() {
-        super();
-    }
-
+public class NetworkMessageTest {
 }

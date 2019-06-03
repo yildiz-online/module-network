@@ -43,7 +43,7 @@ public class MessageWrapperTest {
 
     @Test
     public void testMessageWrapperNullConstructorParam() {
-        assertThrows(AssertionError.class, () -> new MessageWrapper(null));
+        assertThrows(NullPointerException.class, () -> new MessageWrapper(null));
     }
 
     @Test

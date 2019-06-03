@@ -29,8 +29,6 @@ import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.exceptions.NetworkException;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.protocol.NetworkMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,7 @@ import java.util.ServiceLoader;
  */
 public abstract class Client implements NetworkClient, ClientCallBack {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
+    private static final System.Logger LOGGER = System.getLogger(Client.class.getName());
 
     /**
      * List containing all messages received from the server, waiting to be processed.
@@ -107,7 +105,7 @@ public abstract class Client implements NetworkClient, ClientCallBack {
                 try {
                     networkListener.parse(message);
                 } catch (InvalidNetworkMessage e) {
-                    LOGGER.error("Invalid message", e);
+                    LOGGER.log(System.Logger.Level.ERROR,"Invalid message", e);
                 }
             }
         }
@@ -176,7 +174,7 @@ public abstract class Client implements NetworkClient, ClientCallBack {
     protected final void connectionSuccessful() {
         this.connected = true;
         this.connecting = false;
-        LOGGER.info("Client connected to server.");
+        LOGGER.log(System.Logger.Level.INFO,"Client connected to server.");
         this.networkListenerList.forEach(NetworkListener::connected);
     }
 
@@ -184,7 +182,7 @@ public abstract class Client implements NetworkClient, ClientCallBack {
     public final void connectionFailed() {
         this.connected = false;
         this.connecting = false;
-        LOGGER.warn("Cannot connect to server.");
+        LOGGER.log(System.Logger.Level.WARNING, "Cannot connect to server.");
         this.networkListenerList.forEach(NetworkListener::connectionFailed);
     }
 
@@ -193,7 +191,7 @@ public abstract class Client implements NetworkClient, ClientCallBack {
         this.connecting = false;
         if (this.connected) {
             this.connected = false;
-            LOGGER.warn("Connection lost to server.");
+            LOGGER.log(System.Logger.Level.WARNING, "Connection lost to server.");
             this.networkListenerList.forEach(NetworkListener::connectionLost);
         }
     }

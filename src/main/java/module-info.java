@@ -28,8 +28,6 @@ module be.yildizgames.module.network {
     requires be.yildizgames.common.model;
     requires be.yildizgames.common.mapping;
 
-    requires slf4j.api;
-
     exports be.yildizgames.module.network;
     exports be.yildizgames.module.network.client;
     exports be.yildizgames.module.network.server;

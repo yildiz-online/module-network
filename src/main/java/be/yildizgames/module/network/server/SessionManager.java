@@ -26,8 +26,6 @@ package be.yildizgames.module.network.server;
 
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.protocol.MessageWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +39,7 @@ import java.util.Set;
  */
 public abstract class SessionManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SessionManager.class);
+    private static final System.Logger LOGGER = System.getLogger(SessionManager.class.getName());
 
     /**
      * List of listeners for sessions.
@@ -146,12 +144,12 @@ public abstract class SessionManager {
 
         @Override
         public void sendMessage(final String message) {
-            LOGGER.debug("Not sending message(disconnected session): {}", message);
+            LOGGER.log(System.Logger.Level.DEBUG, "Not sending message(disconnected session): {}", message);
         }
 
         @Override
         protected void closeSession() {
-            LOGGER.debug("Not closing session(disconnected session)");
+            LOGGER.log(System.Logger.Level.DEBUG, "Not closing session(disconnected session)");
         }
 
         @Override
