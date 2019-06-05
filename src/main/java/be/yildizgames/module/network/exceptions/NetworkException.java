@@ -24,14 +24,12 @@
 
 package be.yildizgames.module.network.exceptions;
 
-import be.yildizgames.common.exception.technical.TechnicalException;
-
 /**
  * Generic exception for all network related.
  *
  * @author Grégory Van den Borre
  */
-public final class NetworkException extends TechnicalException {
+public final class NetworkException extends IllegalStateException {
 
     /**
      * Current version serial ID.

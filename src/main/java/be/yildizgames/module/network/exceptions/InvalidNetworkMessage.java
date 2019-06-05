@@ -24,14 +24,12 @@
 
 package be.yildizgames.module.network.exceptions;
 
-import be.yildizgames.common.exception.business.BusinessException;
-
 /**
  * Thrown when parsing a network message fails.
  *
  * @author Grégory Van den Borre
  */
-public final class InvalidNetworkMessage extends BusinessException {
+public final class InvalidNetworkMessage extends IllegalArgumentException {
 
     /**
      * Current version serial ID.

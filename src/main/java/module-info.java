@@ -23,7 +23,6 @@
  */
 
 module be.yildizgames.module.network {
-    requires be.yildizgames.common.exception;
     requires be.yildizgames.common.model;
     requires be.yildizgames.common.mapping;
 
