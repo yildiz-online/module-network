@@ -69,7 +69,7 @@ public abstract class Session {
      * Called when the client is disconnected.
      */
     public final void disconnect() {
-        LOGGER.log(System.Logger.Level.INFO, "{} disconnected.", this.getPlayer());
+        LOGGER.log(System.Logger.Level.INFO, this.getPlayer() + " disconnected.");
         this.connected = false;
         this.authenticated = false;
         this.closeSession();
