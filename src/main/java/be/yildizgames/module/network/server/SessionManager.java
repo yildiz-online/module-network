@@ -67,7 +67,7 @@ public abstract class SessionManager {
      * @return The list of all connected sessions.
      */
     public final List<Session> getActiveSessions() {
-        return Collections.unmodifiableList(new ArrayList<>(this.connectedPlayerList.values()));
+        return List.copyOf(this.connectedPlayerList.values());
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class SessionManager {
 
         @Override
         public void sendMessage(final String message) {
-            LOGGER.log(System.Logger.Level.DEBUG, "Not sending message(disconnected session): {}", message);
+            LOGGER.log(System.Logger.Level.DEBUG, "Not sending message(disconnected session): %s", message);
         }
 
         @Override

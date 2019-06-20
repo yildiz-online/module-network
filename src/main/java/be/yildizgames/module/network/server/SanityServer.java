@@ -54,12 +54,12 @@ public class SanityServer {
     //@requires port >= 0 && port <= 65535
     //@requires address != null
     public static void test(final int port, final String address) {
-        LOGGER.log(System.Logger.Level.DEBUG, "Testing network host {}, port {}...", address, port);
+        LOGGER.log(System.Logger.Level.DEBUG, "Testing network host %s, port %s...", address, port);
         try (ServerSocket ss = new ServerSocket()){
             ss.bind(new InetSocketAddress(address, 0));
-            LOGGER.log(System.Logger.Level.DEBUG, "Connexion to host {}, port {} successful.", address, port);
+            LOGGER.log(System.Logger.Level.DEBUG, "Connexion to host %s, port %s successful.", address, port);
         } catch (Exception e) {
-            LOGGER.log(System.Logger.Level.ERROR, "Connexion to host {}, port {} failure.", address, port);
+            LOGGER.log(System.Logger.Level.ERROR, "Connexion to host %s, port %s failure.", address, port);
             throw new NetworkException("Connexion failure");
         }
     }
