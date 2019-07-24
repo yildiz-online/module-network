@@ -131,7 +131,7 @@ public abstract class SessionManager {
     /**
      * Simple class to use for disconnected players.
      *
-     * @author Van den Borre Grégory
+     * @author Grégory Van den Borre
      */
     public static final class DisconnectedSession extends Session {
 
