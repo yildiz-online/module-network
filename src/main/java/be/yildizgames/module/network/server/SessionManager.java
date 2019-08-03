@@ -144,7 +144,7 @@ public abstract class SessionManager {
 
         @Override
         public void sendMessage(final String message) {
-            LOGGER.log(System.Logger.Level.DEBUG, "Not sending message(disconnected session): %s", message);
+            LOGGER.log(System.Logger.Level.DEBUG, "Not sending message(disconnected session): {0}", message);
         }
 
         @Override
