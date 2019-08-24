@@ -51,7 +51,7 @@ public abstract class AbstractHandler {
     //@Requires("message != null")
     public void processMessages(final Session session, final String message) {
         LOGGER.log(System.Logger.Level.DEBUG,"Unprocessed network message: {0}", message);
-        String messageWithoutStartChar = message.replaceAll(MessageSeparation.MESSAGE_BEGIN, "");
+        String messageWithoutStartChar = message.replace(MessageSeparation.MESSAGE_BEGIN, "");
         String[] messages = messageWithoutStartChar.split(MessageSeparation.MESSAGE_END);
         for (String c : messages) {
             this.messageReceivedImpl(session, new MessageWrapper(c));

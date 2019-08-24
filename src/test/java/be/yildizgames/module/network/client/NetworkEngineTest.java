@@ -36,73 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class NetworkEngineTest {
 
     @Test
-    public void testDelayMessageToNextFrame() {
-        //FIXME implements
-    }
-
-    @Test
-    public void testSendMessageServerRequest() {
-        //FIXME implements
-    }
-
-    @Test
-    public void testSendMessageString() {
-        //FIXME implements
-    }
-
-    @Test
-    public void testClose() {
-        //FIXME implements
-    }
-
-    @Test
-    public void testMessageReceivedAndUpdate() throws InvalidNetworkMessage {
-        /*Client ne = new DummyClient();
-        NetworkListener l = Mockito.mock(NetworkListener.class);
-        ne.addNetworkListener(l);
-        MessageWrapper mw = new MessageWrapper("1_a test");
-        ne.messageReceived(mw);
-        Mockito.verifyZeroInteractions(l);
-        ne.update();
-        Mockito.verify(l).parse(mw);*/
-    }
-
-    @Test
-    public void testConnectionFailed() {
-       /*Client ne = new DummyClient();
-        NetworkListener l = Mockito.mock(NetworkListener.class);
-        ne.addNetworkListener(l);
-        assertFalse(ne.isConnected());
-        ne.connectionFailed();
-        Mockito.verify(l).connectionFailed();
-        assertFalse(ne.isConnected());*/
-    }
-
-    @Test
-    public void testConnectionLost() {
-        /*Client ne = new DummyClient();
-        NetworkListener l = Mockito.mock(NetworkListener.class);
-        ne.addNetworkListener(l);
-        assertFalse(ne.isConnected());
-        ne.connectionSuccessful();
-        assertTrue(ne.isConnected());
-        ne.connectionLost();
-        Mockito.verify(l).connectionLost();
-        assertFalse(ne.isConnected());*/
-    }
-
-    @Test
-    public void testIsConnected() {
-        /*Client ne = new DummyClient();
-        assertFalse(ne.isConnected());
-        NetworkListener l = Mockito.mock(NetworkListener.class);
-        ne.addNetworkListener(l);
-        ne.connectionSuccessful();
-        Mockito.verify(l).connected();
-        assertTrue(ne.isConnected());*/
-    }
-
-    @Test
     public void testDisconnect() {
         Client ne = new DummyClient();
         ne.connectionSuccessful();
@@ -111,10 +44,4 @@ public class NetworkEngineTest {
         //Still true as no listener has notified that the connection is indeed lost.
         assertTrue(ne.isConnected());
     }
-
-    @Test
-    public void testNetworkEngine() {
-
-    }
-
 }

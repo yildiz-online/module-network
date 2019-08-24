@@ -68,8 +68,8 @@ public final class NetworkMessage<T> {
      */
     public NetworkMessage(final MessageWrapper message, final ObjectMapper<T> mapper, int expectedCommand){
         String[] msgs = message.message
-                .replaceAll(MessageSeparation.MESSAGE_BEGIN, "")
-                .replaceAll(MessageSeparation.MESSAGE_END, "")
+                .replace(MessageSeparation.MESSAGE_BEGIN, "")
+                .replace(MessageSeparation.MESSAGE_END, "")
                 .split(MessageSeparation.COMMAND_SEPARATOR);
         if(msgs.length > 1) {
             this.message = msgs[1];
@@ -77,7 +77,7 @@ public final class NetworkMessage<T> {
             this.message = "";
         }
         try {
-            this.command = Integer.valueOf(msgs[0]);
+            this.command = Integer.parseInt(msgs[0]);
         } catch (NumberFormatException e) {
             throw new InvalidNetworkMessage(e);
         }

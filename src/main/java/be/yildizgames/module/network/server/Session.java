@@ -27,6 +27,7 @@ package be.yildizgames.module.network.server;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.protocol.NetworkMessage;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -60,7 +61,7 @@ public abstract class Session {
      */
     protected Session(final PlayerId player) {
         super();
-        assert player != null;
+        Objects.requireNonNull(player);
         this.player = player;
         this.connected = true;
     }
@@ -88,7 +89,6 @@ public abstract class Session {
      * @param message Message to send to the client.
      */
     public final void sendMessage(final NetworkMessage message) {
-        assert message != null;
         this.sendMessage(message.buildMessage());
     }
 
@@ -98,7 +98,6 @@ public abstract class Session {
      * @param messageList List of messages to send to the client.
      */
     public final void sendMessage(final Set<NetworkMessage> messageList) {
-        assert messageList != null;
         messageList.forEach(this::sendMessage);
     }
 
@@ -130,7 +129,7 @@ public abstract class Session {
     }
 
     public final void setPlayer(PlayerId player) {
-        assert player != null;
+        Objects.requireNonNull(player);
         this.player = player;
     }
 

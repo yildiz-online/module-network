@@ -54,7 +54,7 @@ public class SessionTest {
 
         @Test
         public void withNull() {
-            assertThrows(AssertionError.class, () -> givenASession(null));
+            assertThrows(NullPointerException.class, () -> givenASession(null));
         }
 
     }
@@ -94,7 +94,7 @@ public class SessionTest {
         @Test
         public void withNull() {
             Session s = givenASession(PlayerId.valueOf(5));
-            assertThrows(AssertionError.class, () -> s.setPlayer(null));
+            assertThrows(NullPointerException.class, () -> s.setPlayer(null));
         }
 
     }
@@ -119,13 +119,13 @@ public class SessionTest {
         @Test
         public void withNullServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            assertThrows(AssertionError.class, () -> sw.sendMessage((NetworkMessage) null));
+            assertThrows(NullPointerException.class, () -> sw.sendMessage((NetworkMessage) null));
         }
 
         @Test
         public void withNullSeveralServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            assertThrows(AssertionError.class, () -> sw.sendMessage((Set<NetworkMessage>) null));
+            assertThrows(NullPointerException.class, () -> sw.sendMessage((Set<NetworkMessage>) null));
         }
     }
 
