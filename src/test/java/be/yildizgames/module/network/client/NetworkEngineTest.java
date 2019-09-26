@@ -25,7 +25,6 @@
 package be.yildizgames.module.network.client;
 
 import be.yildizgames.module.network.client.dummy.DummyClient;
-import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
