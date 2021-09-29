@@ -24,6 +24,8 @@
 
 package be.yildizgames.module.network.exceptions;
 
+import java.io.Serial;
+
 /**
  * Generic exception for all network related.
  *
@@ -34,6 +36,7 @@ public final class NetworkException extends IllegalStateException {
     /**
      * Current version serial ID.
      */
+    @Serial
     private static final long serialVersionUID = 1291399654830351817L;
 
     /**

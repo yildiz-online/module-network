@@ -88,7 +88,7 @@ public abstract class Session {
      *
      * @param message Message to send to the client.
      */
-    public final void sendMessage(final NetworkMessage message) {
+    public final void sendMessage(final NetworkMessage<?> message) {
         this.sendMessage(message.buildMessage());
     }
 
@@ -97,7 +97,7 @@ public abstract class Session {
      *
      * @param messageList List of messages to send to the client.
      */
-    public final void sendMessage(final Set<NetworkMessage> messageList) {
+    public final void sendMessage(final Set<NetworkMessage<?>> messageList) {
         messageList.forEach(this::sendMessage);
     }
 

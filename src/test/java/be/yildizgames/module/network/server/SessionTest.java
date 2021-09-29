@@ -119,13 +119,13 @@ public class SessionTest {
         @Test
         public void withNullServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            assertThrows(NullPointerException.class, () -> sw.sendMessage((NetworkMessage) null));
+            assertThrows(NullPointerException.class, () -> sw.sendMessage((NetworkMessage<?>) null));
         }
 
         @Test
         public void withNullSeveralServerResponse() {
             SessionWrapper sw = givenASession(PlayerId.valueOf(5));
-            assertThrows(NullPointerException.class, () -> sw.sendMessage((Set<NetworkMessage>) null));
+            assertThrows(NullPointerException.class, () -> sw.sendMessage((Set<NetworkMessage<?>>) null));
         }
     }
 

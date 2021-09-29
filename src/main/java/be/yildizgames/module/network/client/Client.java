@@ -191,7 +191,7 @@ public abstract class Client implements NetworkClient, ClientCallBack {
         throw new NetworkException(message);
     }
 
-    public boolean isConnected() {
-        return connected;
+    public final boolean isConnected() {
+        return this.connected;
     }
 }

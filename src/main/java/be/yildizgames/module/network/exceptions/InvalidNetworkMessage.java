@@ -24,6 +24,8 @@
 
 package be.yildizgames.module.network.exceptions;
 
+import java.io.Serial;
+
 /**
  * Thrown when parsing a network message fails.
  *
@@ -34,6 +36,7 @@ public final class InvalidNetworkMessage extends IllegalArgumentException {
     /**
      * Current version serial ID.
      */
+    @Serial
     private static final long serialVersionUID = 8789862091452905131L;
 
     /**

@@ -32,8 +32,9 @@ import be.yildizgames.module.network.client.ClientProvider;
  * @author Grégory Van den Borre
  */
 public class DummyClientProvider implements ClientProvider {
+
     @Override
-    public Client getEngine() {
+    public final Client getEngine() {
         return new DummyClient();
     }
 }
