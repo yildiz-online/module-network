@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Grégory Van den Borre
  */
-public class ConnectionListenerTest {
+class ConnectionListenerTest {
 
     @Test
-    public void interfaceTest() {
+    void interfaceTest() {
         ConnectionListener listener = new ConnectionListenerTestImpl();
         try {
             listener.connected();

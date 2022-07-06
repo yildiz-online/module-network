@@ -22,7 +22,7 @@
  *
  */
 
-module be.yildizgames.module.network {
+open module be.yildizgames.module.network {
 
     uses be.yildizgames.module.network.client.ClientProvider;
     uses be.yildizgames.module.network.server.ServerProvider;

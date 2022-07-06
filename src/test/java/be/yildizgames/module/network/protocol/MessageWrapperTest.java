@@ -33,21 +33,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-public class MessageWrapperTest {
+class MessageWrapperTest {
 
     @Test
-    public void testMessageWrapper() {
+    void testMessageWrapper() {
         MessageWrapper m = new MessageWrapper("1_bla");
         assertEquals("bla", m.content);
     }
 
     @Test
-    public void testMessageWrapperNullConstructorParam() {
+    void testMessageWrapperNullConstructorParam() {
         assertThrows(NullPointerException.class, () -> new MessageWrapper(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         MessageWrapper m = new MessageWrapper("1_bla");
         assertEquals("1_bla", m.toString());
     }

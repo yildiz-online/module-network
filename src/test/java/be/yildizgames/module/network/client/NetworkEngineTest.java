@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-public class NetworkEngineTest {
+class NetworkEngineTest {
 
     @Test
-    public void testDisconnect() {
+    void testDisconnect() {
         Client ne = new DummyClient();
         ne.connectionSuccessful();
         assertTrue(ne.isConnected());

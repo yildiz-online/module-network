@@ -28,7 +28,6 @@ import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.module.network.exceptions.InvalidNetworkMessage;
 import be.yildizgames.module.network.protocol.MessageWrapper;
 import be.yildizgames.module.network.server.Session;
-import be.yildizgames.module.network.server.SessionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,12 +39,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Grégory Van den Borre
  */
-public class HandlerTest {
+class HandlerTest {
 
-    private final Session session = SessionTest.givenASession(PlayerId.WORLD);
+    private final Session session = Helper.givenASession(PlayerId.WORLD);
 
     @Test
-    public void testProcessMessages1message() {
+    void testProcessMessages1message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "1_aSmallTest");
         assertEquals(1, h.messages.size());
@@ -53,13 +52,13 @@ public class HandlerTest {
     }
 
     @Test
-    public void testProcessMessagesEmptyMessage() {
+    void testProcessMessagesEmptyMessage() {
         TestHandler h = new TestHandler();
         Assertions.assertThrows(InvalidNetworkMessage.class, () -> h.processMessages(session, ""));
     }
 
     @Test
-    public void testProcessMessages3message() {
+    void testProcessMessages3message() {
         TestHandler h = new TestHandler();
         h.processMessages(session, "&1_abc#&2_def#&3_ghi#");
         assertEquals(3, h.messages.size());
